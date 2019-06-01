@@ -12,5 +12,17 @@
 <template name="main">
 	<div id="content">
 		<div id="chess-board" class="chess-board"></div>
+		
+		{{#if isPromotion}}
+			<div id="promotion-dialog">
+				<div>{{_ "promote_to"}}</div>
+				<div>
+					<img src="img/chesspieces/wikipedia/{{playingColor}}Q.png"><br/>
+					<img src="img/chesspieces/wikipedia/{{playingColor}}R.png"><br/>
+					<img src="img/chesspieces/wikipedia/{{playingColor}}N.png"><br/>
+					<img src="img/chesspieces/wikipedia/{{playingColor}}B.png"><br/>
+				</div>
+			</div>
+		{{/if}}
 	</div>
 </template>
