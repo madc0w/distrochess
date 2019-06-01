@@ -19,3 +19,5 @@ shell-server@0.4.0            # Server-side component of the `meteor shell` comm
 
 accounts-base
 accounts-password
+tap:i18n
+accounts-google
