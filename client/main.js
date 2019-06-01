@@ -5,10 +5,15 @@ import "./main.html";
 
 var boad = null;
 const isPromotion = new ReactiveVar(false);
+const isOverlay = new ReactiveVar(false);
 
 Template.main.helpers({
 	isPromotion : function() {
 		return isPromotion.get();
+	},
+
+	isOverlay : function() {
+		return isOverlay.get();
 	},
 
 	playingColor : playingColor,
@@ -18,7 +23,8 @@ Template.main.onRendered(() => {
 	console.log("main rendered");
 
 	const position = {
-		h2 : "bP"
+		h2 : "bP",
+		a1 : "bN"
 	};
 
 	function onDrop(from, to) {
@@ -38,6 +44,7 @@ Template.main.onRendered(() => {
 
 			board.lastMove = move;
 			if (move.piece == "p" && ((board.whiteToMove && to.startsWith("a")) || (!board.whiteToMove && to.startsWith("h")))) {
+				isOverlay.set(true);
 				isPromotion.set(true);
 			}
 
@@ -70,6 +77,7 @@ Template.promotionPiece.events({
 		position[board.lastMove.to] = playingColor() + this.piece;
 		board.position(position);
 		isPromotion.set(false);
+		isOverlay.set(false);
 	},
 });
 

@@ -10,6 +10,10 @@
 </body>
 
 <template name="main">
+	{{#if isOverlay}}
+		<div id="overlay"></div>
+	{{/if}}
+
 	<div id="content">
 		<div id="chess-board" class="chess-board"></div>
 		
