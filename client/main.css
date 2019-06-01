@@ -1,4 +1,9 @@
 body {
 	padding: 10px;
-	font-family: sans-serif;
+	font-family: "Lato", sans-serif;
 }
+
+.chess-board {
+	width: 400px;
+}
+
