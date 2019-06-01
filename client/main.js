@@ -34,16 +34,33 @@ Template.main.onRendered(() => {
 		h1 : 'wR'
 	};
 
+	function onDrop(from, to) {
+		if (to != 'offboard') {
+			const game = new Chess(board.fen() + ' ' + (board.whiteToMove ? 'w' : 'b') + ' - - 0 1');
+			const move = game.move({
+				from : from,
+				to : to,
+				promotion : 'q' // always promote to queen
+			});
+
+			// illegal move
+			if (move === null) {
+				return 'snapback';
+			}
+		}
+	}
+
 	const cfg = {
 		draggable : true,
 		dropOffBoard : "snapback", // this is the default
 		position : position,
-	//		onDrop : onDrop
+		onDrop : onDrop
 	};
 
 	const board = new ChessBoard("chess-board", cfg);
 	//	if (!board.whiteToMove) {
 	//		board.flip();
 	//	}
+	console.log("board", board);
 
 });
