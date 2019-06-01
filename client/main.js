@@ -20,12 +20,6 @@ Template.main.helpers({
 });
 
 Template.main.onRendered(() => {
-	console.log("main rendered");
-
-	const position = {
-		h2 : "bP",
-		a1 : "bN"
-	};
 
 	function onDrop(from, to) {
 		if (to != "offboard") {
@@ -43,7 +37,7 @@ Template.main.onRendered(() => {
 			}
 
 			board.lastMove = move;
-			if (move.piece == "p" && ((board.whiteToMove && to.startsWith("a")) || (!board.whiteToMove && to.startsWith("h")))) {
+			if (move.piece == "p" && ((board.whiteToMove && to.endsWith("8")) || (!board.whiteToMove && to.endsWith("1")))) {
 				isOverlay.set(true);
 				isPromotion.set(true);
 			}
@@ -54,15 +48,16 @@ Template.main.onRendered(() => {
 	const cfg = {
 		draggable : true,
 		dropOffBoard : "snapback", // this is the default
-		position : position,
 		onDrop : onDrop
 	};
 
 	board = new ChessBoard("chess-board", cfg);
+	const position = getPosition();
+	board.position(position);
 	//	if (!board.whiteToMove) {
 	//		board.flip();
 	//	}
-	console.log("board", board);
+	//	console.log("board", board);
 
 });
 
@@ -86,4 +81,21 @@ Template.promotionPiece.events({
 
 function playingColor() {
 	return board.whiteToMove ? "w" : "b";
+}
+
+function getPosition() {
+	Games.find();
+	const game = null;
+
+	if (!game) {
+		board.start();
+		return board.position();
+	}
+
+	const position = {
+		h2 : "bP",
+		a1 : "bN"
+	};
+	return position;
+
 }
