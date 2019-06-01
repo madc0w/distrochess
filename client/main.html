@@ -17,12 +17,17 @@
 			<div id="promotion-dialog">
 				<div>{{_ "promote_to"}}</div>
 				<div>
-					<img src="img/chesspieces/wikipedia/{{playingColor}}Q.png"><br/>
-					<img src="img/chesspieces/wikipedia/{{playingColor}}R.png"><br/>
-					<img src="img/chesspieces/wikipedia/{{playingColor}}N.png"><br/>
-					<img src="img/chesspieces/wikipedia/{{playingColor}}B.png"><br/>
+					{{> promotionPiece piece="Q"}}
+					{{> promotionPiece piece="R"}}
+					{{> promotionPiece piece="N"}}
+					{{> promotionPiece piece="B"}}
 				</div>
 			</div>
 		{{/if}}
 	</div>
 </template>
+
+<template name="promotionPiece">
+	<img src="img/chesspieces/wikipedia/{{playingColor}}{{piece}}.png"><br/>
+</template>
+

@@ -11,3 +11,21 @@ body {
 	cursor: pointer;
 }
 
+#promotion-dialog {
+	position: absolute;
+	top: 110px;
+	left: 154px;
+	z-index: 100;
+	width: 100px;
+	background-color: antiquewhite;
+	border-width: 4px;
+	border-style: double;
+	border-radius: 8px;
+	border-color: black;
+	padding: 8px;
+	text-align: center;
+}
+
+#promotion-dialog img {
+	cursor: pointer;
+}

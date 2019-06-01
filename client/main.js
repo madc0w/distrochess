@@ -14,8 +14,6 @@ Template.main.helpers({
 	playingColor : playingColor,
 });
 
-
-
 Template.main.onRendered(() => {
 	console.log("main rendered");
 
@@ -38,6 +36,7 @@ Template.main.onRendered(() => {
 				return "snapback";
 			}
 
+			board.lastMove = move;
 			if (move.piece == "p" && ((board.whiteToMove && to.startsWith("a")) || (!board.whiteToMove && to.startsWith("h")))) {
 				isPromotion.set(true);
 			}
@@ -59,6 +58,22 @@ Template.main.onRendered(() => {
 	console.log("board", board);
 
 });
+
+
+Template.promotionPiece.helpers({
+	playingColor : playingColor,
+});
+
+Template.promotionPiece.events({
+	"click img" : function(e) {
+		const position = board.position();
+		position[board.lastMove.to] = playingColor() + this.piece;
+		board.position(position);
+		isPromotion.set(false);
+	},
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 function playingColor() {
