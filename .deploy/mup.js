@@ -25,7 +25,7 @@ module.exports = {
 			// TODO: Change to your app's url
 			// If you are using ssl, it needs to start with https://
 			ROOT_URL : "http://134.209.93.133",
-			MONGO_URL : "mongodb://distrochess:blimey@mongodb-1650-0.cloudclusters.net:10005/discochess?authSource=admin",
+			MONGO_URL : "mongodb://distrochess:blimey@mongodb-1650-0.cloudclusters.net:10005/distrochess?authSource=admin",
 //			MONGO_OPLOG_URL : "mongodb://mongodb/local",
 		},
 
