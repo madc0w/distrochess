@@ -24,9 +24,9 @@ module.exports = {
 		env : {
 			// TODO: Change to your app's url
 			// If you are using ssl, it needs to start with https://
-			ROOT_URL : "http://134.209.93.133",
+			ROOT_URL : "http://www.distrochess.com",
 			MONGO_URL : "mongodb://distrochess:blimey@mongodb-1650-0.cloudclusters.net:10005/distrochess?authSource=admin",
-//			MONGO_OPLOG_URL : "mongodb://mongodb/local",
+		//			MONGO_OPLOG_URL : "mongodb://mongodb/local",
 		},
 
 		docker : {
@@ -39,19 +39,19 @@ module.exports = {
 		enableUploadProgressBar : true
 	},
 
-//	mongo : {
-//		version : "3.4.1",
-//		servers : {
-//			one : {}
-//		}
-//	},
+	//	mongo : {
+	//		version : "3.4.1",
+	//		servers : {
+	//			one : {}
+	//		}
+	//	},
 
-// (Optional)
-// Use the proxy to setup ssl or to route requests to the correct
-// app when there are several apps
+	// (Optional)
+	// Use the proxy to setup ssl or to route requests to the correct
+	// app when there are several apps
 
-// proxy: {
-//   domains: "mywebsite.com,www.mywebsite.com",
+	// proxy: {
+	//   domains: "mywebsite.com,www.mywebsite.com",
 
 //   ssl: {
 //     // Enable Let's Encrypt
