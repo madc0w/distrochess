@@ -36,7 +36,7 @@ Template.main.onRendered(() => {
 			}
 
 			board.lastMove = move;
-			if (move.piece == "p" && ((board.whiteToMove && to.endsWith("8")) || (!board.whiteToMove && to.endsWith("1")))) {
+			if (move.piece == "p" && ((board.isWhiteToMove && to.endsWith("8")) || (!board.isWhiteToMove && to.endsWith("1")))) {
 				isOverlay.set(true);
 				isPromotion.set(true);
 			}
@@ -51,13 +51,13 @@ Template.main.onRendered(() => {
 	};
 
 	board = new ChessBoard("chess-board", cfg);
-	const position = getPosition();
-	board.position(position);
-	//	if (!board.whiteToMove) {
+	getGame((game) => {
+		const position = game.getPosition();
+		board.position(position);
+	//	if (!board.isWhiteToMove) {
 	//		board.flip();
 	//	}
-	//	console.log("board", board);
-
+	});
 });
 
 
@@ -79,22 +79,16 @@ Template.promotionPiece.events({
 
 
 function playingColor() {
-	return board.whiteToMove ? "w" : "b";
+	return board.isWhiteToMove ? "w" : "b";
 }
 
-function getPosition() {
-	Games.find();
-	const game = null;
+function getGame(callback) {
+	Meteor.call("getGame", function(err, game) {
+		if (!game) {
+			board.start();
+			return board.position();
+		}
+	});
 
-	if (!game) {
-		board.start();
-		return board.position();
-	}
-
-	const position = {
-		h2 : "bP",
-		a1 : "bN"
-	};
-	return position;
 
 }

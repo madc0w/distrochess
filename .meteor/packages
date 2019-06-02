@@ -24,5 +24,3 @@ accounts-google
 iron:router
 accounts-ui
 accounts-github
-github-config-ui
-google-config-ui
