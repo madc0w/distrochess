@@ -24,6 +24,7 @@ body {
 	border-color: black;
 	padding: 8px;
 	text-align: center;
+	min-width: 200px;
 }
 
 #promotion-dialog img {
@@ -44,7 +45,8 @@ body {
 	cursor: pointer;
 	text-align: center;
 	padding: 4px;
-	background-color: #19aa5d;
+	background-color: #B5651D;
+	color: white;
 	border-radius: 8px;
 	font-weight: bold;
 	border-width: 2px;
@@ -58,7 +60,7 @@ body {
 	color: black;
 	background-color: white;
 	border-width: 2px;
-	border-color: #19aa5d;
+	border-color: #B5651D;
 }
 
 #header {
@@ -87,7 +89,11 @@ body {
 
 #login-dropdown-list {
 	left: -50vw;
+	top: 40px;
 	border-radius: 12px;
+	border-style: double;
+	border-width: 6px;
+	border-color: black;
 	box-shadow: 12px 12px 12px #666;
 }
 
@@ -114,5 +120,10 @@ body {
 }
 
 #need-to-sign-in {
-	
+	text-align: center;
+}
+
+#need-to-sign-in .button {
+	margin: 16px;
+	margin-left: 30px;
 }

@@ -20,8 +20,12 @@ Template.main.helpers({
 });
 
 Template.main.events({
+	"click .login-close-text" : function(e) {
+		undoLastMove();
+	},
+
 	"click #need-to-sign-in-cancel-button" : function(e) {
-		// TODO undo move
+		undoLastMove();
 		isNeedToSignIn.set(false);
 		isOverlay.set(false);
 	},
@@ -51,6 +55,7 @@ Template.main.onRendered(() => {
 				return "snapback";
 			}
 
+			board.prevPosition = board.position();
 			board.lastMove = move;
 			const isWhiteToMove = board.game && board.game.isWhiteToMove;
 			if (move.piece == "p" && ((isWhiteToMove && to.endsWith("8")) || (!isWhiteToMove && to.endsWith("1")))) {
@@ -108,4 +113,8 @@ function saveGame() {
 		isNeedToSignIn.set(true);
 		isOverlay.set(true);
 	}
+}
+
+function undoLastMove() {
+	board.position(board.prevPosition);
 }
