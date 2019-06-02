@@ -34,4 +34,11 @@ Meteor.methods({
 		});
 		return games[Math.floor(Math.random() * games.length)];
 	},
+
+	saveGame : function() {
+		if (!Meteor.userId()) {
+			return null;
+		}
+
+	},
 });

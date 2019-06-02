@@ -1,6 +1,7 @@
 var boad = null;
 const isPromotion = new ReactiveVar(false);
 const isOverlay = new ReactiveVar(false);
+const isNeedToSignIn = new ReactiveVar(false);
 
 Template.main.helpers({
 	isPromotion : function() {
@@ -11,10 +12,25 @@ Template.main.helpers({
 		return isOverlay.get();
 	},
 
+	isNeedToSignIn : function() {
+		return isNeedToSignIn.get();
+	},
+
 	playingColor : playingColor,
 });
 
 Template.main.events({
+	"click #need-to-sign-in-cancel-button" : function(e) {
+		// TODO undo move
+		isNeedToSignIn.set(false);
+		isOverlay.set(false);
+	},
+
+	"click #need-to-sign-in-button" : function(e) {
+		isNeedToSignIn.set(false);
+		isOverlay.set(false);
+		$("#login-sign-in-link").click();
+	},
 });
 
 
@@ -36,11 +52,13 @@ Template.main.onRendered(() => {
 			}
 
 			board.lastMove = move;
-			if (move.piece == "p" && ((board.isWhiteToMove && to.endsWith("8")) || (!board.isWhiteToMove && to.endsWith("1")))) {
+			const isWhiteToMove = board.game && board.game.isWhiteToMove;
+			if (move.piece == "p" && ((isWhiteToMove && to.endsWith("8")) || (!isWhiteToMove && to.endsWith("1")))) {
 				isOverlay.set(true);
 				isPromotion.set(true);
+			} else {
+				saveGame();
 			}
-
 		}
 	}
 
@@ -51,12 +69,13 @@ Template.main.onRendered(() => {
 	};
 
 	board = new ChessBoard("chess-board", cfg);
-	getGame((game) => {
-		const position = game.getPosition();
-		board.position(position);
-	//	if (!board.isWhiteToMove) {
-	//		board.flip();
-	//	}
+	Meteor.call("getGame", function(err, game) {
+		if (game) {
+			board.game = game;
+			board.position(game.position);
+		} else {
+			board.start();
+		}
 	});
 });
 
@@ -72,6 +91,8 @@ Template.promotionPiece.events({
 		board.position(position);
 		isPromotion.set(false);
 		isOverlay.set(false);
+
+		saveGame();
 	},
 });
 
@@ -79,16 +100,12 @@ Template.promotionPiece.events({
 
 
 function playingColor() {
-	return board.isWhiteToMove ? "w" : "b";
+	return (!board.game || board.game.isWhiteToMove) ? "w" : "b";
 }
 
-function getGame(callback) {
-	Meteor.call("getGame", function(err, game) {
-		if (!game) {
-			board.start();
-			return board.position();
-		}
-	});
-
-
+function saveGame() {
+	if (!Meteor.userId()) {
+		isNeedToSignIn.set(true);
+		isOverlay.set(true);
+	}
 }

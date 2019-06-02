@@ -11,7 +11,7 @@ body {
 	cursor: pointer;
 }
 
-#promotion-dialog {
+.dialog {
 	position: absolute;
 	top: 110px;
 	left: 154px;
@@ -111,4 +111,8 @@ body {
 #header-title {
 	font-size: 32px;
 	font-weight: bold;
+}
+
+#need-to-sign-in {
+	
 }
