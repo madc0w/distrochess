@@ -1,8 +1,3 @@
-import { Template } from "meteor/templating";
-import { ReactiveVar } from "meteor/reactive-var";
-
-import "./main.html";
-
 var boad = null;
 const isPromotion = new ReactiveVar(false);
 const isOverlay = new ReactiveVar(false);
@@ -18,6 +13,10 @@ Template.main.helpers({
 
 	playingColor : playingColor,
 });
+
+Template.main.events({
+});
+
 
 Template.main.onRendered(() => {
 

@@ -39,3 +39,55 @@ body {
 	height: 100vh;
 	background-color: rgba(0, 0, 0, 0.4);
 }
+
+.button {
+	cursor: pointer;
+	text-align: center;
+	padding: 4px;
+	background-color: #19aa5d;
+	border-radius: 8px;
+	font-weight: bold;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #222;
+	box-shadow: 8px 8px 8px #666;
+	max-width: 120px;
+}
+
+.button:HOVER {
+	color: black;
+	background-color: white;
+	border-width: 2px;
+	border-color: #19aa5d;
+}
+
+#header {
+	border-radius: 8px;
+	margin: 6px;
+	margin: 6px;
+	padding-left: 6px;
+	padding-right: 6px;
+	background-color: #afa;
+}
+
+#header-left {
+	display: inline-block;
+	width: 192px;
+}
+	
+#header-right {
+	display: inline-block;
+	text-align: right;
+	width: calc(100% - 200px);
+}
+
+#login-dropdown-list {
+	left: -50vw;
+	border-radius: 12px;
+	box-shadow: 12px 12px 12px #666;
+}
+
+/* #header .button { */
+/* 	display: inline-block; */
+/* 	margin-left: 8px; */
+/* } */

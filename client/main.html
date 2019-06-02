@@ -4,9 +4,7 @@
 </head>
 
 <body>
-	<h1>Distrochess</h1>
 
-	{{> main}}
 </body>
 
 <template name="main">
@@ -14,6 +12,14 @@
 		<div id="overlay"></div>
 	{{/if}}
 
+	<div id="header">
+		<div id="header-left">
+			<h1>Distrochess</h1>
+		</div>
+		<div id="header-right">
+			{{> loginButtons}}
+		</div>
+	</div>
 	<div id="content">
 		<div id="chess-board" class="chess-board"></div>
 		
