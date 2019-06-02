@@ -63,22 +63,26 @@ body {
 
 #header {
 	border-radius: 8px;
-	margin: 6px;
-	margin: 6px;
+	margin-bottom: 6px;
 	padding-left: 6px;
 	padding-right: 6px;
-	background-color: #afa;
+	background-color: antiquewhite;
+	border-width: 2px;
+	border-style: solid;
+	border-color: black;
 }
 
 #header-left {
+	vertical-align: top;
 	display: inline-block;
-	width: 192px;
+	width: 260px;
 }
 	
 #header-right {
+	vertical-align: top;
 	display: inline-block;
 	text-align: right;
-	width: calc(100% - 200px);
+	width: calc(100% - 280px);
 }
 
 #login-dropdown-list {
@@ -91,3 +95,20 @@ body {
 /* 	display: inline-block; */
 /* 	margin-left: 8px; */
 /* } */
+
+#header-logo {
+	width: 80px;
+	border-radius: 16px;
+	margin-top: 6px;
+}
+
+#header-text {
+	vertical-align: top;
+	display: inline-block;
+	margin-left: 8px;
+}
+
+#header-title {
+	font-size: 32px;
+	font-weight: bold;
+}
