@@ -35,10 +35,11 @@ Meteor.methods({
 		return games[Math.floor(Math.random() * games.length)];
 	},
 
-	saveGame : function() {
+	saveGame : function(board) {
 		if (!Meteor.userId()) {
 			return null;
 		}
+
 
 	},
 });

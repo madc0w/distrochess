@@ -1,4 +1,4 @@
-var boad = null;
+var board = null;
 const isPromotion = new ReactiveVar(false);
 const isOverlay = new ReactiveVar(false);
 const isNeedToSignIn = new ReactiveVar(false);
@@ -35,6 +35,15 @@ Template.main.events({
 		isOverlay.set(false);
 		$("#login-sign-in-link").click();
 	},
+});
+
+
+Template.main.onCreated(() => {
+	Tracker.autorun(() => {
+		if (Meteor.user() && board) {
+			saveGame();
+		}
+	});
 });
 
 
@@ -109,7 +118,10 @@ function playingColor() {
 }
 
 function saveGame() {
-	if (!Meteor.userId()) {
+	if (Meteor.userId()) {
+		console.log("save game");
+		Meteor.call("saveGame", board, function(err, result) {});
+	} else {
 		isNeedToSignIn.set(true);
 		isOverlay.set(true);
 	}
