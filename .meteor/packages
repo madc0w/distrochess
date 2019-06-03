@@ -22,5 +22,5 @@ accounts-password
 tap:i18n
 accounts-google
 iron:router
-accounts-ui
 accounts-github
+accounts-ui

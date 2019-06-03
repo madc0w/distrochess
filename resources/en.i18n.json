@@ -1,8 +1,25 @@
 {
 	"promote_to": "Promote to",
-	"sign_in": "Sign in",
-	"sign_up": "Sign up",
+	"sign_in": "Sign In",
+	"sign_up": "Sign Up",
 	"need_to_sign_in": "You need an account to play! Plase sign in.",
 	"cancel": "Cancel",
-	"header_discription": "Lorem ipsum ..."
+	"header_discription": "Lorem ipsum ...",
+	"login": "Sign In ▾",
+	"close": "Close",
+	"login_username_or_email": "Username or Email",
+	"password": "Password",
+	"or": "or",
+	"sign_in_github": "Sign in with Github",
+	"sign_in_google": "Sign in with Google",
+	"forgot_password": "Forgot password",
+	"create_account": "Create Account",
+	"email": "Email",
+	"reset_password": "Reset Password",
+	"back_to_sign_in": "Back to Sign In",
+	"change_password": "Change Password",
+	"sign_out": "Sign Out",
+	"current_password": "Current Password",
+	"new_password": "New Password",
+	"set_password": "Set Password"
 }

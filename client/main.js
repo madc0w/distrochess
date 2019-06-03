@@ -2,6 +2,7 @@ var board = null;
 const isPromotion = new ReactiveVar(false);
 const isOverlay = new ReactiveVar(false);
 const isNeedToSignIn = new ReactiveVar(false);
+isSpinner = new ReactiveVar(false);
 
 Template.main.helpers({
 	isPromotion : function() {
@@ -10,6 +11,10 @@ Template.main.helpers({
 
 	isOverlay : function() {
 		return isOverlay.get();
+	},
+
+	isSpinner : function() {
+		return isSpinner.get();
 	},
 
 	isNeedToSignIn : function() {
@@ -39,6 +44,9 @@ Template.main.events({
 
 
 Template.main.onCreated(() => {
+	Accounts.ui.config({
+		passwordSignupFields : "USERNAME_AND_EMAIL"
+	});
 	Tracker.autorun(() => {
 		if (Meteor.user() && board) {
 			saveGame();
@@ -48,7 +56,6 @@ Template.main.onCreated(() => {
 
 
 Template.main.onRendered(() => {
-
 	function onDrop(from, to) {
 		if (to != "offboard") {
 			const game = new Chess(board.fen() + " " + playingColor() + " - - 0 1");
@@ -83,6 +90,7 @@ Template.main.onRendered(() => {
 	};
 
 	board = new ChessBoard("chess-board", cfg);
+	isSpinner.set(true);
 	Meteor.call("getGame", function(err, game) {
 		if (game) {
 			board.game = game;
@@ -90,6 +98,7 @@ Template.main.onRendered(() => {
 		} else {
 			board.start();
 		}
+		isSpinner.set(false);
 	});
 });
 

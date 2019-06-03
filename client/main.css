@@ -127,3 +127,16 @@ body {
 	margin: 16px;
 	margin-left: 30px;
 }
+
+#spinner {
+	position: absolute;
+	z-index: 300;
+}
+
+#spinner img {
+	position: absolute;
+	z-index: 400;
+	width: 300px;
+	left: calc(50vw - 150px);
+	top: 200px;
+}

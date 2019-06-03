@@ -40,6 +40,14 @@ Meteor.methods({
 			return null;
 		}
 
+		if (board.game && board.game._id) {
+			Games.update({
+				_id : board.game._id
+			}, {
+				$set : {
 
+				}
+			});
+		}
 	},
 });
