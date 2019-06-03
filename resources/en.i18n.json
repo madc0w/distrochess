@@ -21,5 +21,8 @@
 	"sign_out": "Sign Out",
 	"current_password": "Current Password",
 	"new_password": "New Password",
-	"set_password": "Set Password"
+	"set_password": "Set Password",
+	"wait_for_opponent_to_move": "Please wait for an opponent to make a move...",
+	"ok": "OK",
+	"wrong_side_message": "You are already playing the other side of this game, so you must wait for an opponenet to play before you can make a move."
 }

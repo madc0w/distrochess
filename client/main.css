@@ -140,3 +140,26 @@ body {
 	left: calc(50vw - 150px);
 	top: 200px;
 }
+
+#message {
+	width: 400px;
+}
+
+#message-text {
+	text-align: center;
+	margin: 12px;
+}
+
+#message-ok-button {
+	margin-left: 140px;
+}
+
+#clock {
+	background-color: antiquewhite;
+	width: 380px;
+	text-align: center;
+	font-weight: bold;
+	margin: 4px;
+	padding: 4px;
+	border-radius: 4px;
+}

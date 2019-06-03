@@ -4,7 +4,6 @@
 </head>
 
 <body>
-
 </body>
 
 <template name="main">
@@ -14,6 +13,17 @@
 	{{#if isSpinner}}
 		<div id="spinner">
 			<img src="/img/spinner.svg">
+		</div>
+		<div id="overlay"></div>
+	{{/if}}
+	{{#if message}}
+		<div id="message" class="dialog">
+			<div id="message-text">
+				{{message}}
+			</div>
+			<div id="message-ok-button" class="button">
+				{{_ "ok"}}
+			</div>
 		</div>
 		<div id="overlay"></div>
 	{{/if}}
@@ -40,7 +50,18 @@
 		</div>
 	</div>
 	<div id="content">
-		<div id="chess-board" class="chess-board"></div>
+		{{#if isWaiting}}
+			<div id="waiting">
+				{{_ "wait_for_opponent_to_move"}}
+			</div>
+		{{else}}
+			{{#if isClock}}
+				<div id="clock">
+					{{formatTime clockTime}}
+				</div>
+			{{/if}}
+			<div id="chess-board" class="chess-board"></div>
+		{{/if}}
 		
 		{{#if isPromotion}}
 			<div id="promotion-dialog" class="dialog">

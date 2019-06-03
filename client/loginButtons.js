@@ -1,3 +1,5 @@
+// TODO i18n for error messages.  none of this works.
+
 //const errorMessages = {
 //	"Invalid email" : "invalid_email",
 //	"Username already exists." : "username_taken",

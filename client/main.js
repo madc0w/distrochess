@@ -1,10 +1,29 @@
 var board = null;
+var isSaveGameAfterSignin = false;
+var clockIntervalId = null;
+
 const isPromotion = new ReactiveVar(false);
 const isOverlay = new ReactiveVar(false);
 const isNeedToSignIn = new ReactiveVar(false);
-isSpinner = new ReactiveVar(false);
+const isWaiting = new ReactiveVar(false);
+const isSpinner = new ReactiveVar(false);
+const isClock = new ReactiveVar(false);
+const clockTime = new ReactiveVar(MOVE_TIMEOUT / 1000);
+const message = new ReactiveVar(null);
 
 Template.main.helpers({
+	message : function() {
+		return message.get();
+	},
+
+	isClock : function() {
+		return isClock.get();
+	},
+
+	isWaiting : function() {
+		return isWaiting.get();
+	},
+
 	isPromotion : function() {
 		return isPromotion.get();
 	},
@@ -21,10 +40,23 @@ Template.main.helpers({
 		return isNeedToSignIn.get();
 	},
 
+	clockTime : function() {
+		return clockTime.get();
+	},
+
 	playingColor : playingColor,
+
+	formatTime : function(time) {
+		const secs = (time % 60);
+		return Math.floor(time / 60) + ":" + (secs < 10 ? "0" : "") + secs;
+	},
 });
 
 Template.main.events({
+	"click" : function(e) {
+		message.set(null);
+	},
+
 	"click .login-close-text" : function(e) {
 		undoLastMove();
 	},
@@ -47,9 +79,13 @@ Template.main.onCreated(() => {
 	Accounts.ui.config({
 		passwordSignupFields : "USERNAME_AND_EMAIL"
 	});
+
 	Tracker.autorun(() => {
-		if (Meteor.user() && board) {
-			saveGame();
+		// user is signing in/up
+		if (Meteor.user() && board && isSaveGameAfterSignin) {
+			isSaveGameAfterSignin = false;
+			//			saveGame();
+			getGame();
 		}
 	});
 });
@@ -90,16 +126,7 @@ Template.main.onRendered(() => {
 	};
 
 	board = new ChessBoard("chess-board", cfg);
-	isSpinner.set(true);
-	Meteor.call("getGame", function(err, game) {
-		if (game) {
-			board.game = game;
-			board.position(game.position);
-		} else {
-			board.start();
-		}
-		isSpinner.set(false);
-	});
+	getGame();
 });
 
 
@@ -128,12 +155,49 @@ function playingColor() {
 
 function saveGame() {
 	if (Meteor.userId()) {
-		console.log("save game");
-		Meteor.call("saveGame", board, function(err, result) {});
+		isSpinner.set(true);
+		board._position = board.position();
+		Meteor.call("saveGame", board, function(err, result) {
+			if (result == "WRONG_SIDE") {
+				isSpinner.set(false);
+				message.set(TAPi18n.__("wrong_side_message"));
+			} else if (Meteor.user()) {
+				getGame();
+			}
+		});
 	} else {
+		isSaveGameAfterSignin = true;
 		isNeedToSignIn.set(true);
 		isOverlay.set(true);
 	}
+}
+
+function getGame() {
+	isSpinner.set(true);
+	Meteor.call("getGame", function(err, result) {
+		if (result === "WAIT") {
+			isClock.set(false);
+			isWaiting.set(true);
+		} else if (result) {
+			isWaiting.set(false);
+			isClock.set(true);
+			clockTime.set(MOVE_TIMEOUT / 1000);
+			Meteor.clearInterval(clockIntervalId);
+			clockIntervalId = Meteor.setInterval(() => {
+				clockTime.set(clockTime.get() - 1);
+				if (clockTime.get() == 0) {
+					Meteor.clearInterval(clockIntervalId);
+					getGame();
+				}
+			}, 1000);
+			board.game = result;
+			board.position(result.position);
+		} else {
+			isWaiting.set(false);
+			board.start();
+		}
+		isSpinner.set(false);
+	});
 }
 
 function undoLastMove() {
