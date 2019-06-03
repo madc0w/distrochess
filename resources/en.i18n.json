@@ -7,6 +7,7 @@
 	"header_discription": "Lorem ipsum ...",
 	"login": "Sign In ▾",
 	"close": "Close",
+	"username": "Username",
 	"login_username_or_email": "Username or Email",
 	"password": "Password",
 	"or": "or",
@@ -24,5 +25,10 @@
 	"set_password": "Set Password",
 	"wait_for_opponent_to_move": "Please wait for an opponent to make a move...",
 	"ok": "OK",
-	"wrong_side_message": "You are already playing the other side of this game, so you must wait for an opponenet to play before you can make a move."
+	"wrong_side_message": "You are already playing the other side of this game, so you must wait for an opponenet to play before you can make a move.",
+	"white_team": "White Team",
+	"black_team": "Black Team",
+	"moves_ratio": "Moves ratio",
+	"last_move_time": "Last move time",
+	"rating": "Elo Rating"
 }

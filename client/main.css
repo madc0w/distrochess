@@ -163,3 +163,43 @@ body {
 	padding: 4px;
 	border-radius: 4px;
 }
+
+#players {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#players table {
+	width: 100%;
+	margin-bottom: 22px;
+}
+
+#players th {
+	background-color: antiquewhite;
+}
+
+#players .data-row:hover {
+	color: white;
+	background-color: #B5651D;
+}
+
+#board-container {
+	display: inline-block;
+}
+
+.players-table-container {
+	max-height: 200px;
+	overflow-y: auto;
+}
+
+.team-header {
+	background-color: antiquewhite;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.team-header img {
+	height: 30px;
+	margin-left: 6px;
+	margin-right: 12px;
+}

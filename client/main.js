@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 var board = null;
 var isSaveGameAfterSignin = false;
 var clockIntervalId = null;
@@ -8,12 +10,43 @@ const isNeedToSignIn = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isSpinner = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
+const isPlayers = new ReactiveVar(false);
 const clockTime = new ReactiveVar(MOVE_TIMEOUT / 1000);
 const message = new ReactiveVar(null);
 
 Template.main.helpers({
+	formatDateTime : function(date) {
+		return moment(date).fromNow();
+	//		const minutes = date.getMinutes();
+	//		if (minutes < 10) {
+	//			minutes = "0" + minutes;
+	//		}
+	//		return date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + " " + date.getHours() + ":" + minutes;
+	},
+
+	players : function(isWhite) {
+		const players = [];
+		for (var playerId in board.game.players) {
+			if (board.game.players[playerId].isWhite == isWhite) {
+				const percent = 100 * board.game.players[playerId].moves.length / board.game.moves.length;
+				const movesRatio = board.game.players[playerId].moves.length + "/" + board.game.moves.length + " (" + percent.toFixed(1) + "%)";
+				players.push({
+					username : board.game.playerData[playerId].username,
+					movesRatio : movesRatio,
+					lastMoveTime : board.game.players[playerId].lastMoveTime,
+					rating : board.game.playerData[playerId].rating,
+				});
+			}
+		}
+		return players;
+	},
+
 	message : function() {
 		return message.get();
+	},
+
+	isPlayers : function() {
+		return isPlayers.get();
 	},
 
 	isClock : function() {
@@ -84,8 +117,8 @@ Template.main.onCreated(() => {
 		// user is signing in/up
 		if (Meteor.user() && board && isSaveGameAfterSignin) {
 			isSaveGameAfterSignin = false;
-			//			saveGame();
-			getGame();
+			saveGame();
+		//			getGame();
 		}
 	});
 });
@@ -114,6 +147,7 @@ Template.main.onRendered(() => {
 				isOverlay.set(true);
 				isPromotion.set(true);
 			} else {
+				board.move(move.from + "-" + move.to);
 				saveGame();
 			}
 		}
@@ -178,9 +212,11 @@ function getGame() {
 		if (result === "WAIT") {
 			isClock.set(false);
 			isWaiting.set(true);
+			isPlayers.set(false);
 		} else if (result) {
 			isWaiting.set(false);
 			isClock.set(true);
+			isPlayers.set(true);
 			clockTime.set(MOVE_TIMEOUT / 1000);
 			Meteor.clearInterval(clockIntervalId);
 			clockIntervalId = Meteor.setInterval(() => {
@@ -190,10 +226,15 @@ function getGame() {
 					getGame();
 				}
 			}, 1000);
-			board.game = result;
-			board.position(result.position);
+			board.game = result.game;
+			board.game.playerData = result.playerData;
+			board.position(result.game.position);
+			if (!board.game.isWhiteToMove) {
+				board.flip();
+			}
 		} else {
 			isWaiting.set(false);
+			isPlayers.set(false);
 			board.start();
 		}
 		isSpinner.set(false);
