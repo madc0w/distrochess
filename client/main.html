@@ -62,6 +62,9 @@
 						{{formatTime clockTime}}
 					</div>
 				{{/if}}
+				{{#if gameId}}
+					<div id="game-id">{{_ "game_id"}} : <strong>{{gameId}}</strong></div>
+				{{/if}}
 			</div>
 			{{#if isPlayers}}
 				<div id="players">

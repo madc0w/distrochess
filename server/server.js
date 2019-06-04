@@ -3,22 +3,22 @@ import { Meteor } from "meteor/meteor";
 const userQueue = [];
 const moveTimeoutTimersIds = {};
 
-var collections = [ Games, Meteor.users ];
-for (var i in collections) {
-	var collection = collections[i];
-	// deny every kind of write operation from client
-	var deny = function() {
-		return true;
-	};
-	collection.deny({
-		insert : deny,
-		update : deny,
-		remove : deny,
-	});
-}
+const collections = [ Games, Meteor.users, SystemData ];
 
 Meteor.startup(() => {
 	// code to run on server at startup
+	for (var i in collections) {
+		var collection = collections[i];
+		// deny every kind of write operation from client
+		var deny = function() {
+			return true;
+		};
+		collection.deny({
+			insert : deny,
+			update : deny,
+			remove : deny,
+		});
+	}
 });
 
 Meteor.methods({
@@ -161,9 +161,31 @@ Meteor.methods({
 				}
 			});
 		} else {
-			// create a new game
 			players[Meteor.userId()].moves = [ board.lastMove ];
+
+			const gameIdRecord = SystemData.findOne({
+				key : "GAME_ID"
+			});
+			var currGameId = 1;
+			if (gameIdRecord) {
+				currGameId = gameIdRecord.data + 1;
+				SystemData.update({
+					_id : gameIdRecord._id
+				}, {
+					$set : {
+						data : currGameId
+					}
+				});
+			} else {
+				SystemData.insert({
+					key : "GAME_ID",
+					data : currGameId
+				});
+			}
+
+			// create a new game
 			gameId = Games.insert({
+				id : currGameId,
 				moves : [ board.lastMove ],
 				isInProgress : true,
 				isWhiteToMove : false,

@@ -1,7 +1,7 @@
-board = null;
 var isSaveGameAfterSignin = false;
 var clockIntervalId = null;
 
+board = new ReactiveVar();
 const isPromotion = new ReactiveVar(false);
 const isOverlay = new ReactiveVar(false);
 const isNeedToSignIn = new ReactiveVar(false);
@@ -13,6 +13,11 @@ const clockTime = new ReactiveVar(MOVE_TIMEOUT / 1000);
 const message = new ReactiveVar(null);
 
 Template.main.helpers({
+	gameId : function() {
+		const _board = board.get();
+		return _board && _board.game && _board.game.id;
+	},
+
 	formatDateTime : function(date) {
 		return moment(date).fromNow();
 	//		const minutes = date.getMinutes();
@@ -24,15 +29,16 @@ Template.main.helpers({
 
 	players : function(isWhite) {
 		const players = [];
-		for (var playerId in board.game.players) {
-			if (board.game.players[playerId].isWhite == isWhite) {
-				const percent = 100 * board.game.players[playerId].moves.length / board.game.moves.length;
-				const movesRatio = board.game.players[playerId].moves.length + "/" + board.game.moves.length + " (" + percent.toFixed(1) + "%)";
+		const _board = board.get();
+		for (var playerId in _board.game.players) {
+			if (_board.game.players[playerId].isWhite == isWhite) {
+				const percent = 100 * _board.game.players[playerId].moves.length / _board.game.moves.length;
+				const movesRatio = _board.game.players[playerId].moves.length + "/" + _board.game.moves.length + " (" + percent.toFixed(1) + "%)";
 				players.push({
-					username : board.game.playerData[playerId].username,
+					username : _board.game.playerData[playerId].username,
 					movesRatio : movesRatio,
-					lastMoveTime : board.game.players[playerId].lastMoveTime,
-					rating : board.game.playerData[playerId].rating,
+					lastMoveTime : _board.game.players[playerId].lastMoveTime,
+					rating : _board.game.playerData[playerId].rating,
 				});
 			}
 		}
@@ -112,8 +118,13 @@ Template.main.onCreated(() => {
 	});
 
 	Tracker.autorun(() => {
+		var _board;
+		Tracker.nonreactive(() => {
+			_board = board.get();
+		});
+
 		// user is signing in/up
-		if (Meteor.user() && board && isSaveGameAfterSignin) {
+		if (Meteor.user() && _board && isSaveGameAfterSignin) {
 			isSaveGameAfterSignin = false;
 			saveGame();
 		//			getGame();
@@ -125,7 +136,8 @@ Template.main.onCreated(() => {
 Template.main.onRendered(() => {
 	function onDrop(from, to) {
 		if (to != "offboard") {
-			const game = new Chess(board.fen() + " " + playingColor() + " - - 0 1");
+			const _board = board.get();
+			const game = new Chess(_board.fen() + " " + playingColor() + " - - 0 1");
 
 			const move = game.move({
 				from : from,
@@ -138,14 +150,14 @@ Template.main.onRendered(() => {
 				return "snapback";
 			}
 
-			board.prevPosition = board.position();
-			board.lastMove = move;
-			const isWhiteToMove = board.game && board.game.isWhiteToMove;
+			_board.prevPosition = _board.position();
+			_board.lastMove = move;
+			const isWhiteToMove = _board.game && _board.game.isWhiteToMove;
 			if (move.piece == "p" && ((isWhiteToMove && to.endsWith("8")) || (!isWhiteToMove && to.endsWith("1")))) {
 				isOverlay.set(true);
 				isPromotion.set(true);
 			} else {
-				board.move(move.from + "-" + move.to);
+				_board.move(move.from + "-" + move.to);
 				saveGame();
 			}
 		}
@@ -157,7 +169,7 @@ Template.main.onRendered(() => {
 		onDrop : onDrop
 	};
 
-	board = new ChessBoard("chess-board", cfg);
+	board.set(new ChessBoard("chess-board", cfg));
 	getGame();
 });
 
@@ -168,9 +180,10 @@ Template.promotionPiece.helpers({
 
 Template.promotionPiece.events({
 	"click img" : function(e) {
-		const position = board.position();
-		position[board.lastMove.to] = playingColor() + this.piece;
-		board.position(position);
+		const _board = board.get();
+		const position = _board.position();
+		position[_board.lastMove.to] = playingColor() + this.piece;
+		_board.position(position);
 		isPromotion.set(false);
 		isOverlay.set(false);
 
@@ -182,14 +195,16 @@ Template.promotionPiece.events({
 
 
 function playingColor() {
-	return (!board.game || board.game.isWhiteToMove) ? "w" : "b";
+	const _board = board.get();
+	return (!_board.game || _board.game.isWhiteToMove) ? "w" : "b";
 }
 
 function saveGame() {
 	if (Meteor.userId()) {
 		isSpinner.set(true);
-		board._position = board.position();
-		Meteor.call("saveGame", board, function(err, result) {
+		const _board = board.get();
+		_board._position = _board.position();
+		Meteor.call("saveGame", _board, function(err, result) {
 			if (result == "WRONG_SIDE") {
 				isSpinner.set(false);
 				message.set(TAPi18n.__("wrong_side_message"));
@@ -207,6 +222,7 @@ function saveGame() {
 function getGame() {
 	isSpinner.set(true);
 	Meteor.call("getGame", function(err, result) {
+		const _board = board.get();
 		if (result === "WAIT") {
 			isClock.set(false);
 			isWaiting.set(true);
@@ -224,21 +240,23 @@ function getGame() {
 					getGame();
 				}
 			}, 1000);
-			board.game = result.game;
-			board.game.playerData = result.playerData;
-			board.position(result.game.position);
-			if (!board.game.isWhiteToMove) {
-				board.flip();
+			_board.game = result.game;
+			_board.game.playerData = result.playerData;
+			_board.position(result.game.position);
+			if (!_board.game.isWhiteToMove) {
+				_board.flip();
 			}
 		} else {
 			isWaiting.set(false);
 			isPlayers.set(false);
-			board.start();
+			_board.start();
 		}
+		board.set(_board);
 		isSpinner.set(false);
 	});
 }
 
 function undoLastMove() {
-	board.position(board.prevPosition);
+	const _board = board.get();
+	_board.position(_board.prevPosition);
 }

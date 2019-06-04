@@ -30,5 +30,6 @@
 	"black_team": "Black Team",
 	"moves_ratio": "Moves ratio",
 	"last_move_time": "Last move time",
-	"rating": "Elo Rating"
+	"rating": "Elo Rating",
+	"game_id": "Game ID"
 }
