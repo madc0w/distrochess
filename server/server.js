@@ -38,7 +38,7 @@ Meteor.methods({
 				]
 			}).forEach(function(game) {
 				const gamePlayer = game.players[Meteor.userId()];
-				if (!gamePlayer || (gamePlayer && gamePlayer.isWhite == game.isWhiteToMove)) {
+				if (!gamePlayer || (gamePlayer && gamePlayer.isWhite == utils.isWhiteToMove(game))) {
 					games.push(game);
 				}
 			});
@@ -121,7 +121,7 @@ Meteor.methods({
 		}
 
 		const players = (board.game && board.game.players) || {};
-		if (players[Meteor.userId()] && players[Meteor.userId()].isWhite != board.game.isWhiteToMove) {
+		if (players[Meteor.userId()] && players[Meteor.userId()].isWhite != utils.isWhiteToMove(board.game)) {
 			return "WRONG_SIDE";
 		}
 
@@ -130,7 +130,7 @@ Meteor.methods({
 		} else {
 			players[Meteor.userId()] = {
 				lastMoveTime : now,
-				isWhite : !board.game || board.game.isWhiteToMove,
+				isWhite : !board.game || utils.isWhiteToMove(board.game),
 			};
 		}
 
@@ -154,15 +154,13 @@ Meteor.methods({
 			//			console.log("players", players);
 
 			game.moves.push(board.lastMove);
-			game.isWhiteToMove = !game.isWhiteToMove;
-			board.game.isWhiteToMove = game.isWhiteToMove;
+			board.game = game;
 
 			Games.update({
 				_id : board.game._id
 			}, {
 				$set : {
 					moves : game.moves,
-					isWhiteToMove : game.isWhiteToMove,
 					currentUserId : null,
 					players : players,
 					position : board._position,
@@ -196,7 +194,6 @@ Meteor.methods({
 				id : currGameId,
 				moves : [ board.lastMove ],
 				isInProgress : true,
-				isWhiteToMove : false,
 				currentUserId : null,
 				players : players,
 				position : board._position,
@@ -208,8 +205,8 @@ Meteor.methods({
 		for (var i in userQueue) {
 			const queueUserId = userQueue[i];
 			console.log("board.game.players[" + queueUserId + "]", board.game.players[queueUserId]);
-			console.log("board.game.isWhiteToMove", board.game.isWhiteToMove);
-			if (!board.game.players[queueUserId] || board.game.players[queueUserId].isWhite == board.game.isWhiteToMove) {
+			//			console.log("board.game.isWhiteToMove", board.game.isWhiteToMove);
+			if (!board.game.players[queueUserId] || board.game.players[queueUserId].isWhite == utils.isWhiteToMove(board.game)) {
 				userQueue.splice(i, 1);
 				console.log("assigning game" + board.game._id + " to user " + queueUserId);
 				GameAssignments.update(

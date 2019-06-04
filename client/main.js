@@ -121,10 +121,12 @@ Template.main.onCreated(() => {
 	Tracker.autorun(() => {
 		const assigments = GameAssignments.find().fetch();
 		console.log("assigments", assigments);
-		getGame();
+		if (assigments.length > 0) {
+			getGame();
+		}
 	});
 
-
+	var isUser = false;
 	Tracker.autorun(() => {
 		var _board;
 		Tracker.nonreactive(() => {
@@ -132,9 +134,14 @@ Template.main.onCreated(() => {
 		});
 
 		// user is signing in/up
-		if (Meteor.user() && _board && isSaveGameAfterSignin) {
-			isSaveGameAfterSignin = false;
-			saveGame();
+		if (Meteor.user()) {
+			isUser = true;
+			if (_board && isSaveGameAfterSignin) {
+				isSaveGameAfterSignin = false;
+				saveGame();
+			}
+		} else if (isUser) {
+			location.reload();
 		}
 	});
 });
@@ -169,7 +176,7 @@ Template.promotionPiece.events({
 
 function playingColor() {
 	const _board = board.get();
-	return (!_board.game || _board.game.isWhiteToMove) ? "w" : "b";
+	return (!_board.game || utils.isWhiteToMove(_board.game)) ? "w" : "b";
 }
 
 function saveGame() {
@@ -194,6 +201,7 @@ function saveGame() {
 
 function getGame() {
 	if (!isGettingGame) {
+		console.log("getGame");
 		isGettingGame = true;
 		isSpinner.set(true);
 		Meteor.call("getGame", function(err, result) {
@@ -202,7 +210,10 @@ function getGame() {
 				_board.game = result.game;
 				_board.game.playerData = result.playerData;
 				_board.position(result.game.position);
-				if (!_board.game.isWhiteToMove) {
+				const isWhiteToMove = utils.isWhiteToMove(_board.game);
+				if ((!isWhiteToMove && _board.orientation() == "white") ||
+					(isWhiteToMove && _board.orientation() == "black")) {
+					console.log("flip");
 					_board.flip();
 				}
 			}
@@ -258,7 +269,7 @@ function setBoard() {
 
 				_board.prevPosition = _board.position();
 				_board.lastMove = move;
-				const isWhiteToMove = _board.game && _board.game.isWhiteToMove;
+				const isWhiteToMove = _board.game && utils.isWhiteToMove(_board.game);
 				if (move.piece == "p" && ((isWhiteToMove && to.endsWith("8")) || (!isWhiteToMove && to.endsWith("1")))) {
 					isOverlay.set(true);
 					isPromotion.set(true);
