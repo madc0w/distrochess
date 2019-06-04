@@ -183,7 +183,7 @@ function saveGame() {
 	if (Meteor.userId()) {
 		isSpinner.set(true);
 		const _board = board.get();
-		_board._position = _board.position();
+		_board._position = _board.fen();
 		Meteor.call("saveGame", _board, function(err, result) {
 			if (result == "WRONG_SIDE") {
 				isSpinner.set(false);
