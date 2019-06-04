@@ -3,7 +3,7 @@ import { Meteor } from "meteor/meteor";
 const userQueue = [];
 const moveTimeoutTimersIds = {};
 
-const collections = [ Games, Meteor.users, SystemData ];
+const collections = [ Games, Meteor.users, SystemData, GameAssignments ];
 
 Meteor.startup(() => {
 	// code to run on server at startup
@@ -44,9 +44,17 @@ Meteor.methods({
 			});
 
 			if (games.length == 0) {
-				userQueue.push(Meteor.userId());
+				if (!userQueue.includes(Meteor.userId())) {
+					userQueue.push(Meteor.userId());
+					console.log("pushed user onto queue", userQueue);
+				}
 				return "WAIT";
 			}
+
+			GameAssignments.remove({
+				userId : Meteor.userId()
+			});
+
 		} else {
 			// no user
 			games = Games.find({
@@ -100,6 +108,7 @@ Meteor.methods({
 			return null;
 		}
 
+		const now = new Date();
 		if (!Meteor.user().rating) {
 			Meteor.user().rating = INITIAL_RATING;
 			Meteor.users.update({
@@ -117,18 +126,15 @@ Meteor.methods({
 		}
 
 		if (players[Meteor.userId()]) {
-			players[Meteor.userId()].lastMoveTime = new Date();
+			players[Meteor.userId()].lastMoveTime = now;
 		} else {
 			players[Meteor.userId()] = {
-				lastMoveTime : new Date(),
+				lastMoveTime : now,
 				isWhite : !board.game || board.game.isWhiteToMove,
 			};
 		}
 
-		var gameId;
 		if (board.game && board.game._id) {
-			gameId = board.game._id;
-
 			const timerId = moveTimeoutTimersIds[board.game._id];
 			if (timerId) {
 				Meteor.clearTimeout(timerId);
@@ -148,19 +154,22 @@ Meteor.methods({
 			//			console.log("players", players);
 
 			game.moves.push(board.lastMove);
+			game.isWhiteToMove = !game.isWhiteToMove;
+			board.game.isWhiteToMove = game.isWhiteToMove;
 
 			Games.update({
 				_id : board.game._id
 			}, {
 				$set : {
 					moves : game.moves,
-					isWhiteToMove : !game.isWhiteToMove,
+					isWhiteToMove : game.isWhiteToMove,
 					currentUserId : null,
 					players : players,
 					position : board._position,
 				}
 			});
 		} else {
+			// create a new game
 			players[Meteor.userId()].moves = [ board.lastMove ];
 
 			const gameIdRecord = SystemData.findOne({
@@ -183,8 +192,7 @@ Meteor.methods({
 				});
 			}
 
-			// create a new game
-			gameId = Games.insert({
+			board.game = {
 				id : currGameId,
 				moves : [ board.lastMove ],
 				isInProgress : true,
@@ -192,19 +200,41 @@ Meteor.methods({
 				currentUserId : null,
 				players : players,
 				position : board._position,
-			});
+			};
+			board.game._id = Games.insert(board.game);
 		}
 
-		if (!Meteor.user().gameIds || !Meteor.user().gameIds.includes(gameId)) {
-			if (!Meteor.user().gameIds) {
-				Meteor.user().gameIds = [];
+		// assign game to first user in the queue who is eligible to play that game
+		for (var i in userQueue) {
+			const queueUserId = userQueue[i];
+			console.log("board.game.players[" + queueUserId + "]", board.game.players[queueUserId]);
+			console.log("board.game.isWhiteToMove", board.game.isWhiteToMove);
+			if (!board.game.players[queueUserId] || board.game.players[queueUserId].isWhite == board.game.isWhiteToMove) {
+				userQueue.splice(i, 1);
+				console.log("assigning game" + board.game._id + " to user " + queueUserId);
+				GameAssignments.update(
+					{
+						userId : queueUserId,
+					},
+					{
+						userId : queueUserId,
+						gameId : board.game._id,
+						date : now,
+					}, {
+						upsert : true
+					});
+				break;
 			}
-			Meteor.user().gameIds.push(gameId);
+		}
+
+		if (!Meteor.user().gameIds || !Meteor.user().gameIds.includes(board.game._id)) {
+			const gameIds = Meteor.user().gameIds || [];
+			gameIds.push(board.game._id);
 			Meteor.users.update({
 				_id : Meteor.userId()
 			}, {
 				$set : {
-					gameIds : Meteor.user().gameIds
+					gameIds : gameIds
 				}
 			});
 		}

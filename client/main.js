@@ -1,5 +1,6 @@
 var isSaveGameAfterSignin = false;
 var clockIntervalId = null;
+var isGettingGame = false;
 
 board = new ReactiveVar();
 const isPromotion = new ReactiveVar(false);
@@ -118,6 +119,13 @@ Template.main.onCreated(() => {
 	});
 
 	Tracker.autorun(() => {
+		const assigments = GameAssignments.find().fetch();
+		console.log("assigments", assigments);
+		getGame();
+	});
+
+
+	Tracker.autorun(() => {
 		var _board;
 		Tracker.nonreactive(() => {
 			_board = board.get();
@@ -127,49 +135,14 @@ Template.main.onCreated(() => {
 		if (Meteor.user() && _board && isSaveGameAfterSignin) {
 			isSaveGameAfterSignin = false;
 			saveGame();
-		//			getGame();
 		}
 	});
 });
 
 
 Template.main.onRendered(() => {
-	function onDrop(from, to) {
-		if (to != "offboard") {
-			const _board = board.get();
-			const game = new Chess(_board.fen() + " " + playingColor() + " - - 0 1");
-
-			const move = game.move({
-				from : from,
-				to : to,
-				promotion : "q" // always promote to queen
-			});
-
-			// illegal move
-			if (move === null) {
-				return "snapback";
-			}
-
-			_board.prevPosition = _board.position();
-			_board.lastMove = move;
-			const isWhiteToMove = _board.game && _board.game.isWhiteToMove;
-			if (move.piece == "p" && ((isWhiteToMove && to.endsWith("8")) || (!isWhiteToMove && to.endsWith("1")))) {
-				isOverlay.set(true);
-				isPromotion.set(true);
-			} else {
-				_board.move(move.from + "-" + move.to);
-				saveGame();
-			}
-		}
-	}
-
-	const cfg = {
-		draggable : true,
-		dropOffBoard : "snapback", // this is the default
-		onDrop : onDrop
-	};
-
-	board.set(new ChessBoard("chess-board", cfg));
+	console.log("render");
+	setBoard();
 	getGame();
 });
 
@@ -220,40 +193,84 @@ function saveGame() {
 }
 
 function getGame() {
-	isSpinner.set(true);
-	Meteor.call("getGame", function(err, result) {
-		const _board = board.get();
-		if (result === "WAIT") {
-			isClock.set(false);
-			isWaiting.set(true);
-			isPlayers.set(false);
-		} else if (result) {
-			isWaiting.set(false);
-			isClock.set(true);
-			isPlayers.set(true);
-			clockTime.set(MOVE_TIMEOUT / 1000);
-			Meteor.clearInterval(clockIntervalId);
-			clockIntervalId = Meteor.setInterval(() => {
-				clockTime.set(clockTime.get() - 1);
-				if (clockTime.get() == 0) {
-					Meteor.clearInterval(clockIntervalId);
-					getGame();
+	if (!isGettingGame) {
+		isGettingGame = true;
+		isSpinner.set(true);
+		Meteor.call("getGame", function(err, result) {
+			function setupBoard() {
+				const _board = board.get();
+				_board.game = result.game;
+				_board.game.playerData = result.playerData;
+				_board.position(result.game.position);
+				if (!_board.game.isWhiteToMove) {
+					_board.flip();
 				}
-			}, 1000);
-			_board.game = result.game;
-			_board.game.playerData = result.playerData;
-			_board.position(result.game.position);
-			if (!_board.game.isWhiteToMove) {
-				_board.flip();
 			}
-		} else {
-			isWaiting.set(false);
-			isPlayers.set(false);
-			_board.start();
+
+			if (result === "WAIT") {
+				isClock.set(false);
+				isWaiting.set(true);
+				isPlayers.set(false);
+			} else if (result) {
+				isWaiting.set(false);
+				isClock.set(true);
+				isPlayers.set(true);
+				clockTime.set(MOVE_TIMEOUT / 1000);
+				Meteor.clearInterval(clockIntervalId);
+				clockIntervalId = Meteor.setInterval(() => {
+					clockTime.set(clockTime.get() - 1);
+					if (clockTime.get() == 0) {
+						Meteor.clearInterval(clockIntervalId);
+						getGame();
+					}
+				}, 1000);
+				setupBoard();
+			} else {
+				isWaiting.set(false);
+				isPlayers.set(false);
+				board.get().start();
+			}
+			isSpinner.set(false);
+			isGettingGame = false;
+		});
+	}
+}
+
+function setBoard() {
+	const cfg = {
+		draggable : true,
+		dropOffBoard : "snapback", // this is the default
+		onDrop : function(from, to) {
+			if (to != "offboard") {
+				const _board = board.get();
+				const game = new Chess(_board.fen() + " " + playingColor() + " - - 0 1");
+
+				const move = game.move({
+					from : from,
+					to : to,
+					promotion : "q" // always promote to queen
+				});
+
+				// illegal move
+				if (move === null) {
+					return "snapback";
+				}
+
+				_board.prevPosition = _board.position();
+				_board.lastMove = move;
+				const isWhiteToMove = _board.game && _board.game.isWhiteToMove;
+				if (move.piece == "p" && ((isWhiteToMove && to.endsWith("8")) || (!isWhiteToMove && to.endsWith("1")))) {
+					isOverlay.set(true);
+					isPromotion.set(true);
+				} else {
+					_board.move(move.from + "-" + move.to);
+					saveGame();
+				}
+			}
 		}
-		board.set(_board);
-		isSpinner.set(false);
-	});
+	};
+
+	board.set(new ChessBoard("chess-board", cfg));
 }
 
 function undoLastMove() {

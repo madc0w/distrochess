@@ -77,14 +77,14 @@ body {
 #header-left {
 	vertical-align: top;
 	display: inline-block;
-	width: 260px;
+	width: calc(100% - 280px);
 }
 	
 #header-right {
 	vertical-align: top;
 	display: inline-block;
 	text-align: right;
-	width: calc(100% - 280px);
+	width: 260px;
 }
 
 #login-dropdown-list {
@@ -202,4 +202,8 @@ body {
 	height: 30px;
 	margin-left: 6px;
 	margin-right: 12px;
+}
+
+.hidden {
+	display: none;
 }
