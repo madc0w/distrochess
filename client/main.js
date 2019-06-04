@@ -1,6 +1,4 @@
-const moment = require("moment");
-
-var board = null;
+board = null;
 var isSaveGameAfterSignin = false;
 var clockIntervalId = null;
 
