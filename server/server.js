@@ -129,10 +129,10 @@ Meteor.methods({
 		if (board.game && board.game._id) {
 			gameId = board.game._id;
 
-			const timerId = moveTimeoutTimersIds[board.game._id + " " + Meteor.userId()];
+			const timerId = moveTimeoutTimersIds[board.game._id];
 			if (timerId) {
 				Meteor.clearTimeout(timerId);
-				delete moveTimeoutTimersIds[board.game._id + " " + Meteor.userId()];
+				delete moveTimeoutTimersIds[board.game._id];
 			}
 			const game = Games.findOne({
 				_id : board.game._id
