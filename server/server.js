@@ -36,8 +36,7 @@ Meteor.startup(() => {
 	}).observe({
 		added : function(user) {
 			try {
-				//				Meteor.setTimeout(() => {
-				utils.log("user added with no username", user);
+				//				utils.log("user added with no username", user);
 				const userIdRecord = SystemData.findOne({
 					key : "USER_ID"
 				});
@@ -57,17 +56,14 @@ Meteor.startup(() => {
 						data : currUserId
 					});
 				}
-				utils.log("user._id", user._id);
 				user.username = "Anonymous-" + currUserId;
-				const result = Meteor.users.update({
-					_id : user._id
-				}, {
-					$set : {
-						username : user.username
-					}
-				});
-				utils.log("result", result);
-			//				}, 200);
+			//				Meteor.users.update({
+			//					_id : user._id
+			//				}, {
+			//					$set : {
+			//						username : user.username
+			//					}
+			//				});
 			} catch (e) {
 				utils.logError(e);
 			}
