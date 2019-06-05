@@ -1,6 +1,3 @@
-
-const message = new ReactiveVar(null);
-
 Template.main.helpers({
 	templateName : function() {
 		return templateName.get();
@@ -25,6 +22,12 @@ Template.main.helpers({
 
 Template.main.events({
 	"click" : function(e) {
+		if (!$(e.target).hasClass("button")) {
+			message.set(null);
+		}
+	},
+
+	"click #message-ok-button" : function(e) {
 		message.set(null);
 	},
 

@@ -13,7 +13,7 @@
 	"or": "or",
 	"sign_in_github": "Sign in with Github",
 	"sign_in_google": "Sign in with Google",
-	"forgot_password": "Forgot password",
+	"forgot_password": "Forgot Password",
 	"create_account": "Create Account",
 	"email": "Email",
 	"reset_password": "Reset Password",
@@ -41,5 +41,10 @@
 	"num_games_played": "Games played",
 	"num_moves_made": "Moves made",
 	"elo_rating": "Elo rating",
-	"your_profile": "Your Profile"
+	"your_profile": "Your Profile",
+	"invalid_email": "Please enter a valid email address.",
+	"username_too_short": "Username must be at least 3 characters long.",
+	"password_too_short": "Password must be at least 6 characters long.",
+	"passwords_do_not_match": "Passwords don't match.",
+	"username_in_use":"That username is in use. Please choose a different one."
 }

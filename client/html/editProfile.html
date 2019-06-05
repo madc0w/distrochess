@@ -9,6 +9,12 @@
 				</td>
 			</tr>
 			<tr>
+				<th></th>
+				<td>
+					<div id="save-username-button" class="button">{{_ "set_username"}}</div>
+				</td>
+			</tr>
+			<tr>
 				<th>{{_ "signup_date"}}</th>
 				<td>{{dateFormat currentUser.createdAt}}</td>
 			</tr>
@@ -16,6 +22,25 @@
 				<tr>
 					<th>{{_ "authentication_service"}}</th>
 					<td>{{authService}}</td>
+				</tr>
+			{{else}}
+				<tr>
+					<th>{{_ "password"}}</th>
+					<td>
+						<input type="text" id="password1-field"/>
+					</td>
+				</tr>
+				<tr>
+					<th>{{_ "repeat_password"}}</th>
+					<td>
+						<input type="text" id="password2-field"/>
+					</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>
+						<div id="save-password-button" class="button">{{_ "set_password"}}</div>
+					</td>
 				</tr>
 			{{/if}}
 			<tr>

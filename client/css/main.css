@@ -146,7 +146,9 @@ body {
 }
 
 #message {
+	z-index: 120;
 	width: 400px;
+	line-height: 24px;
 }
 
 #message-text {
@@ -255,4 +257,8 @@ body {
 
 #profile-data th {
 	text-align: right;
+}
+
+.invalid {
+	background-color: #f44;
 }

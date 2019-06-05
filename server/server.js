@@ -293,6 +293,27 @@ Meteor.methods({
 			}
 		});
 	},
+
+	checkUsername : function(username) {
+		const existingUser = Meteor.users.findOne({
+			$or : [
+				{
+					username : {
+						$regex : username,
+						$options : "i"
+					}
+				},
+				{
+					username : null,
+					"profile.name" : {
+						$regex : username,
+						$options : "i"
+					}
+				}
+			]
+		});
+		return !existingUser;
+	},
 });
 
 
