@@ -27,6 +27,10 @@ Template.main.events({
 		}
 	},
 
+	"click #header-logo" : function() {
+		templateName.set("chessBoard");
+	},
+
 	"click #message-ok-button" : function(e) {
 		message.set(null);
 	},

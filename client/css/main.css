@@ -270,3 +270,7 @@ body {
 .invalid {
 	background-color: #f44;
 }
+
+#header-logo {
+	cursor: pointer;
+}

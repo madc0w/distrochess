@@ -19,7 +19,9 @@ Template.signin.helpers({
 });
 
 Template.signin.events({
-	"click #forgot-password-button" : function(e) {},
+	"click #forgot-password-button" : function(e) {
+		// TODO send password reset email 
+	},
 
 	"click #signin-google-button" : function(e) {
 		Meteor.loginWithGoogle({
