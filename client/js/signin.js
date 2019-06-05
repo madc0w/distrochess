@@ -152,6 +152,6 @@ Template.signin.events({
 	},
 
 	"click #edit-profile-button" : function(e) {
-		location = "/edit-profile";
+		Router.go("/edit-profile");
 	},
 });

@@ -116,6 +116,7 @@ body {
 	vertical-align: top;
 	display: inline-block;
 	margin-left: 8px;
+	width: calc(100% - 140px);
 }
 
 #header-title {
@@ -273,4 +274,17 @@ body {
 
 #header-logo {
 	cursor: pointer;
+}
+
+#waiting {
+	margin: 40px;
+	padding: 40px;
+	border-color: black;
+	border-width: 2px;
+	border-style: double;
+	border-radius: 8px;
+	font-size: 24px;
+	text-align: center;
+	background-color: antiquewhite;
+	line-height: 42px;
 }

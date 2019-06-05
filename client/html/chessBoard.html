@@ -1,7 +1,7 @@
 <template name="chessBoard">
 	{{#if isWaiting}}
 		<div id="waiting">
-			{{_ "wait_for_opponent_to_move"}}
+			 {{{_ "wait_for_opponent_to_move"}}}
 		</div>
 	{{/if}}
 	<div id="board-container">
@@ -9,6 +9,9 @@
 		{{#if isClock}}
 			<div id="clock">
 				{{formatTime clockTime}}
+			</div>
+			<div id="game-controls">
+				<div id="pass-button" class="button">{{_ "pass"}}</div>
 			</div>
 		{{/if}}
 		{{#if gameId}}

@@ -28,7 +28,7 @@ Template.main.events({
 	},
 
 	"click #header-logo" : function() {
-		templateName.set("chessBoard");
+		Router.go("/");
 	},
 
 	"click #message-ok-button" : function(e) {

@@ -120,6 +120,10 @@ Template.promotionPiece.helpers({
 });
 
 Template.promotionPiece.events({
+	"click #pass-button" : function(e) {
+		getGame();
+	},
+
 	"click img" : function(e) {
 		const _board = board.get();
 		const position = _board.position();
@@ -162,7 +166,7 @@ function saveGame() {
 
 function getGame() {
 	if (!isGettingGame) {
-		console.log("getGame");
+		//		console.log("getGame");
 		isGettingGame = true;
 		isSpinner.set(true);
 		Meteor.call("getGame", function(err, result) {
@@ -174,7 +178,7 @@ function getGame() {
 				const isWhiteToMove = utils.isWhiteToMove(_board.game);
 				if ((!isWhiteToMove && _board.orientation() == "white") ||
 					(isWhiteToMove && _board.orientation() == "black")) {
-					console.log("flip");
+					//					console.log("flip");
 					_board.flip();
 				}
 				board.set(_board);
