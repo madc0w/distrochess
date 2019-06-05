@@ -36,36 +36,38 @@ Meteor.startup(() => {
 	}).observeChanges({
 		added : function(id, user) {
 			try {
-				utils.log("user added with no username", user);
-				const userIdRecord = SystemData.findOne({
-					key : "USER_ID"
-				});
-				var currUserId = 1;
-				if (userIdRecord) {
-					currUserId = userIdRecord.data + 1;
-					SystemData.update({
-						_id : userIdRecord._id
+				Meteor.setTimeout(() => {
+					utils.log("user added with no username", user);
+					const userIdRecord = SystemData.findOne({
+						key : "USER_ID"
+					});
+					var currUserId = 1;
+					if (userIdRecord) {
+						currUserId = userIdRecord.data + 1;
+						SystemData.update({
+							_id : userIdRecord._id
+						}, {
+							$set : {
+								data : currUserId
+							}
+						});
+					} else {
+						SystemData.insert({
+							key : "USER_ID",
+							data : currUserId
+						});
+					}
+					//				utils.log("currUserId", currUserId);
+					const username = "Anonymous-" + currUserId;
+					const result = Meteor.users.update({
+						_id : user._id
 					}, {
 						$set : {
-							data : currUserId
+							username : username
 						}
 					});
-				} else {
-					SystemData.insert({
-						key : "USER_ID",
-						data : currUserId
-					});
-				}
-				//				utils.log("currUserId", currUserId);
-				user.username = "Anonymous-" + currUserId;
-			//				const result = Meteor.users.update({
-			//					_id : user._id
-			//				}, {
-			//					$set : {
-			//						username : username
-			//					}
-			//				});
-			//				utils.log("result", result);
+					utils.log("result", result);
+				}, 200);
 			} catch (e) {
 				utils.logError(e);
 			}
