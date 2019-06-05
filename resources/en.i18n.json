@@ -20,8 +20,6 @@
 	"back_to_sign_in": "Back to Sign In",
 	"change_password": "Change Password",
 	"sign_out": "Sign Out",
-	"current_password": "Current Password",
-	"new_password": "New Password",
 	"set_password": "Set Password",
 	"wait_for_opponent_to_move": "Please wait for an opponent to make a move...",
 	"ok": "OK",
@@ -46,5 +44,12 @@
 	"username_too_short": "Username must be at least 3 characters long.",
 	"password_too_short": "Password must be at least 6 characters long.",
 	"passwords_do_not_match": "Passwords don't match.",
-	"username_in_use":"That username is in use. Please choose a different one."
+	"username_in_use": "That username is in use. Please choose a different one.",
+	"set_username": "Set Username",
+	"username_set": "Your username has been updated.",
+	"password_set": "Your password has been updated.",
+	"current_password": "Current password",
+	"new_password": "New password",
+	"email_or_username": "Email or Username",
+	"bad_login": "Username or password not correct.<br/>Please try again, or use the \"Forgot Password\" button if you need to."
 }

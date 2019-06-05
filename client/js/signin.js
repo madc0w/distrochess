@@ -49,7 +49,19 @@ Template.signin.events({
 		isSigninDialog.set(true);
 	},
 
-	"click #signin-button" : function(e) {},
+	"click #signin-button" : function(e) {
+		const emailOrUsername = $("#username-input").val().trim();
+		const password = $("#password1-input").val();
+		Meteor.loginWithPassword(emailOrUsername, password, function(err) {
+			if (err) {
+				message.set(TAPi18n.__("bad_login"));
+			} else {
+				isUsernameDialog.set(false);
+				isSigninDialog.set(false);
+				isSignup.set(false);
+			}
+		});
+	},
 
 	"click #signup-button" : function(e) {
 		if (isSignup.get()) {

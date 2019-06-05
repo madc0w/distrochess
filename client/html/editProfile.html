@@ -5,12 +5,7 @@
 			<tr>
 				<th>{{_ "username"}}</th>
 				<td>
-					<input type="text" id="username-field"/>
-				</td>
-			</tr>
-			<tr>
-				<th></th>
-				<td>
+					<input type="text" id="username-input"/>
 					<div id="save-username-button" class="button">{{_ "set_username"}}</div>
 				</td>
 			</tr>
@@ -25,20 +20,21 @@
 				</tr>
 			{{else}}
 				<tr>
-					<th>{{_ "password"}}</th>
+					<th>{{_ "current_password"}}</th>
 					<td>
-						<input type="text" id="password1-field"/>
+						<input type="password" id="current-password-input"/>
+					</td>
+				</tr>
+				<tr>
+					<th>{{_ "new_password"}}</th>
+					<td>
+						<input type="password" id="password1-input"/>
 					</td>
 				</tr>
 				<tr>
 					<th>{{_ "repeat_password"}}</th>
 					<td>
-						<input type="text" id="password2-field"/>
-					</td>
-				</tr>
-				<tr>
-					<th></th>
-					<td>
+						<input type="password" id="password2-input"/> 
 						<div id="save-password-button" class="button">{{_ "set_password"}}</div>
 					</td>
 				</tr>

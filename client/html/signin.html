@@ -22,7 +22,13 @@
 			</div>
 			<table>
 				<tr>
-					<th>{{_ "username"}}</th>
+					<th>
+						{{#if isSignup}}
+							{{_ "username"}}
+						{{else}}
+							{{_ "email_or_username"}}
+						{{/if}}
+					</th>
 					<td>
 						<input id="username-input"/>
 					</td>
@@ -38,20 +44,20 @@
 				<tr>
 					<th>{{_ "password"}}</th>
 					<td>
-						<input id="password1-input"/>
+						<input type="password" id="password1-input"/>
 					</td>
 				</tr>
 				{{#if isSignup}}
 					<tr>
 						<th>{{_ "repeat_password"}}</th>
 						<td>
-							<input id="password2-input"/>
+							<input type="password" id="password2-input"/>
 						</td>
 					</tr>
 				{{/if}}
 			</table>
+			<div id="signin-button" class="button">{{_ "sign_in"}}</div>
 			<div id="signup-button" class="button">{{_ "sign_up"}}</div>
-			<div id="submit-button" class="button">{{_ "sign_in"}}</div>
 			<div id="forgot-password-button" class="button">{{_ "forgot_password"}}</div>
 			<div id="cancel-button" class="button">{{_ "cancel"}}</div>
 		</div>

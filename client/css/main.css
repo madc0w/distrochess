@@ -259,6 +259,14 @@ body {
 	text-align: right;
 }
 
+#profile-data div {
+	display: inline-block;
+}
+
+#profile-data .button {
+	margin-left: 12px;
+}
+
 .invalid {
 	background-color: #f44;
 }

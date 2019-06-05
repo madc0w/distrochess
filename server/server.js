@@ -314,6 +314,25 @@ Meteor.methods({
 		});
 		return !existingUser;
 	},
+
+	setUsername : function(username) {
+		if (!Meteor.user()) {
+			return false;
+		}
+		if (username != utils.getUsername()) {
+			if (!Meteor.call("checkUsername", username)) {
+				return false;
+			}
+			Meteor.users.update({
+				_id : Meteor.userId()
+			}, {
+				$set : {
+					username : username
+				}
+			});
+		}
+		return true;
+	},
 });
 
 
