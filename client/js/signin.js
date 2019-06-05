@@ -1,5 +1,4 @@
 const isUsernameDialog = new ReactiveVar(false);
-const isSigninDialog = new ReactiveVar(false);
 const isSignup = new ReactiveVar(false);
 
 Template.signin.helpers({

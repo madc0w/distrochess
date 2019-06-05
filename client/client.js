@@ -5,6 +5,7 @@ templateName = new ReactiveVar();
 isNeedToSignIn = new ReactiveVar(false);
 isSpinner = new ReactiveVar(false);
 isOverlay = new ReactiveVar(false);
+isSigninDialog = new ReactiveVar(false);
 
 Meteor.startup(function() {
 	// because we can't seem to redirect everything to www.distrochess.com by using DNS, for obscure reasons

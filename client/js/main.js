@@ -48,7 +48,7 @@ Template.main.events({
 	"click #need-to-sign-in-button" : function(e) {
 		isNeedToSignIn.set(false);
 		isOverlay.set(false);
-		$("#login-sign-in-link").click();
+		isSigninDialog.set(true);
 	},
 });
 

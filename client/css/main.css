@@ -288,3 +288,8 @@ body {
 	background-color: antiquewhite;
 	line-height: 42px;
 }
+
+#pass-button {
+	margin-top: 12px;
+	margin-bottom: 12px;
+}

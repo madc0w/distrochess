@@ -66,6 +66,13 @@ Template.chessBoard.helpers({
 });
 
 
+Template.chessBoard.events({
+	"click #pass-button" : function(e) {
+		getGame();
+	},
+});
+
+
 Template.chessBoard.onCreated(() => {
 	isSaveGameAfterSignin = false;
 	clockIntervalId = null;
@@ -120,10 +127,6 @@ Template.promotionPiece.helpers({
 });
 
 Template.promotionPiece.events({
-	"click #pass-button" : function(e) {
-		getGame();
-	},
-
 	"click img" : function(e) {
 		const _board = board.get();
 		const position = _board.position();
