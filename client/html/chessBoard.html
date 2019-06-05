@@ -1,0 +1,83 @@
+<template name="chessBoard">
+	{{#if isWaiting}}
+		<div id="waiting">
+			{{_ "wait_for_opponent_to_move"}}
+		</div>
+	{{/if}}
+	<div id="board-container">
+		<div id="chess-board" class="chess-board {{#if isWaiting}}hidden{{/if}}"></div>
+		{{#if isClock}}
+			<div id="clock">
+				{{formatTime clockTime}}
+			</div>
+		{{/if}}
+		{{#if gameId}}
+			<div id="game-id">{{_ "game_id"}} : <strong>{{gameId}}</strong></div>
+		{{/if}}
+	</div>
+	{{#if isPlayers}}
+		<div id="players">
+			<div class="team-header">
+				<img src="/img/chesspieces/wikipedia/wN.png"/>
+				{{_ "white_team"}}
+			</div>
+			<div class="players-table-container">
+				<table>
+					<tr>
+						<th>{{_ "username"}}</th>
+						<th>{{_ "moves_ratio"}}</th>
+						<th>{{_ "last_move_time"}}</th>
+						<th>{{_ "rating"}}</th>
+					</tr>
+					{{#each players true}}
+						<tr class="data-row">
+							<td>{{username}}</td>
+							<td>{{movesRatio}}</td>
+							<td>{{formatDateTime lastMoveTime}}</td>
+							<td>{{rating}}</td>
+						</tr>
+					{{/each}}
+				</table>
+			</div>
+			<div class="team-header">
+				<img src="/img/chesspieces/wikipedia/bN.png"/>
+				{{_ "black_team"}}
+			</div>
+			<div class="players-table-container">
+				<table>
+					<tr>
+						<th>{{_ "username"}}</th>
+						<th>{{_ "moves_ratio"}}</th>
+						<th>{{_ "last_move_time"}}</th>
+						<th>{{_ "rating"}}</th>
+					</tr>
+					{{#each players false}}
+						<tr class="data-row">
+							<td>{{username}}</td>
+							<td>{{movesRatio}}</td>
+							<td>{{formatDateTime lastMoveTime}}</td>
+							<td>{{rating}}</td>
+						</tr>
+					{{/each}}
+				</table>
+			</div>
+		</div>
+	{{/if}}
+	
+	{{#if isPromotion}}
+		<div id="promotion-dialog" class="dialog">
+			<div>{{_ "promote_to"}}</div>
+			<div>
+				{{> promotionPiece piece="Q"}}
+				{{> promotionPiece piece="R"}}
+				{{> promotionPiece piece="N"}}
+				{{> promotionPiece piece="B"}}
+			</div>
+		</div>
+	{{/if}}
+</template>
+
+<template name="promotionPiece">
+	<img src="img/chesspieces/wikipedia/{{playingColor}}{{piece}}.png"><br/>
+</template>
+

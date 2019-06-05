@@ -3,8 +3,6 @@ accounts-github@1.4.2
 accounts-google@1.3.2
 accounts-oauth@1.1.16
 accounts-password@1.5.1
-accounts-ui@1.3.1
-accounts-ui-unstyled@1.4.2
 aldeed:simple-schema@1.3.3
 allow-deny@1.1.0
 autoupdate@1.6.0
@@ -57,7 +55,6 @@ iron:router@1.1.2
 iron:url@1.1.0
 jquery@1.11.11
 launch-screen@1.1.1
-less@2.8.0
 livedata@1.0.18
 localstorage@1.2.0
 logging@1.1.20

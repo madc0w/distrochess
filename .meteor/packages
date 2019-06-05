@@ -21,7 +21,6 @@ accounts-base
 accounts-password
 tap:i18n
 accounts-google
-accounts-github
-accounts-ui
 rzymek:moment-locales
 iron:router
+accounts-github

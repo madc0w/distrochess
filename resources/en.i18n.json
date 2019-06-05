@@ -31,5 +31,15 @@
 	"moves_ratio": "Moves ratio",
 	"last_move_time": "Last move time",
 	"rating": "Elo Rating",
-	"game_id": "Game ID"
+	"game_id": "Game ID",
+	"edit_profile": "Edit profile",
+	"signin_with_google": "Sign in with Google",
+	"signin_with_github": "Sign in with Github",
+	"repeat_password": "Password again",
+	"signup_date": "Signed up on",
+	"authentication_service": "Authentication service",
+	"num_games_played": "Games played",
+	"num_moves_made": "Moves made",
+	"elo_rating": "Elo rating",
+	"your_profile": "Your Profile"
 }

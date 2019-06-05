@@ -1,0 +1,35 @@
+<template name="editProfile">
+	<div id="profile-header">{{_ "your_profile"}}</div>
+	<div id="profile-data">
+		<table>
+			<tr>
+				<th>{{_ "username"}}</th>
+				<td>
+					<input type="text" id="username-field"/>
+				</td>
+			</tr>
+			<tr>
+				<th>{{_ "signup_date"}}</th>
+				<td>{{dateFormat currentUser.createdAt}}</td>
+			</tr>
+			{{#if authService}}
+				<tr>
+					<th>{{_ "authentication_service"}}</th>
+					<td>{{authService}}</td>
+				</tr>
+			{{/if}}
+			<tr>
+				<th>{{_ "num_games_played"}}</th>
+				<td>{{currentUser.gameIds.length}}</td>
+			</tr>
+			<tr>
+				<th>{{_ "num_moves_made"}}</th>
+				<td>{{currentUser.numMoves}}</td>
+			</tr>
+			<tr>
+				<th>{{_ "elo_rating"}}</th>
+				<td>{{currentUser.rating}}</td>
+			</tr>
+		</table>
+	</div>
+</template>

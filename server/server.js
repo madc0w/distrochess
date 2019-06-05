@@ -279,17 +279,19 @@ Meteor.methods({
 			}
 		}
 
-		if (!Meteor.user().gameIds || !Meteor.user().gameIds.includes(board.game._id)) {
-			const gameIds = Meteor.user().gameIds || [];
+		const gameIds = Meteor.user().gameIds || [];
+		if (!gameIds.includes(board.game._id)) {
 			gameIds.push(board.game._id);
-			Meteor.users.update({
-				_id : Meteor.userId()
-			}, {
-				$set : {
-					gameIds : gameIds
-				}
-			});
 		}
+		const numMoves = (Meteor.user().numMoves || 0) + 1;
+		Meteor.users.update({
+			_id : Meteor.userId()
+		}, {
+			$set : {
+				gameIds : gameIds,
+				numMoves : numMoves,
+			}
+		});
 	},
 });
 

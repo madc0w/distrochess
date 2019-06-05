@@ -1,0 +1,58 @@
+<template name="signin">
+	{{#if currentUser}}
+		<div id="username-button" class="button">{{username}}</div>
+	{{else}}
+		<div id="signin-or-signup-button" class="button">{{_ "sign_in"}}</div>
+	{{/if}}
+	
+	{{#if isUsernameDialog}}
+		<div id="username-dialog" class="dialog">
+			<div id="edit-profile-button" class="button">{{_ "edit_profile"}}</div>
+			<div id="signout-button" class="button">{{_ "sign_out"}}</div>
+			<div id="cancel-button" class="button">{{_ "cancel"}}</div>
+		</div>
+	{{/if}}
+
+	{{#if isSigninDialog}}
+		<div id="signin-dialog" class="dialog">
+			<div id="signin-google-button" class="button">{{_ "signin_with_google"}}</div>
+			<div id="signin-github-button" class="button">{{_ "signin_with_github"}}</div>
+			<div id="or" >
+				- {{_ "or"}} -
+			</div>
+			<table>
+				<tr>
+					<th>{{_ "username"}}</th>
+					<td>
+						<input id="username-input"/>
+					</td>
+				</tr>
+				{{#if isSignup}}
+					<tr>
+						<th>{{_ "email"}}</th>
+						<td>
+							<input id="email-input"/>
+						</td>
+					</tr>
+				{{/if}}
+				<tr>
+					<th>{{_ "password"}}</th>
+					<td>
+						<input id="password1-input"/>
+					</td>
+				</tr>
+				{{#if isSignup}}
+					<tr>
+						<th>{{_ "repeat_password"}}</th>
+						<td>
+							<input id="password2-input"/>
+						</td>
+					</tr>
+				{{/if}}
+			</table>
+			<div id="signup-button" class="button">{{_ "sign_up"}}</div>
+			<div id="submit-button" class="button">{{_ "sign_in"}}</div>
+			<div id="cancel-button" class="button">{{_ "cancel"}}</div>
+		</div>
+	{{/if}}
+</template>

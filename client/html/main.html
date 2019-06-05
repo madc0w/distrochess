@@ -1,0 +1,68 @@
+<head>
+	<title>Distrochess</title>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/> 
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141501550-1"></script>
+	<script>
+		 window.dataLayer = window.dataLayer || [];
+		 function gtag() {
+		 	dataLayer.push(arguments);
+		 }
+		 gtag("js", new Date());
+		
+		 gtag("config", "UA-141501550-1");
+	</script>
+</head>
+
+<body>
+</body>
+
+<template name="main">
+	{{#if isOverlay}}
+		<div id="overlay"></div>
+	{{/if}}
+	{{#if isSpinner}}
+		<div id="spinner">
+			<img src="/img/spinner.svg">
+		</div>
+		<div id="overlay"></div>
+	{{/if}}
+	{{#if message}}
+		<div id="message" class="dialog">
+			<div id="message-text">
+				{{message}}
+			</div>
+			<div id="message-ok-button" class="button">
+				{{_ "ok"}}
+			</div>
+		</div>
+		<div id="overlay"></div>
+	{{/if}}
+	{{#if isNeedToSignIn }}
+		<div id="need-to-sign-in" class="dialog">
+			<div id="need-to-sign-text">
+				{{_ "need_to_sign_in"}}
+			</div>
+			<div id="need-to-sign-in-button" class="button">{{_ "sign_in"}}</div>
+			<div id="need-to-sign-in-cancel-button" class="button">{{_ "cancel"}}</div>
+		</div>
+	{{/if}}
+
+	<div id="header">
+		<div id="header-left">
+			<img id="header-logo" src="/img/logo.jpg"/>
+			<div id="header-text">
+				<div id="header-title">Distrochess</div>
+				<div id="header-description">{{_ "header_discription"}}</div>
+			</div>
+		</div>
+		<div id="header-right">
+			{{> signin}}
+		</div>
+	</div>
+	<div id="content">
+		{{> UI.dynamic template=templateName}}
+	</div>
+</template>
+

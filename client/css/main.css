@@ -77,14 +77,19 @@ body {
 #header-left {
 	vertical-align: top;
 	display: inline-block;
-	width: calc(100% - 280px);
+	width: calc(100% - 180px);
 }
-	
+
 #header-right {
 	vertical-align: top;
 	display: inline-block;
 	text-align: right;
-	width: 260px;
+	width: 160px;
+}
+
+#header-right .button {
+	margin-top: 8px;
+	max-width: 160px;
 }
 
 #login-dropdown-list {
@@ -101,7 +106,6 @@ body {
 /* 	display: inline-block; */
 /* 	margin-left: 8px; */
 /* } */
-
 #header-logo {
 	width: 80px;
 	border-radius: 16px;
@@ -206,4 +210,49 @@ body {
 
 .hidden {
 	display: none;
+}
+
+#username-dialog {
+	left: calc(100% - 360px);
+}
+
+#signin-dialog {
+	top: 140px;
+	left: calc(100% - 360px);
+	width: 300px;
+}
+
+#or {
+	margin: 20px;
+	font-weight: bold;
+}
+
+#signin-dialog th {
+	text-align: right;
+	padding-right: 8px;
+}
+
+#signin-dialog .button {
+	margin-left: calc(50% - 80px);
+}
+
+#username-dialog {
+	top: 140px;
+	left: calc(100% - 360px);
+	width: 300px;
+}
+
+#username-dialog .button {
+	margin-left: calc(50% - 80px);
+}
+
+#profile-header {
+	background-color: antiquewhite;
+	padding: 4px;
+	font-weight: bold;
+	font-size: 22px;
+}
+
+#profile-data th {
+	text-align: right;
 }
