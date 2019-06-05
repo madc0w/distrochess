@@ -24,3 +24,4 @@ accounts-google
 accounts-github
 accounts-ui
 rzymek:moment-locales
+iron:router

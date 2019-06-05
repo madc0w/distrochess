@@ -3,7 +3,7 @@ import { Meteor } from "meteor/meteor";
 const userQueue = [];
 const moveTimeoutTimersIds = {};
 
-const collections = [ Games, Meteor.users, SystemData, GameAssignments ];
+const collections = [ Games, Meteor.users, SystemData, GameAssignments, SystemLog ];
 
 Meteor.startup(() => {
 	// code to run on server at startup
@@ -20,12 +20,22 @@ Meteor.startup(() => {
 		});
 	}
 
+	Meteor.users.find({
+		username : null,
+		"profile.name" : null,
+	}).observeChanges({
+		added : function(id, user) {
+			utils.log("user added: " + id);
+		}
+	});
+
 	// assign sequential username if none provided
 	Meteor.users.find({
 		username : null,
 		"profile.name" : null,
 	}).observeChanges({
 		added : function(id, user) {
+			utils.log("user added with no username: " + id);
 			const userIdRecord = SystemData.findOne({
 				key : "USER_ID"
 			});
