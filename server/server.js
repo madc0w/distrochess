@@ -19,6 +19,43 @@ Meteor.startup(() => {
 			remove : deny,
 		});
 	}
+
+	// assign sequential username if none provided
+	Meteor.users.find({
+		username : null,
+		"profile.name" : null,
+	}).observeChanges({
+		added : function(id, user) {
+			const userIdRecord = SystemData.findOne({
+				key : "USER_ID"
+			});
+			var currUserId = 1;
+			if (userIdRecord) {
+				currUserId = userIdRecord.data + 1;
+				SystemData.update({
+					_id : userIdRecord._id
+				}, {
+					$set : {
+						data : currUserId
+					}
+				});
+			} else {
+				SystemData.insert({
+					key : "USER_ID",
+					data : currUserId
+				});
+			}
+			username = "Anonymous-" + currUserId;
+			Meteor.user.update({
+				_id : user._id
+			}, {
+				$set : {
+					username : username
+				}
+			});
+		}
+	});
+
 });
 
 Meteor.methods({
@@ -90,9 +127,10 @@ Meteor.methods({
 				$in : Object.keys(game.players)
 			}
 		}).forEach((user) => {
+			const username = utils.getUsername(user);
 			playerData[user._id] = {
 				rating : user.rating,
-				username : user.username,
+				username : username,
 				numGames : user.gameIds && user.gameIds.length
 			};
 		});
