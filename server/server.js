@@ -56,16 +56,16 @@ Meteor.startup(() => {
 						data : currUserId
 					});
 				}
-				utils.log("currUserId", currUserId);
-				const username = "Anonymous-" + currUserId;
-				const result = Meteor.users.update({
-					_id : user._id
-				}, {
-					$set : {
-						username : username
-					}
-				});
-				utils.log("result", result);
+				//				utils.log("currUserId", currUserId);
+				user.username = "Anonymous-" + currUserId;
+			//				const result = Meteor.users.update({
+			//					_id : user._id
+			//				}, {
+			//					$set : {
+			//						username : username
+			//					}
+			//				});
+			//				utils.log("result", result);
 			} catch (e) {
 				utils.logError(e);
 			}
