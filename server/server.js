@@ -20,14 +20,14 @@ Meteor.startup(() => {
 		});
 	}
 
-	Meteor.users.find({
-		username : null,
-		"profile.name" : null,
-	}).observeChanges({
-		added : function(id, user) {
-			utils.log("user added: " + id);
-		}
-	});
+	//	Meteor.users.find({
+	//		username : null,
+	//		"profile.name" : null,
+	//	}).observeChanges({
+	//		added : function(id, user) {
+	//			utils.log("user added", 0, user);
+	//		}
+	//	});
 
 	// assign sequential username if none provided
 	Meteor.users.find({
@@ -35,7 +35,7 @@ Meteor.startup(() => {
 		"profile.name" : null,
 	}).observeChanges({
 		added : function(id, user) {
-			utils.log("user added with no username: " + id);
+			//			utils.log("user added with no username: " + id);
 			const userIdRecord = SystemData.findOne({
 				key : "USER_ID"
 			});
@@ -56,7 +56,7 @@ Meteor.startup(() => {
 				});
 			}
 			username = "Anonymous-" + currUserId;
-			Meteor.user.update({
+			Meteor.users.update({
 				_id : user._id
 			}, {
 				$set : {
