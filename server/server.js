@@ -34,6 +34,9 @@ Meteor.startup(() => {
 		username : null,
 		"profile.name" : null,
 	}).observe({
+		// not observerChanges, which fails due to record not having been added yet!
+		// utterly undocumented behavior here https://docs.meteor.com/api/collections.html#Mongo-Cursor-observe
+		// 2 hours lost
 		added : function(user) {
 			try {
 				//				utils.log("user added with no username", user);
@@ -57,13 +60,13 @@ Meteor.startup(() => {
 					});
 				}
 				user.username = "Anonymous-" + currUserId;
-			//				Meteor.users.update({
-			//					_id : user._id
-			//				}, {
-			//					$set : {
-			//						username : user.username
-			//					}
-			//				});
+				Meteor.users.update({
+					_id : user._id
+				}, {
+					$set : {
+						username : user.username
+					}
+				});
 			} catch (e) {
 				utils.logError(e);
 			}
