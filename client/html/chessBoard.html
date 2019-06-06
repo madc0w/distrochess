@@ -6,19 +6,21 @@
 	{{/if}}
 	<div id="board-container">
 		<div id="chess-board" class="chess-board {{#if isWaiting}}hidden{{/if}}"></div>
-		{{#if isClock}}
-			<div id="clock">
-				{{formatTime clockTime}}
-			</div>
-		{{/if}}
-		{{#if gameId}}
-			<div id="game-controls">
-				<div id="game-id">
-					{{_ "game_id"}} : <strong>{{gameId}}</strong>
+		{{#unless isWaiting}}
+			{{#if isClock}}
+				<div id="clock">
+					{{formatTime clockTime}}
 				</div>
-				<div id="pass-button" class="button">{{_ "pass"}}</div>
-			</div>
-		{{/if}}
+			{{/if}}
+			{{#if gameId}}
+				<div id="game-controls">
+					<div id="game-id">
+						{{_ "game_id"}} : <strong>{{gameId}}</strong>
+					</div>
+					<div id="pass-button" class="button">{{_ "pass"}}</div>
+				</div>
+			{{/if}}
+		{{/unless}}
 	</div>
 	{{#if isPlayers}}
 		<div id="players">

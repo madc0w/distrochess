@@ -102,6 +102,7 @@ Meteor.methods({
 					userQueue.push(Meteor.userId());
 					console.log("pushed user onto queue", userQueue);
 				}
+				console.log("user " + utils.getUsername() + " must wait for available game");
 				return "WAIT";
 			}
 
@@ -116,10 +117,17 @@ Meteor.methods({
 				currentUserId : null,
 			}).fetch();
 			if (games.length == 0) {
+				console.log("will create new game for anonymous user");
 				return null;
 			}
 		}
+
+		const gameIds = [];
+		for (var i in games) {
+			gameIds.push(games[i].id);
+		}
 		const game = games[Math.floor(Math.random() * games.length)];
+		console.log("choose game " + game.id + " for user " + utils.getUsername() + " from ", gameIds);
 
 		Games.update({
 			_id : game._id
