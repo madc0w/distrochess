@@ -78,6 +78,17 @@
 			</div>
 		</div>
 	{{/if}}
+	
+	{{#if isNeedToSignIn }}
+		<div id="need-to-sign-in" class="dialog">
+			<div id="need-to-sign-text">
+				{{_ "need_to_sign_in"}}
+			</div>
+			<div id="need-to-sign-in-button" class="button">{{_ "sign_in"}}</div>
+			<div id="need-to-sign-in-cancel-button" class="button">{{_ "cancel"}}</div>
+		</div>
+	{{/if}}
+	
 </template>
 
 <template name="promotionPiece">

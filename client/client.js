@@ -2,7 +2,6 @@ moment = require("moment");
 
 message = new ReactiveVar(null);
 templateName = new ReactiveVar();
-isNeedToSignIn = new ReactiveVar(false);
 isSpinner = new ReactiveVar(false);
 isOverlay = new ReactiveVar(false);
 isSigninDialog = new ReactiveVar(false);

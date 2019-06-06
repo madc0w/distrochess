@@ -1,15 +1,14 @@
 #!/bin/bash
 
 SECONDS=0
-cd /home/mad/git/distrochess/.deploy
 
+git config --global credential.helper 'cache --timeout 86400'
 git pull
 
-# must run as root!
-# sudo -i
-export METEOR_ALLOW_SUPERUSER=true
-mup setup
-mup deploy
+#meteor npm install --save
+
+#meteor login
+DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy www.distrochess.com --settings settings.json
 
 echo 
 echo "************************************************"

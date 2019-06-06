@@ -14,10 +14,6 @@ Template.main.helpers({
 	isSpinner : function() {
 		return isSpinner.get();
 	},
-
-	isNeedToSignIn : function() {
-		return isNeedToSignIn.get();
-	},
 });
 
 Template.main.events({
@@ -34,25 +30,4 @@ Template.main.events({
 	"click #message-ok-button" : function(e) {
 		message.set(null);
 	},
-
-	"click .login-close-text" : function(e) {
-		undoLastMove();
-	},
-
-	"click #need-to-sign-in-cancel-button" : function(e) {
-		undoLastMove();
-		isNeedToSignIn.set(false);
-		isOverlay.set(false);
-	},
-
-	"click #need-to-sign-in-button" : function(e) {
-		isNeedToSignIn.set(false);
-		isOverlay.set(false);
-		isSigninDialog.set(true);
-	},
-});
-
-
-Template.main.onCreated(() => {
-
 });

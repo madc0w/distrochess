@@ -7,9 +7,14 @@ const isWaiting = new ReactiveVar(false);
 const isPromotion = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
 const isPlayers = new ReactiveVar(false);
+const isNeedToSignIn = new ReactiveVar(false);
 const clockTime = new ReactiveVar(MOVE_TIMEOUT / 1000);
 
 Template.chessBoard.helpers({
+	isNeedToSignIn : function() {
+		return isNeedToSignIn.get();
+	},
+
 	isPlayers : function() {
 		return isPlayers.get();
 	},
@@ -69,6 +74,18 @@ Template.chessBoard.helpers({
 Template.chessBoard.events({
 	"click #pass-button" : function(e) {
 		getGame();
+	},
+
+	"click #need-to-sign-in-cancel-button" : function(e) {
+		undoLastMove();
+		isNeedToSignIn.set(false);
+		isOverlay.set(false);
+	},
+
+	"click #need-to-sign-in-button" : function(e) {
+		isNeedToSignIn.set(false);
+		isOverlay.set(false);
+		isSigninDialog.set(true);
 	},
 });
 
