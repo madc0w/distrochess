@@ -56,9 +56,13 @@
 					</tr>
 				{{/if}}
 			</table>
-			<div id="signin-button" class="button">{{_ "sign_in"}}</div>
+			{{#unless isSignup}}
+				<div id="signin-button" class="button">{{_ "sign_in"}}</div>
+			{{/unless}}
 			<div id="signup-button" class="button">{{_ "sign_up"}}</div>
-			<div id="forgot-password-button" class="button">{{_ "forgot_password"}}</div>
+			{{#unless isSignup}}
+				<div id="forgot-password-button" class="button">{{_ "forgot_password"}}</div>
+			{{/unless}}
 			<div id="cancel-button" class="button">{{_ "cancel"}}</div>
 		</div>
 	{{/if}}

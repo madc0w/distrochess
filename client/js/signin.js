@@ -20,6 +20,7 @@ Template.signin.helpers({
 Template.signin.events({
 	"click #forgot-password-button" : function(e) {
 		// TODO send password reset email 
+		message.set(TAPi18n.__("not_implemented"));
 	},
 
 	"click #signin-google-button" : function(e) {
@@ -27,7 +28,7 @@ Template.signin.events({
 			requestPermissions : [ "email" ]
 		}, (err) => {
 			if (err) {
-				// handle error
+				message.set(err);
 			} else {
 				isSigninDialog.set(false);
 			}
@@ -35,11 +36,13 @@ Template.signin.events({
 	},
 
 	"click #signin-github-button" : function(e) {
+		// to configure Github OAuth:
+		// https://github.com/settings/applications/1075304
 		Meteor.loginWithGithub({
 			requestPermissions : [ "email" ]
 		}, (err) => {
 			if (err) {
-				// handle error
+				message.set(err);
 			} else {
 				isSigninDialog.set(false);
 			}

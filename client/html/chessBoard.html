@@ -10,12 +10,14 @@
 			<div id="clock">
 				{{formatTime clockTime}}
 			</div>
-			<div id="game-controls">
-				<div id="pass-button" class="button">{{_ "pass"}}</div>
-			</div>
 		{{/if}}
 		{{#if gameId}}
-			<div id="game-id">{{_ "game_id"}} : <strong>{{gameId}}</strong></div>
+			<div id="game-controls">
+				<div id="game-id">
+					{{_ "game_id"}} : <strong>{{gameId}}</strong>
+				</div>
+				<div id="pass-button" class="button">{{_ "pass"}}</div>
+			</div>
 		{{/if}}
 	</div>
 	{{#if isPlayers}}

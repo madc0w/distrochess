@@ -52,5 +52,6 @@
 	"new_password": "New password",
 	"email_or_username": "Email or Username",
 	"bad_login": "Username or password not correct.<br/>Please try again, or use the \"Forgot Password\" button if you need to.",
-	"pass": "Pass"
+	"pass": "Pass",
+	"not_implemented": "Feature coming soon..."
 }

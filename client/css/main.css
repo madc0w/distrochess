@@ -25,6 +25,7 @@ body {
 	padding: 8px;
 	text-align: center;
 	min-width: 200px;
+	box-shadow: 0px 0px 20px 4px #222;
 }
 
 #promotion-dialog img {
@@ -290,6 +291,14 @@ body {
 }
 
 #pass-button {
+	width: 100px;
+	margin-left: calc(100% - 224px);
+	display: inline-block;
 	margin-top: 12px;
 	margin-bottom: 12px;
+}
+
+#game-id {
+	display: inline-block;
+	width: 100px;
 }
