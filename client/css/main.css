@@ -57,6 +57,10 @@ body {
 	max-width: 120px;
 }
 
+.button img {
+	height: 24px;
+}
+
 .button:HOVER {
 	color: black;
 	background-color: white;
@@ -301,4 +305,23 @@ body {
 #game-id {
 	display: inline-block;
 	width: 100px;
+}
+
+.signin-button {
+	max-width: 240px !important;
+	margin-left: calc(50% - 120px) !important;
+	margin-bottom: 16px;
+}
+
+.signin-button img {
+	background-color: white;
+	padding: 4px;
+	margin-left: 12px;
+	border-radius: 20px;
+}
+
+.signin-button-text {
+	display: inline-block;
+	vertical-align: top;
+	padding-top: 8px;
 }
