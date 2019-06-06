@@ -1,7 +1,7 @@
 var isSaveGameAfterSignin = false;
 var clockIntervalId = null;
 var isGettingGame = false;
-game = null;
+var game = null;
 
 const board = new ReactiveVar();
 const isWaiting = new ReactiveVar(false);
@@ -269,7 +269,6 @@ function setBoard() {
 					return "snapback";
 				}
 
-				_board.prevPosition = _board.position();
 				_board.lastMove = move;
 				const isWhiteToMove = _board.game && utils.isWhiteToMove(_board.game);
 				if (move.piece == "p" && ((isWhiteToMove && to.endsWith("8")) || (!isWhiteToMove && to.endsWith("1")))) {
@@ -287,6 +286,8 @@ function setBoard() {
 }
 
 function undoLastMove() {
+	game.undo();
 	const _board = board.get();
-	_board.position(_board.prevPosition);
+	_board.position(game.fen());
+	board.set(_board);
 }
