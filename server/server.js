@@ -166,7 +166,7 @@ Meteor.methods({
 		};
 	},
 
-	saveGame : function(board) {
+	saveGame : function(board, fen) {
 		if (!Meteor.userId()) {
 			return null;
 		}
@@ -226,7 +226,7 @@ Meteor.methods({
 					moves : game.moves,
 					currentUserId : null,
 					players : players,
-					position : board._position,
+					position : fen,
 				}
 			});
 		} else {
@@ -259,7 +259,7 @@ Meteor.methods({
 				isInProgress : true,
 				currentUserId : null,
 				players : players,
-				position : board._position,
+				position : fen,
 			};
 			board.game._id = Games.insert(board.game);
 		}

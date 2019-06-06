@@ -1,8 +1,9 @@
 var isSaveGameAfterSignin = false;
 var clockIntervalId = null;
 var isGettingGame = false;
+game = null;
 
-board = new ReactiveVar();
+const board = new ReactiveVar();
 const isWaiting = new ReactiveVar(false);
 const isPromotion = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
@@ -54,16 +55,18 @@ Template.chessBoard.helpers({
 	players : function(isWhite) {
 		const players = [];
 		const _board = board.get();
-		for (var playerId in _board.game.players) {
-			if (_board.game.players[playerId].isWhite == isWhite) {
-				const percent = 100 * _board.game.players[playerId].moves.length / _board.game.moves.length;
-				const movesRatio = _board.game.players[playerId].moves.length + "/" + _board.game.moves.length + " (" + percent.toFixed(1) + "%)";
-				players.push({
-					username : _board.game.playerData[playerId].username,
-					movesRatio : movesRatio,
-					lastMoveTime : _board.game.players[playerId].lastMoveTime,
-					rating : _board.game.playerData[playerId].rating,
-				});
+		if (_board.game && _board.game.players) {
+			for (var playerId in _board.game.players) {
+				if (_board.game.players[playerId].isWhite == isWhite) {
+					const percent = 100 * _board.game.players[playerId].moves.length / _board.game.moves.length;
+					const movesRatio = _board.game.players[playerId].moves.length + "/" + _board.game.moves.length + " (" + percent.toFixed(1) + "%)";
+					players.push({
+						username : _board.game.playerData[playerId].username,
+						movesRatio : movesRatio,
+						lastMoveTime : _board.game.players[playerId].lastMoveTime,
+						rating : _board.game.playerData[playerId].rating,
+					});
+				}
 			}
 		}
 		return players;
@@ -159,20 +162,27 @@ Template.promotionPiece.events({
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-function playingColor() {
+function playingColor(isSwap) {
 	const _board = board.get();
-	return (!_board.game || utils.isWhiteToMove(_board.game)) ? "w" : "b";
+	var isWhite = (!_board.game || utils.isWhiteToMove(_board.game));
+	if (isSwap) {
+		isWhite = !isWhite;
+	}
+	return isWhite ? "w" : "b";
 }
 
 function saveGame() {
 	if (Meteor.userId()) {
 		isSpinner.set(true);
 		const _board = board.get();
-		_board._position = _board.fen();
-		Meteor.call("saveGame", _board, function(err, result) {
+		if (!game) {
+			game = new Chess(_board.fen() + " " + playingColor(true) + " - - 0 1");
+		}
+		Meteor.call("saveGame", _board, game.fen(), function(err, result) {
 			if (result == "WRONG_SIDE") {
 				isSpinner.set(false);
 				message.set(TAPi18n.__("wrong_side_message"));
+				getGame();
 			} else if (Meteor.user()) {
 				getGame();
 			}
@@ -186,28 +196,15 @@ function saveGame() {
 
 function getGame() {
 	if (!isGettingGame) {
-		//		console.log("getGame");
 		isGettingGame = true;
 		isSpinner.set(true);
 		Meteor.call("getGame", function(err, result) {
-			function setupBoard() {
-				const _board = board.get();
-				_board.game = result.game;
-				_board.game.playerData = result.playerData;
-				_board.position(result.game.position);
-				const isWhiteToMove = utils.isWhiteToMove(_board.game);
-				if ((!isWhiteToMove && _board.orientation() == "white") ||
-					(isWhiteToMove && _board.orientation() == "black")) {
-					//					console.log("flip");
-					_board.flip();
-				}
-				board.set(_board);
-			}
-
 			if (result === "WAIT") {
 				isClock.set(false);
 				isWaiting.set(true);
 				isPlayers.set(false);
+				game = null;
+				console.log("game = null");
 			} else if (result) {
 				isWaiting.set(false);
 				isClock.set(true);
@@ -221,11 +218,28 @@ function getGame() {
 						getGame();
 					}
 				}, 1000);
-				setupBoard();
+				Meteor.setTimeout(() => {
+					isSigninDialog.set(false);
+					const _board = board.get();
+					_board.game = result.game;
+					_board.game.playerData = result.playerData;
+					_board.position(result.game.position);
+					const isWhiteToMove = utils.isWhiteToMove(_board.game);
+					if ((!isWhiteToMove && _board.orientation() == "white") ||
+						(isWhiteToMove && _board.orientation() == "black")) {
+						//					console.log("flip");
+						_board.flip();
+					}
+					board.set(_board);
+				}, 0);
+				game = new Chess(result.game.position);
+				console.log("game = ", game.fen());
 			} else {
 				isWaiting.set(false);
 				isPlayers.set(false);
 				board.get().start();
+				game = new Chess();
+				console.log("game = ", game.fen());
 			}
 			isSpinner.set(false);
 			isGettingGame = false;
@@ -240,7 +254,9 @@ function setBoard() {
 		onDrop : function(from, to) {
 			if (to != "offboard") {
 				const _board = board.get();
-				const game = new Chess(_board.fen() + " " + playingColor() + " - - 0 1");
+				//				if (!game) {
+				//					game = new Chess(_board.fen() + " " + playingColor() + " - - 0 1");
+				//				}
 
 				const move = game.move({
 					from : from,
