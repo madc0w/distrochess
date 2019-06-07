@@ -178,6 +178,7 @@ function saveGame() {
 		if (!game) {
 			game = new Chess(_board.fen() + " " + playingColor(true) + " - - 0 1");
 		}
+
 		Meteor.call("saveGame", _board, game.fen(), function(err, result) {
 			if (result == "WRONG_SIDE") {
 				isSpinner.set(false);
