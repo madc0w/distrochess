@@ -169,5 +169,8 @@ Template.signin.events({
 
 	"click #edit-profile-button" : function(e) {
 		Router.go("/edit-profile");
+		isUsernameDialog.set(false);
+		isSigninDialog.set(false);
+		isSignup.set(false);
 	},
 });

@@ -1,9 +1,20 @@
 Router.route("/", function() {
-	templateName.set("chessBoard");
-	this.render("main");
+	setPage.bind(this)("chessBoard");
 });
 
 Router.route("/edit-profile", function() {
-	templateName.set("editProfile");
-	this.render("main");
+	setPage.bind(this)("editProfile");
 });
+
+Router.route("/faq", function() {
+	setPage.bind(this)("faq");
+});
+
+Router.route("/forum", function() {
+	setPage.bind(this)("forum");
+});
+
+function setPage(name) {
+	templateName.set(name);
+	this.render("main");
+}

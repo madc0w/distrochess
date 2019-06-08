@@ -61,7 +61,7 @@ body {
 	height: 24px;
 }
 
-.button:HOVER {
+.button:hover {
 	color: black;
 	background-color: white;
 	border-width: 2px;
@@ -324,4 +324,34 @@ body {
 	display: inline-block;
 	vertical-align: top;
 	padding-top: 8px;
+}
+
+#header-menu {
+	background-color: #B5651D;
+	width: calc(100% + 12px);
+	position: relative;
+	left: -6px;
+}
+
+.header-menu-item {
+	display: inline-block;
+	font-weight: bold;
+	margin: 4px;
+	margin-left: 22px;
+	padding-left: 8px;
+	padding-right: 8px;
+	text-decoration: underline;
+	color: white;
+	border-radius: 20px;
+}
+
+.header-menu-item:hover {
+	color: black;
+	cursor: pointer;
+	background-color: antiquewhite;
+}
+
+iframe {
+	height: calc(100vh - 200px);
+	width: 100%;
 }

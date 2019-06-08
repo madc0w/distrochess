@@ -23,6 +23,14 @@ Template.main.events({
 		}
 	},
 
+	"click #faq-link" : function() {
+		Router.go("/faq");
+	},
+
+	"click #forum-link" : function() {
+		Router.go("/forum");
+	},
+
 	"click #header-logo" : function() {
 		Router.go("/");
 	},
