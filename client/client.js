@@ -12,6 +12,8 @@ Meteor.startup(function() {
 		location = "http://www.distrochess.com";
 	}
 
+	TAPi18n.setLanguage(localStorage.getItem("language") || navigator.language);
+
 	Meteor.subscribe("userData");
 	Meteor.subscribe("gameAssignments");
 });

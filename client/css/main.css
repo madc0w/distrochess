@@ -390,3 +390,23 @@ iframe {
 #profile-actions .button {
 	text-decoration: none;
 }
+
+#language-dialog .button {
+	margin-top: 22px;
+	margin-left: calc(50% - 70px)
+}
+
+#language-dialog-header {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+#language-link img {
+	height: 16px;
+	margin-left: 8px;
+	background-color: white;
+	padding: 2px;
+	position: relative;
+	top: 4px;
+	border-radius: 20px;
+}

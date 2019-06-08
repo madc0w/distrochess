@@ -1,4 +1,10 @@
+const isLanguageDialog = new ReactiveVar(false);
+
 Template.main.helpers({
+	isLanguageDialog : function() {
+		return isLanguageDialog.get();
+	},
+
 	templateName : function() {
 		return templateName.get();
 	},
@@ -23,15 +29,30 @@ Template.main.events({
 		}
 	},
 
-	"click #faq-link" : function() {
+	"click .language-button" : function(e) {
+		const language = $(e.target).attr("language");
+		TAPi18n.setLanguage(language);
+		localStorage.setItem("language", language);
+		isLanguageDialog.set(false);
+	},
+
+	"click #cancel-language" : function(e) {
+		isLanguageDialog.set(false);
+	},
+
+	"click #language-link" : function(e) {
+		isLanguageDialog.set(true);
+	},
+
+	"click #faq-link" : function(e) {
 		Router.go("/faq");
 	},
 
-	"click #forum-link" : function() {
+	"click #forum-link" : function(e) {
 		Router.go("/forum");
 	},
 
-	"click #header-logo" : function() {
+	"click #header-logo" : function(e) {
 		Router.go("/");
 	},
 

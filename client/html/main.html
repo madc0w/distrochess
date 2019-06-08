@@ -57,12 +57,30 @@
 		</div>
 		<div id="overlay"></div>
 	{{/if}}
+	{{#if isLanguageDialog}}
+		<div id="language-dialog" class="dialog">
+			<div id="language-dialog-header">
+				{{_ "select_language"}} 
+			</div>
+			<div class="button language-button" language="en">English</div>
+			<div class="button language-button" language="fr">Français</div>
+			<div class="button language-button" language="de">Deutsch</div>
+			<div class="button language-button" language="ru">русский</div>
+			<div id="cancel-language" class="button">{{_ "cancel"}}</div>
+		</div>
+		<div id="overlay"></div>
+	{{/if}}
+	
 
 	<div id="header">
 		<div id="header-menu">
 			<div id="faq-link" class="header-menu-item">{{_ "faq"}}</div>
 			<div id="forum-link" class="header-menu-item">{{_ "forum"}}</div>
 			<a id="feedback-link" class="header-menu-item" href="mailto:distrochess@runbox.com?subject=Distrochess feedback">{{_ "feedback"}}</a>
+			<div id="language-link" class="header-menu-item">
+				{{_ "language"}}
+<!-- 				<img src="/img/language-icon.svg"/> -->
+			</div>
 		</div>
 		<div id="header-left">
 			<img id="header-logo" src="/img/logo.jpg"/>
@@ -79,4 +97,3 @@
 		{{> UI.dynamic template=templateName}}
 	</div>
 </template>
-
