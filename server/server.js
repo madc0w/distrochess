@@ -322,7 +322,7 @@ Meteor.methods({
 					$in : Object.keys(board.game.players)
 				}
 			}).forEach(function(user) {
-				const numMoves = game.players[user._id].moves.length;
+				const numMoves = board.game.players[user._id].moves.length;
 				if (board.game.players[user._id].isWhite) {
 					meanWhiteElo += numMoves * user.rating;
 					numWhite += numMoves;
@@ -341,7 +341,7 @@ Meteor.methods({
 					$in : Object.keys(board.game.players)
 				}
 			}).forEach(function(user) {
-				const ratio = game.players[user._id].moves.length / game.moves.length;
+				const ratio = board.game.players[user._id].moves.length / board.game.moves.length;
 				user.rating += ratio * (board.game.players[user._id].isWhite ? deltas.deltaWhite : deltas.deltaBlack);
 				Meteor.users.update({
 					_id : user._id
