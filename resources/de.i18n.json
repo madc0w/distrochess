@@ -62,6 +62,7 @@
 	"draw_message": "Es ist ein Unentschieden. <BR/> Ihre Bewertung und die Bewertungen Ihrer Teamkollegen und Gegner wurden entsprechend angepasst.",
 	"language": "Sprache",
 	"select_language": "Wählen Sie Ihre Sprache",
+	"its_your_move": "Es ist dein Zug...",
 	"faq_q1": "Was ist die große Idee?",
 	"faq_a1": "Distrochess ist verteiltes Schach. Dies bedeutet, dass Sie kein einziges Spiel gegen eine einzelne Person spielen. Sie spielen viele Spiele gegen viele andere Benutzer. Es ist ein bisschen wie ein simultanes Match, aber statt vieler Leute Gegen einen einzelnen Gegner gibt es mehrere Spieler auf jeder Seite des Tisches. <br/> Nachdem Sie einen Zug ausgeführt haben, wird das Spiel wieder in die Warteschlange gestellt, sodass ein anderer Benutzer die Möglichkeit hat, zu antworten. In der Zwischenzeit sind Sie es Um zu vermeiden, dass Spieler gegen sich selbst spielen, spielt jeder Spieler immer die gleiche Seite eines bestimmten Spiels. ",
 	"faq_q2": "Wie wird meine Elo-Bewertung berechnet?",

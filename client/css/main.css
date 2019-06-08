@@ -410,3 +410,9 @@ iframe {
 	top: 4px;
 	border-radius: 20px;
 }
+
+#chess-board-header {
+	margin-bottom: 8px;
+	font-weight: bold;
+	text-align: center;
+}

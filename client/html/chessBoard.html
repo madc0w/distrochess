@@ -5,6 +5,9 @@
 		</div>
 	{{/if}}
 	<div id="board-container">
+		{{#unless isWaiting}}
+			<div id="chess-board-header">{{_ "its_your_move"}}</div>
+		{{/unless}}
 		<div id="chess-board" class="chess-board {{#if isWaiting}}hidden{{/if}}"></div>
 		{{#unless isWaiting}}
 			{{#if isClock}}
