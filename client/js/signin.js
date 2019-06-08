@@ -24,9 +24,11 @@ Template.signin.events({
 	},
 
 	"click #signin-google-button" : function(e) {
+		isSpinner.set(true);
 		Meteor.loginWithGoogle({
 			requestPermissions : [ "email" ]
 		}, (err) => {
+			isSpinner.set(false);
 			if (err) {
 				message.set(err);
 			} else {
@@ -38,9 +40,11 @@ Template.signin.events({
 	"click #signin-github-button" : function(e) {
 		// to configure Github OAuth:
 		// https://github.com/settings/applications/1075304
+		isSpinner.set(true);
 		Meteor.loginWithGithub({
 			requestPermissions : [ "email" ]
 		}, (err) => {
+			isSpinner.set(false);
 			if (err) {
 				message.set(err);
 			} else {
@@ -54,9 +58,11 @@ Template.signin.events({
 	},
 
 	"click #signin-button" : function(e) {
+		isSpinner.set(true);
 		const emailOrUsername = $("#username-input").val().trim();
 		const password = $("#password1-input").val();
 		Meteor.loginWithPassword(emailOrUsername, password, function(err) {
+			isSpinner.set(false);
 			if (err) {
 				message.set(TAPi18n.__("bad_login"));
 			} else {
@@ -106,6 +112,7 @@ Template.signin.events({
 			}
 
 			if (isValid) {
+				isSpinner.set(true);
 				Meteor.call("checkUsername", username, function(err, isAvailable) {
 					if (isAvailable) {
 						const options = {
@@ -114,13 +121,17 @@ Template.signin.events({
 							password : password,
 						};
 						Accounts.createUser(options, function(err) {
-							if (!err) {
+							isSpinner.set(false);
+							if (err) {
+								message.set(err);
+							} else {
 								isUsernameDialog.set(false);
 								isSigninDialog.set(false);
 								isSignup.set(false);
 							}
 						});
 					} else {
+						isSpinner.set(false);
 						message.set(TAPi18n.__("username_in_use"));
 						$("#username-input").addClass("invalid");
 					}
@@ -140,8 +151,11 @@ Template.signin.events({
 	},
 
 	"click #signout-button" : function(e) {
+		isSpinner.set(true);
 		Meteor.logout(function(err) {
+			isSpinner.set(false);
 			if (err) {
+				message.set(err);
 			} else {
 				isSigninDialog.set(false);
 				location.reload();

@@ -198,15 +198,10 @@ Meteor.methods({
 		}
 
 		var gameResult = null;
+		const chess = new Chess(fen);
+		const currentPosition = chess.ascii();
+		const pieces = getPieces(chess);
 		if (board.game && board.game._id) {
-			const chess = new Chess(fen);
-			if (chess.game_over()) {
-				if (chess.in_checkmate()) {
-					gameResult = chess.turn() == "w" ? "WIN_BLACK" : "WIN_WHITE";
-				} else {
-					gameResult = "DRAW";
-				}
-			}
 
 			const timerId = moveTimeoutTimersIds[board.game._id];
 			if (timerId) {
@@ -216,6 +211,42 @@ Meteor.methods({
 			const game = Games.findOne({
 				_id : board.game._id
 			});
+
+			game.history.push({
+				position : currentPosition,
+				pieces : pieces,
+			});
+
+			if (chess.game_over()) {
+				if (chess.in_checkmate()) {
+					gameResult = chess.turn() == "w" ? "WIN_BLACK" : "WIN_WHITE";
+				} else {
+					gameResult = "DRAW";
+				}
+			} else {
+				var repeatCount = 0;
+				for (var i in game.history) {
+					for (var j = i + 1; j < game.history.length; j++) {
+						if (game.history.position[i] == game.history.position[j]) {
+							repeatCount++;
+						}
+					}
+				}
+				if (repeatCount >= 3) {
+					gameResult = "DRAW";
+				} else if (game.history.length > 10) {
+					// if, for two moves, one side has only a king, and the other side has either queen or rook,
+					// then adjudicate win  
+					if (pieces == game.history[game.history.length - 2].pieces) {
+						if (pieces.match(/[A-Z]k$/) && pieces.match(/[QR]/)) {
+							gameResult = "WIN_WHITE";
+						} else if (pieces.match(/^K[a-z]/) && pieces.match(/[qr]/)) {
+							gameResult = "WIN_BLACK";
+						}
+					}
+				}
+			}
+
 			const playerMoves = (players[Meteor.userId()] && players[Meteor.userId()].moves) || [];
 			//			console.log("1 playerMoves", playerMoves);
 			playerMoves.push(board.lastMove);
@@ -233,6 +264,7 @@ Meteor.methods({
 				_id : board.game._id
 			}, {
 				$set : {
+					history : game.history,
 					gameResult : gameResult,
 					moves : game.moves,
 					currentUserId : null,
@@ -266,6 +298,10 @@ Meteor.methods({
 
 			board.game = {
 				id : currGameId,
+				history : [ {
+					position : currentPosition,
+					pieces : pieces
+				} ],
 				moves : [ board.lastMove ],
 				gameResult : null,
 				currentUserId : null,
@@ -275,7 +311,48 @@ Meteor.methods({
 			board.game._id = Games.insert(board.game);
 		}
 
-		if (!gameResult) {
+		if (gameResult) {
+			// update ratings
+			var meanBlackElo = 0;
+			var meanWhiteElo = 0;
+			var numWhite = 0;
+			var numBlack = 0;
+			Meteor.users.find({
+				_id : {
+					$in : Object.keys(board.game.players)
+				}
+			}).forEach(function(user) {
+				const numMoves = game.players[user._id].moves.length;
+				if (board.game.players[user._id].isWhite) {
+					meanWhiteElo += numMoves * user.rating;
+					numWhite += numMoves;
+				} else {
+					meanBlackElo += numMoves * user.rating;
+					numBlack += numMoves;
+				}
+			});
+			meanWhiteElo /= numWhite;
+			meanBlackElo /= numBlack;
+
+			const deltas = utils.computeEloDeltas(gameResult, meanWhiteElo, meanBlackElo);
+
+			Meteor.users.find({
+				_id : {
+					$in : Object.keys(board.game.players)
+				}
+			}).forEach(function(user) {
+				const ratio = game.players[user._id].moves.length / game.moves.length;
+				user.rating += ratio * (board.game.players[user._id].isWhite ? deltas.deltaWhite : deltas.deltaBlack);
+				Meteor.users.update({
+					_id : user._id
+				}, {
+					$set : {
+						rating : user.rating
+					}
+				});
+			});
+
+		} else {
 			// assign game to first user in the queue who is eligible to play that game
 			for (var i in userQueue) {
 				const queueUserId = userQueue[i];
@@ -359,19 +436,17 @@ Meteor.methods({
 });
 
 
-function computeElo() {
-	// from https://www.geeksforgeeks.org/elo-rating-algorithm/
-	//	P1 = (1.0 / (1.0 + pow(10, ((rating1 – rating2) / 400))));
-	//	P2 = (1.0 / (1.0 + pow(10, ((rating2 – rating1) / 400))));
-	//  K = 30
-	//
-	//	result is: 
-	//		0: player 1 loses
-	//		1: player 1 wins
-	//		0.5: draw
-	//
-
-	//	The rating of player is updated using the formula given below :-
-	//	rating1 += K * (result – P1);
-	//	rating2 += K * ((1 - result) – P2);
+// returns a string containing all the pieces on the board
+function getPieces(chess) {
+	const pieces = [];
+	for (var file of "abcdefgh") {
+		for (var rank = 1; rank <= 8; rank++) {
+			const piece = chess.get(file + rank);
+			if (piece) {
+				pieces.push(piece.color == "w" ? piece.type.toUpperCase() : piece.type);
+			}
+		} // 
+	}
+	pieces.sort();
+	return pieces.join("");
 }
