@@ -259,6 +259,7 @@ body {
 	padding: 4px;
 	font-weight: bold;
 	font-size: 22px;
+	width: 100%;
 }
 
 #profile-data th {
@@ -356,8 +357,18 @@ iframe {
 	width: 100%;
 }
 
+#faqs br {
+	line-height: 32px;
+}
+
 #faqs li {
 	margin-top: 12px;
+}
+
+#faqs ul {
+	list-style-type: square;
+	padding-bottom: 18px;
+/* 	list-style-image: url("/img/favicon.ico"); */
 }
 
 .faq-question {
@@ -365,4 +376,17 @@ iframe {
 	margin-bottom: 12px;
 	padding: 8px;
 	background-color: antiquewhite;
+}
+
+.faq-answer {
+	margin-bottom: 32px;
+}
+
+#profile-actions div {
+	display: block;
+	line-height: 32px;
+}
+
+#profile-actions .button {
+	text-decoration: none;
 }

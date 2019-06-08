@@ -57,10 +57,18 @@
 	"feedback": "Feedback",
 	"faq": "FAQ",
 	"forum": "Forum",
+	"gdpr_compiance": "GDPR Compliance",
+	"delete_account": "Delete your account",
+	"send_data_request": "Send you your data",
+	"gdpr_message": "Thanks Europe, for all the useful legislation, making life better one mountain of red tape at a time!<br/>Please don't sue me.",
 	"faq_q1": "Who made this, and why?",
-	"faq_a1": "Distrochess is the brain child of <a href=\"distrochess@runbox.com\">Marc A. Donis</a>, who was just trying to avoid bordom.<br/>Distrochess is actually the reincarnation of an old idea, originally named Discochess back around 2007.",
+	"faq_a1": "Distrochess is the brain child of <a href=\"distrochess@runbox.com\">Marc A. Donis</a>, who was just trying to avoid bordom. It is the reincarnation of an old idea, originally named Discochess back around 2007.<br/>I make no money from this project, and I don't care about your personal data. I do it for the love.",
 	"faq_q2": "What's the big idea?",
-	"faq_a2": "Just make the best move you can! Each time you make a move, you will be presented with a new game.",
+	"faq_a2": "Distrochess is distributed chess. This means that you are not playign against a single opponent, but a team of other players. Likewise, the moves on your side (black or white) are made by you and your teammates. Once you've made a move, your side in that game is assigned, so you can't play both sides of the same game.<br/>Each time you make a move, you will be presented with another random game. Just make the best move you can! ",
 	"faq_q3": "How is my Elo rating computed?",
-	"faq_a3": "Your Elo rating is initially set to 1200. When a game in which you have participated is decided, your Elo will change according to the <a href=\"https://www.geeksforgeeks.org/elo-rating-algorithm/\">normal rules</a>, except that you will receive a proportion of the allocated points according to your ratio of participation in that game."
+	"faq_a3": "Your Elo rating is initially set to 1200. When a game in which you have participated is decided, your Elo will change according to the <a href=\"https://www.geeksforgeeks.org/elo-rating-algorithm/\">normal rules</a>, except that you will receive a proportion of the allocated points according to your ratio of participation in that game. The ratings of the black and white teams used for this calculation are determined as the average of all the ratings of the participants, weighted by their participation ratio.",
+	"faq_q4": "How do I resign or offer a draw?",
+	"faq_a4": "Since you are just one member of your team, resigning or offering a draw would mean taking a decision your teammates might not agree with. This is problematic, so instead, Distrochess will simply adjudicate the game in the following conditions:<ul><li>One side has only a king remaining on the board.</li><li>The other side has either a rook or a queen.</li><li>This state has lasted for at least two moves.</li></ul>Draws are determined by the usual rules of chess (position repeated three times, insufficient material, etc.).",
+	"faq_q5": "How do I know if I can capture en passant or if I'm allowed to castle?",
+	"faq_a5": "It is is easier to ask forgiveness than permission. Just try! If it works, then you were allowed.<br/><br/>If you think this information needs to be communicated, please <a href=\"distrochess@runbox.com\">tell me</a>, and I will happily implement a better solution."
 }

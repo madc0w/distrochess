@@ -14,6 +14,10 @@ Template.editProfile.helpers({
 		}
 		return null;
 	},
+
+	email : function() {
+		return Meteor.user() && Meteor.user().emails && Meteor.user().emails.length > 0 && Meteor.user().emails[0].address;
+	},
 });
 
 Template.editProfile.events({

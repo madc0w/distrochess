@@ -2,6 +2,23 @@
 	<title>Distrochess</title>
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/> 
 	<link rel="shortcut icon" href="/img/favicon.ico"/>
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
+	<script>
+		window.addEventListener("load", function() {
+			window.cookieconsent.initialise({
+				palette : {
+					popup: {
+						background: "#000"
+					},
+					button: {
+						background: "#B5651D"
+					}
+				}
+			});
+		});
+	</script>
 	
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141501550-1"></script>
