@@ -185,6 +185,9 @@ function saveGame() {
 				message.set(TAPi18n.__("wrong_side_message"));
 				getGame();
 			} else if (Meteor.user()) {
+				if (result) {
+					message.set(TAPi18n.__(result == "DRAW" ? "draw_message" : "win_message"));
+				}
 				getGame();
 			}
 		});

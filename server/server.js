@@ -20,14 +20,29 @@ Meteor.startup(() => {
 		});
 	}
 
-	//	Meteor.users.find({
-	//		username : null,
-	//		"profile.name" : null,
-	//	}).observeChanges({
-	//		added : function(id, user) {
-	//			utils.log("user added", user);
-	//		}
-	//	});
+	// check for flagged games every 10 minutes
+	Meteor.setInterval(() => {
+		const cutoffTime = new Date();
+		cutoffTime.setDate(cutoffTime.getDate() - FLAG_TIME_DAYS);
+		Games.find({
+			lastMoveTime : {
+				$lt : cutoffTime
+			}
+		}).forEach(function(game) {
+			gameResult = utils.isWhiteToMove(game) ? "WIN_BLACK" : "WIN_WHITE";
+			Games.update({
+				_id : game._id
+			}, {
+				gameResult : gameResult
+			});
+
+			GameAssignments.remove({
+				gameId : game._id
+			});
+
+			updateRatings(game, gameResult);
+		});
+	}, 10 * 60 * 1000);
 
 	// assign sequential username if none provided
 	Meteor.users.find({
@@ -264,6 +279,7 @@ Meteor.methods({
 				_id : board.game._id
 			}, {
 				$set : {
+					lastMoveTime : now,
 					history : game.history,
 					gameResult : gameResult,
 					moves : game.moves,
@@ -307,51 +323,13 @@ Meteor.methods({
 				currentUserId : null,
 				players : players,
 				position : fen,
+				lastMoveTime : now,
 			};
 			board.game._id = Games.insert(board.game);
 		}
 
 		if (gameResult) {
-			// update ratings
-			var meanBlackElo = 0;
-			var meanWhiteElo = 0;
-			var numWhite = 0;
-			var numBlack = 0;
-			Meteor.users.find({
-				_id : {
-					$in : Object.keys(board.game.players)
-				}
-			}).forEach(function(user) {
-				const numMoves = board.game.players[user._id].moves.length;
-				if (board.game.players[user._id].isWhite) {
-					meanWhiteElo += numMoves * user.rating;
-					numWhite += numMoves;
-				} else {
-					meanBlackElo += numMoves * user.rating;
-					numBlack += numMoves;
-				}
-			});
-			meanWhiteElo /= numWhite;
-			meanBlackElo /= numBlack;
-
-			const deltas = utils.computeEloDeltas(gameResult, meanWhiteElo, meanBlackElo);
-
-			Meteor.users.find({
-				_id : {
-					$in : Object.keys(board.game.players)
-				}
-			}).forEach(function(user) {
-				const ratio = board.game.players[user._id].moves.length / board.game.moves.length;
-				user.rating += ratio * (board.game.players[user._id].isWhite ? deltas.deltaWhite : deltas.deltaBlack);
-				Meteor.users.update({
-					_id : user._id
-				}, {
-					$set : {
-						rating : user.rating
-					}
-				});
-			});
-
+			updateRatings(board.game, gameResult);
 		} else {
 			// assign game to first user in the queue who is eligible to play that game
 			for (var i in userQueue) {
@@ -449,4 +427,45 @@ function getPieces(chess) {
 	}
 	pieces.sort();
 	return pieces.join("");
+}
+
+function updateRatings(game, gameResult) {
+	var meanBlackElo = 0;
+	var meanWhiteElo = 0;
+	var numWhite = 0;
+	var numBlack = 0;
+	Meteor.users.find({
+		_id : {
+			$in : Object.keys(game.players)
+		}
+	}).forEach(function(user) {
+		const numMoves = game.players[user._id].moves.length;
+		if (game.players[user._id].isWhite) {
+			meanWhiteElo += numMoves * user.rating;
+			numWhite += numMoves;
+		} else {
+			meanBlackElo += numMoves * user.rating;
+			numBlack += numMoves;
+		}
+	});
+	meanWhiteElo /= numWhite;
+	meanBlackElo /= numBlack;
+
+	const deltas = utils.computeEloDeltas(gameResult, meanWhiteElo, meanBlackElo);
+
+	Meteor.users.find({
+		_id : {
+			$in : Object.keys(game.players)
+		}
+	}).forEach(function(user) {
+		const ratio = game.players[user._id].moves.length / game.moves.length;
+		user.rating += ratio * (game.players[user._id].isWhite ? deltas.deltaWhite : deltas.deltaBlack);
+		Meteor.users.update({
+			_id : user._id
+		}, {
+			$set : {
+				rating : user.rating
+			}
+		});
+	});
 }
