@@ -1,3 +1,13 @@
 <template name="faq">
 	<h1>{{_ "faq"}}</h1>
+	<div id="faqs">
+		<ul>
+			{{#each entries}}
+				<li>
+					<div class="faq-question">{{{question}}}</div>
+					<div class="faq-answer">{{{answer}}}</div>
+				</li>
+			{{/each}}
+		</ul>
+	</div>
 </template>

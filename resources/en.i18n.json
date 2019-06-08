@@ -56,5 +56,11 @@
 	"not_implemented": "Feature coming soon...",
 	"feedback": "Feedback",
 	"faq": "FAQ",
-	"forum": "Forum"
+	"forum": "Forum",
+	"faq_q1": "Who made this, and why?",
+	"faq_a1": "Distrochess is the brain child of <a href=\"distrochess@runbox.com\">Marc A. Donis</a>, who was just trying to avoid bordom.<br/>Distrochess is actually the reincarnation of an old idea, originally named Discochess back around 2007.",
+	"faq_q2": "What's the big idea?",
+	"faq_a2": "Just make the best move you can! Each time you make a move, you will be presented with a new game.",
+	"faq_q3": "How is my Elo rating computed?",
+	"faq_a3": "Your Elo rating is initially set to 1200. When a game in which you have participated is decided, your Elo will change according to the <a href=\"https://www.geeksforgeeks.org/elo-rating-algorithm/\">normal rules</a>, except that you will receive a proportion of the allocated points according to your ratio of participation in that game."
 }
