@@ -92,7 +92,7 @@
 				{{_ "need_to_sign_in"}}
 			</div>
 			<div id="need-to-sign-in-button" class="button">{{_ "sign_in"}}</div>
-			<div id="need-to-sign-in-cancel-button" class="button">{{_ "cancel"}}</div>
+			{{> cancelButton id="need-to-sign-in-cancel-button" callback=needToSignInCancel}}
 		</div>
 	{{/if}}
 	

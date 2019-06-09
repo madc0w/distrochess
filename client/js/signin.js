@@ -15,6 +15,14 @@ Template.signin.helpers({
 	},
 
 	username : utils.getUsername,
+
+	cancelCallback : function() {
+		return function() {
+			isUsernameDialog.set(false);
+			isSigninDialog.set(false);
+			isSignup.set(false);
+		};
+	},
 });
 
 Template.signin.events({
@@ -142,12 +150,6 @@ Template.signin.events({
 		} else {
 			isSignup.set(true);
 		}
-	},
-
-	"click #cancel-button" : function(e) {
-		isUsernameDialog.set(false);
-		isSigninDialog.set(false);
-		isSignup.set(false);
 	},
 
 	"click #signout-button" : function(e) {

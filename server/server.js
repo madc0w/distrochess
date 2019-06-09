@@ -20,11 +20,13 @@ Meteor.startup(() => {
 		});
 	}
 
-	// check for flagged games every 10 minutes
+	// check for games to be flagged every 10 minutes
 	Meteor.setInterval(() => {
+		const now = new Date();
 		const cutoffTime = new Date();
 		cutoffTime.setDate(cutoffTime.getDate() - FLAG_TIME_DAYS);
 		Games.find({
+			gameResult : null,
 			lastMoveTime : {
 				$lt : cutoffTime
 			}
@@ -33,7 +35,8 @@ Meteor.startup(() => {
 			Games.update({
 				_id : game._id
 			}, {
-				gameResult : gameResult
+				gameResult : gameResult,
+				flagTime : now,
 			});
 
 			GameAssignments.remove({

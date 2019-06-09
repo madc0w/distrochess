@@ -71,18 +71,20 @@ Template.chessBoard.helpers({
 		}
 		return players;
 	},
+
+	needToSignInCancel : function() {
+		return function() {
+			undoLastMove();
+			isNeedToSignIn.set(false);
+			isOverlay.set(false);
+		};
+	},
 });
 
 
 Template.chessBoard.events({
 	"click #pass-button" : function(e) {
 		getGame();
-	},
-
-	"click #need-to-sign-in-cancel-button" : function(e) {
-		undoLastMove();
-		isNeedToSignIn.set(false);
-		isOverlay.set(false);
 	},
 
 	"click #need-to-sign-in-button" : function(e) {

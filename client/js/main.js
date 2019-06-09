@@ -20,6 +20,12 @@ Template.main.helpers({
 	isSpinner : function() {
 		return isSpinner.get();
 	},
+
+	languageCancel : function() {
+		return function() {
+			isLanguageDialog.set(false);
+		};
+	},
 });
 
 Template.main.events({
@@ -33,10 +39,6 @@ Template.main.events({
 		const language = $(e.target).attr("language");
 		TAPi18n.setLanguage(language);
 		localStorage.setItem("language", language);
-		isLanguageDialog.set(false);
-	},
-
-	"click #cancel-language" : function(e) {
 		isLanguageDialog.set(false);
 	},
 

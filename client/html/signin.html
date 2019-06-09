@@ -9,7 +9,7 @@
 		<div id="username-dialog" class="dialog">
 			<div id="edit-profile-button" class="button">{{_ "edit_profile"}}</div>
 			<div id="signout-button" class="button">{{_ "sign_out"}}</div>
-			<div id="cancel-button" class="button">{{_ "cancel"}}</div>
+			{{> cancelButton id="cancel-profile-button" callback=cancelCallback}}
 		</div>
 	{{/if}}
 
@@ -69,7 +69,7 @@
 			{{#unless isSignup}}
 				<div id="forgot-password-button" class="button">{{_ "forgot_password"}}</div>
 			{{/unless}}
-			<div id="cancel-button" class="button">{{_ "cancel"}}</div>
+			{{> cancelButton id="cancel-signin-button" callback=cancelCallback}}
 		</div>
 	{{/if}}
 </template>
