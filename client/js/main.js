@@ -1,6 +1,17 @@
 const isLanguageDialog = new ReactiveVar(false);
 
 Template.main.helpers({
+	languages : function() {
+		const languages = [];
+		for (var code in utils.getLanguages()) {
+			languages.push({
+				code : code,
+				name : utils.getLanguages()[code]
+			});
+		}
+		return languages;
+	},
+
 	isLanguageDialog : function() {
 		return isLanguageDialog.get();
 	},

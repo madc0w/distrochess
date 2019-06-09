@@ -4,7 +4,7 @@ Template.editProfile.helpers({
 	},
 
 	dateFormat : function(date) {
-		return moment(date).format("MMM D, YYYY HH:mm");
+		return utils.moment(date).format("D MMM, YYYY HH:mm");
 	},
 
 	authService : function() {

@@ -45,10 +45,9 @@
 			<div id="language-dialog-header">
 				{{_ "select_language"}} 
 			</div>
-			<div class="button language-button" language="en">English</div>
-			<div class="button language-button" language="fr">Français</div>
-			<div class="button language-button" language="de">Deutsch</div>
-			<div class="button language-button" language="ru">русский</div>
+			{{#each languages}}
+				<div class="button language-button" language="{{code}}">{{name}}</div>
+			{{/each}}
 			{{> cancelButton id="cancel-language" callback=languageCancel}}
 		</div>
 		<div id="overlay"></div>

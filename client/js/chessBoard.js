@@ -12,6 +12,10 @@ const isNeedToSignIn = new ReactiveVar(false);
 const clockTime = new ReactiveVar(MOVE_TIMEOUT / 1000);
 
 Template.chessBoard.helpers({
+	lowTimeClass : function() {
+		return clockTime.get() <= 10 ? "low-time" : null;
+	},
+
 	formatInt : function(i) {
 		return i ? parseInt(i) : "-";
 	},
@@ -53,7 +57,7 @@ Template.chessBoard.helpers({
 	},
 
 	formatDateTime : function(date) {
-		return moment(date).fromNow();
+		return utils.moment(date).fromNow();
 	},
 
 	players : function(isWhite) {
@@ -228,7 +232,7 @@ function getGame() {
 				Meteor.clearInterval(clockIntervalId);
 				clockIntervalId = Meteor.setInterval(() => {
 					clockTime.set(clockTime.get() - 1);
-					if (clockTime.get() == 0) {
+					if (clockTime.get() <= 0) {
 						Meteor.clearInterval(clockIntervalId);
 						getGame();
 					}

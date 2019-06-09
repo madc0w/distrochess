@@ -1,5 +1,3 @@
-moment = require("moment");
-
 message = new ReactiveVar(null);
 templateName = new ReactiveVar();
 isSpinner = new ReactiveVar(false);

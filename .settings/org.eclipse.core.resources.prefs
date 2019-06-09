@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//client/html/landingPage/landingPage.html=UTF-8
 encoding//client/html/main.html=UTF-8
 encoding//client/html/templates/modals.html=UTF-8
+encoding//lib/utils.js=UTF-8
 encoding//private/emails/passwordResetEmail_de.html=UTF-8
 encoding//private/emails/passwordResetEmail_fr.html=UTF-8
 encoding//private/emails/passwordResetEmail_fr.txt=UTF-8

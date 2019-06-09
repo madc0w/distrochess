@@ -221,7 +221,9 @@ body {
 }
 
 #username-dialog {
-	left: calc(100% - 360px);
+	top: 110px;
+	left: calc(100% - 420px);
+	width: 300px;
 }
 
 #signin-dialog {
@@ -242,12 +244,6 @@ body {
 
 #signin-dialog .button {
 	margin-left: calc(50% - 80px);
-}
-
-#username-dialog {
-	top: 140px;
-	left: calc(100% - 360px);
-	width: 300px;
 }
 
 #username-dialog .button {
@@ -384,7 +380,7 @@ iframe {
 
 #profile-actions div {
 	display: block;
-	line-height: 32px;
+/* 	line-height: 32px; */
 }
 
 #profile-actions .button {
@@ -439,3 +435,12 @@ iframe {
 #profile-data th {
 	vertical-align: top;
 }
+
+.low-time {
+	color: red;
+}
+
+#gdpr-buttons {
+	margin-top: 32px;
+}
+

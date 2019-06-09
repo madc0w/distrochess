@@ -11,7 +11,7 @@
 		<div id="chess-board" class="chess-board {{#if isWaiting}}hidden{{/if}}"></div>
 		{{#unless isWaiting}}
 			{{#if isClock}}
-				<div id="clock">
+				<div id="clock" class="{{lowTimeClass}}">
 					{{formatTime clockTime}}
 				</div>
 			{{/if}}
