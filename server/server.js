@@ -20,6 +20,15 @@ Meteor.startup(() => {
 		});
 	}
 
+	// on server restart, make all games available
+	Games.update({}, {
+		$set : {
+			currentUserId : null,
+		}
+	}, {
+		multi : true
+	});
+
 	// check for games to be flagged every 10 minutes
 	Meteor.setInterval(() => {
 		const now = new Date();
@@ -155,6 +164,7 @@ Meteor.methods({
 			}
 		});
 		moveTimeoutTimersIds[game._id] = Meteor.setTimeout(() => {
+			console.log("move timer timed out for game " + game.id, game._id);
 			Games.update({
 				_id : game._id
 			}, {
@@ -243,10 +253,17 @@ Meteor.methods({
 				}
 			} else {
 				var repeatCount = 0;
-				for (var i in game.history) {
-					for (var j = i + 1; j < game.history.length; j++) {
-						if (game.history.position[i] == game.history.position[j]) {
-							repeatCount++;
+				if (game.history.length > 2) {
+					for (var i in game.history) {
+						i = parseInt(i);
+						for (var j = i + 1; j < game.history.length; j++) {
+							j = parseInt(j);
+							//							console.log("i", i);
+							//							console.log("j", j);
+							//							console.log("game.history.length", game.history.length);
+							if (game.history[i].position == game.history[j].position) {
+								repeatCount++;
+							}
 						}
 					}
 				}
@@ -326,6 +343,7 @@ Meteor.methods({
 				currentUserId : null,
 				players : players,
 				position : fen,
+				creationDate : now,
 				lastMoveTime : now,
 			};
 			board.game._id = Games.insert(board.game);
@@ -337,7 +355,7 @@ Meteor.methods({
 			// assign game to first user in the queue who is eligible to play that game
 			for (var i in userQueue) {
 				const queueUserId = userQueue[i];
-				console.log("board.game.players[" + queueUserId + "]", board.game.players[queueUserId]);
+				//				console.log("board.game.players[" + queueUserId + "]", board.game.players[queueUserId]);
 				//			console.log("board.game.isWhiteToMove", board.game.isWhiteToMove);
 				if (!board.game.players[queueUserId] || board.game.players[queueUserId].isWhite == utils.isWhiteToMove(board.game)) {
 					userQueue.splice(i, 1);

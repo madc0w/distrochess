@@ -431,3 +431,11 @@ iframe {
 	position: relative;
 	top: -4px;
 }
+
+#profile-data input {
+	vertical-align: top;
+}
+
+#profile-data th {
+	vertical-align: top;
+}

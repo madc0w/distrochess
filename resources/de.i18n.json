@@ -63,6 +63,7 @@
 	"language": "Sprache",
 	"select_language": "Wählen Sie Ihre Sprache",
 	"its_your_move": "Es ist dein Zug...",
+	"email_in_use": "Diese E-Mail-Adresse wird bereits verwendet. <br/> Bitte wählen Sie eine andere aus oder klicken Sie auf \"Passwort vergessen\".",
 	"faq_q1": "Was ist die große Idee?",
 	"faq_a1": "Distrochess ist verteiltes Schach. Dies bedeutet, dass Sie kein einziges Spiel gegen eine einzelne Person spielen. Sie spielen viele Spiele gegen viele andere Benutzer. Es ist ein bisschen wie ein simultanes Match, aber statt vieler Leute Gegen einen einzelnen Gegner gibt es mehrere Spieler auf jeder Seite des Tisches. <br/> Nachdem Sie einen Zug ausgeführt haben, wird das Spiel wieder in die Warteschlange gestellt, sodass ein anderer Benutzer die Möglichkeit hat, zu antworten. In der Zwischenzeit sind Sie es Um zu vermeiden, dass Spieler gegen sich selbst spielen, spielt jeder Spieler immer die gleiche Seite eines bestimmten Spiels. ",
 	"faq_q2": "Wie wird meine Elo-Bewertung berechnet?",
@@ -73,6 +74,6 @@
 	"faq_a4": "Da Sie nur ein Mitglied Ihres Teams sind, würde ein Rücktritt oder ein Unentschieden bedeuten, dass Sie eine Entscheidung treffen, mit der Ihre Teamkollegen möglicherweise nicht einverstanden sind. Dies ist problematisch. Stattdessen entscheidet Distrochess einfach über das Spiel unter den folgenden Bedingungen: <ul> <li> Eine Seite hat nur noch einen König auf dem Brett. </ li> <li> Die andere Seite hat entweder einen Turm oder eine Königin. </ li> <li> Dieser Zustand hat mindestens zwei Jahre gedauert Züge. </ li> </ ul> Die Ziehungen richten sich nach den üblichen Schachregeln (dreimal wiederholte Stellung, unzureichendes Material usw.). ",
 	"faq_q5": "Woher weiß ich, ob ich en passant fangen kann oder ob ich ein Schloss bauen darf?",
 	"faq_a5": "Es ist einfacher, um Verzeihung zu bitten als um Erlaubnis. Versuchen Sie es einfach! Wenn es funktioniert, dann durften Sie. <br/> Wenn Sie der Meinung sind, dass diese Informationen übermittelt werden müssen, <a href=\"mailto:distrochess@runbox.com\">sag es mir</a>, und ich werde gerne eine bessere Lösung implementieren.",
-	"faq_q6":"Wer hat das gemacht und warum?",
+	"faq_q6": "Wer hat das gemacht und warum?",
 	"faq_a6": "Distrochess ist das Gehirnkind von <a href=\"mailto:distrochess@runbox.com\"> Marc A. Donis </a>, der nur Langeweile vermeiden wollte. Es ist die Wiedergeburt einer alten Idee Ich verdiene mit diesem Projekt kein Geld und kümmere mich nicht um deine persönlichen Daten. Ich mache es für die Liebe. "
 }
