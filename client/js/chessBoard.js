@@ -154,6 +154,11 @@ Template.promotionPiece.events({
 		const position = _board.position();
 		position[_board.lastMove.to] = playingColor() + this.piece;
 		_board.position(position);
+		board.set(_board);
+		game.put({
+			type : this.piece.toLowerCase(),
+			color : playingColor()
+		}, _board.lastMove.to);
 		isPromotion.set(false);
 		isOverlay.set(false);
 
