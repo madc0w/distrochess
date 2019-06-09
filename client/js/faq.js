@@ -2,7 +2,8 @@ Template.faq.helpers({
 	entries : function() {
 		const entries = [];
 		const values = {
-			flagTime : FLAG_TIME_DAYS
+			flagTime : FLAG_TIME_DAYS,
+			initialRating : INITIAL_RATING,
 		};
 
 		var i = 0;

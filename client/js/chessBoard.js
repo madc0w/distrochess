@@ -12,6 +12,10 @@ const isNeedToSignIn = new ReactiveVar(false);
 const clockTime = new ReactiveVar(MOVE_TIMEOUT / 1000);
 
 Template.chessBoard.helpers({
+	formatInt : function(i) {
+		return i ? parseInt(i) : "-";
+	},
+
 	isNeedToSignIn : function() {
 		return isNeedToSignIn.get();
 	},

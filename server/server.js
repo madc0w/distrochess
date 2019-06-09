@@ -24,6 +24,7 @@ Meteor.startup(() => {
 	Games.update({}, {
 		$set : {
 			currentUserId : null,
+			assignmentTime : new Date(),
 		}
 	}, {
 		multi : true
@@ -104,6 +105,7 @@ Meteor.startup(() => {
 
 Meteor.methods({
 	getGame : function() {
+		const now = new Date();
 		var games;
 		if (Meteor.userId()) {
 			games = [];
@@ -160,7 +162,8 @@ Meteor.methods({
 			_id : game._id
 		}, {
 			$set : {
-				currentUserId : Meteor.userId() || "NONE"
+				currentUserId : Meteor.userId() || "NONE",
+				assignmentTime : now,
 			}
 		});
 		moveTimeoutTimersIds[game._id] = Meteor.setTimeout(() => {
@@ -169,7 +172,8 @@ Meteor.methods({
 				_id : game._id
 			}, {
 				$set : {
-					currentUserId : null
+					currentUserId : null,
+					assignmentTime : now,
 				}
 			});
 		}, MOVE_TIMEOUT);
@@ -200,17 +204,6 @@ Meteor.methods({
 		}
 
 		const now = new Date();
-		if (!Meteor.user().rating) {
-			Meteor.user().rating = INITIAL_RATING;
-			Meteor.users.update({
-				_id : Meteor.userId()
-			}, {
-				$set : {
-					rating : INITIAL_RATING
-				}
-			});
-		}
-
 		const players = (board.game && board.game.players) || {};
 		if (players[Meteor.userId()] && players[Meteor.userId()].isWhite != utils.isWhiteToMove(board.game)) {
 			return "WRONG_SIDE";
@@ -304,6 +297,7 @@ Meteor.methods({
 					gameResult : gameResult,
 					moves : game.moves,
 					currentUserId : null,
+					assignmentTime : now,
 					players : players,
 					position : fen,
 				}
@@ -341,6 +335,7 @@ Meteor.methods({
 				moves : [ board.lastMove ],
 				gameResult : null,
 				currentUserId : null,
+				assignmentTime : now,
 				players : players,
 				position : fen,
 				creationDate : now,
@@ -461,11 +456,12 @@ function updateRatings(game, gameResult) {
 		}
 	}).forEach(function(user) {
 		const numMoves = game.players[user._id].moves.length;
+		const inc = numMoves * (user.rating || INITIAL_RATING);
 		if (game.players[user._id].isWhite) {
-			meanWhiteElo += numMoves * user.rating;
+			meanWhiteElo += inc;
 			numWhite += numMoves;
 		} else {
-			meanBlackElo += numMoves * user.rating;
+			meanBlackElo += inc;
 			numBlack += numMoves;
 		}
 	});
@@ -480,7 +476,7 @@ function updateRatings(game, gameResult) {
 		}
 	}).forEach(function(user) {
 		const ratio = game.players[user._id].moves.length / game.moves.length;
-		user.rating += ratio * (game.players[user._id].isWhite ? deltas.deltaWhite : deltas.deltaBlack);
+		user.rating = (user.rating || INITIAL_RATING) + ratio * (game.players[user._id].isWhite ? deltas.deltaWhite : deltas.deltaBlack);
 		Meteor.users.update({
 			_id : user._id
 		}, {

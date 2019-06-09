@@ -1,4 +1,8 @@
 Template.editProfile.helpers({
+	formatInt : function(i) {
+		return i ? parseInt(i) : "-";
+	},
+
 	dateFormat : function(date) {
 		return moment(date).format("MMM D, YYYY HH:mm");
 	},
