@@ -258,7 +258,7 @@ Meteor.methods({
 							//							console.log("i", i);
 							//							console.log("j", j);
 							//							console.log("game.history.length", game.history.length);
-							if (game.history[i].position == game.history[j].position) {
+							if (game.history[i].position && game.history[i].position == game.history[j].position) {
 								repeatCount++;
 							}
 						}

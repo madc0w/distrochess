@@ -136,7 +136,7 @@ Meteor.methods({
 						};
 					}
 
-					gamePlayers[player._id].lastMoveTime = moveTime;
+					gamePlayers[player._id].lastMoveTime = new Date(moveTime);
 					gamePlayers[player._id].moves.push({});
 					moveTime.setHours(moveTime.getHours() + (dTime * 24 / numMoves));
 				}
