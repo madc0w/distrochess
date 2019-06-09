@@ -51,6 +51,8 @@ Meteor.startup(() => {
 
 			GameAssignments.remove({
 				gameId : game._id
+			}, {
+				multi : true
 			});
 
 			updateRatings(game, gameResult);
@@ -137,6 +139,8 @@ Meteor.methods({
 
 			GameAssignments.remove({
 				userId : Meteor.userId()
+			}, {
+				multi : true
 			});
 
 		} else {

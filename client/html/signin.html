@@ -36,7 +36,7 @@
 						{{/if}}
 					</th>
 					<td>
-						<input id="username-input"/>
+						<input id="username-input" maxlength="16"/>
 					</td>
 				</tr>
 				{{#if isSignup}}
@@ -50,14 +50,14 @@
 				<tr>
 					<th>{{_ "password"}}</th>
 					<td>
-						<input type="password" id="password1-input"/>
+						<input type="password" id="password1-input" maxlength="100"/>
 					</td>
 				</tr>
 				{{#if isSignup}}
 					<tr>
 						<th>{{_ "repeat_password"}}</th>
 						<td>
-							<input type="password" id="password2-input"/>
+							<input type="password" id="password2-input" maxlength="100"/>
 						</td>
 					</tr>
 				{{/if}}
