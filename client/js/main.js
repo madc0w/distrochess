@@ -43,10 +43,8 @@ Template.main.helpers({
 });
 
 Template.main.events({
-	"click" : function(e) {
-		if (!$(e.target).hasClass("button")) {
-			message.set(null);
-		}
+	"click #message-ok-button" : function(e) {
+		message.set(null);
 	},
 
 	"click .language-button" : function(e) {

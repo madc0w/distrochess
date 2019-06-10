@@ -65,7 +65,7 @@ Meteor.methods({
 			const whitePlayers = [];
 			const blackPlayers = [];
 			for (var name of playerNames) {
-				console.log("name", name);
+				//				console.log("name", name);
 				var user = Meteor.users.findOne({
 					username : name
 				});
@@ -84,7 +84,7 @@ Meteor.methods({
 						]
 					};
 					user._id = Meteor.users.insert(user);
-					console.log("created seed user", user);
+				//					console.log("created seed user", user);
 				}
 				if (user.isWhite) {
 					whitePlayers.push(user);
@@ -124,7 +124,7 @@ Meteor.methods({
 
 					const isWhite = i % 2 == 0;
 					const players = isWhite ? whitePlayers : blackPlayers;
-					console.log("players", players);
+					//					console.log("players", players);
 					const player = players[Math.floor(players.length * Math.random())];
 					if (!gamePlayers[player._id]) {
 						gamePlayers[player._id] = {

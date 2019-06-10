@@ -287,6 +287,7 @@ Meteor.methods({
 
 			game.moves.push(board.lastMove);
 			board.game = game;
+			board.game.players = players;
 
 			Games.update({
 				_id : board.game._id
@@ -453,6 +454,7 @@ function getPieces(chess) {
 }
 
 function updateRatings(game, gameResult) {
+	//	console.log("game.players", game.players);
 	var meanBlackElo = 0;
 	var meanWhiteElo = 0;
 	var numWhite = 0;
@@ -475,7 +477,11 @@ function updateRatings(game, gameResult) {
 	meanWhiteElo /= numWhite;
 	meanBlackElo /= numBlack;
 
+	//	console.log("meanWhiteElo", meanWhiteElo);
+	//	console.log("meanBlackElo", meanBlackElo);
+	//	console.log("gameResult", gameResult);
 	const deltas = utils.computeEloDeltas(gameResult, meanWhiteElo, meanBlackElo);
+	//	console.log("deltas ", deltas);
 	var userDelta = 0;
 
 	Meteor.users.find({
@@ -483,8 +489,11 @@ function updateRatings(game, gameResult) {
 			$in : Object.keys(game.players)
 		}
 	}).forEach(function(user) {
-		const ratio = game.players[user._id].moves.length / game.moves.length;
+		const ratio = RATING_DELTA_FACTOR * game.players[user._id].moves.length / game.moves.length;
 		const delta = ratio * (game.players[user._id].isWhite ? deltas.deltaWhite : deltas.deltaBlack);
+		//		console.log("user " + utils.getUsername(user) + " white?", game.players[user._id].isWhite);
+		//		console.log("ratio for user " + utils.getUsername(user), ratio);
+		//		console.log("delta for user " + utils.getUsername(user), delta);
 		if (user._id == Meteor.userId()) {
 			userDelta = delta;
 		}

@@ -10,6 +10,12 @@ Meteor.startup(function() {
 		location = "http://www.distrochess.com";
 	}
 
+	document.addEventListener("keyup", function(e) {
+		if (e.key == "Escape") {
+			message.set(null);
+		}
+	});
+
 	TAPi18n.setLanguage(localStorage.getItem("language") || navigator.language);
 
 	Meteor.subscribe("userData");

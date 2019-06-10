@@ -213,9 +213,9 @@ function saveGame() {
 				getGame();
 			} else if (Meteor.user()) {
 				if (result) {
-					message.set(TAPi18n.__(result.gameResult == "DRAW" ? "draw_message" : "win_message"), {
-						ratingDelta : result.ratingDelta
-					});
+					message.set(TAPi18n.__(result.gameResult == "DRAW" ? "draw_message" : "win_message", {
+						ratingDelta : result.ratingDelta.toFixed(1)
+					}));
 				}
 				getGame();
 			}
