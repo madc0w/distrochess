@@ -526,3 +526,18 @@ function updateRatings(game, gameResult) {
 	});
 	return userDelta;
 }
+
+
+Meteor.method("oembed.json", () => {
+	const result = {
+		title : "Distrochess",
+		provider_url : "https://www.distrochess.com",
+		type : "photo",
+		version : "1.0",
+		width : 400,
+		height : 300,
+		url : "https://www.distrochess.com/img/logo.jpg",
+	};
+	//	console.log("result:\n" + result);
+	return result;
+});
