@@ -343,18 +343,18 @@ body {
 	padding-right: 8px;
 	text-decoration: underline;
 	color: white;
+	border-color: transparent;
 	border-radius: 20px;
+	border-style: solid;
+	border-width: 2px;
 }
 
-.header-menu-item.selected {
+.header-menu-item.selected,.header-menu-item:hover {
 	background-color: antiquewhite;
 	color: black;
-}
-
-.header-menu-item:hover {
-	color: black;
+	border-color: black;
+	border-width: 2px;
 	cursor: pointer;
-	background-color: antiquewhite;
 }
 
 iframe {
