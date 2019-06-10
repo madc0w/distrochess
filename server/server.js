@@ -344,8 +344,9 @@ Meteor.methods({
 			board.game._id = Games.insert(board.game);
 		}
 
+		var ratingDelta = null;
 		if (gameResult) {
-			updateRatings(board.game, gameResult);
+			ratingDelta = updateRatings(board.game, gameResult);
 		} else {
 			// assign game to first user in the queue who is eligible to play that game
 			for (var i in userQueue) {
@@ -385,7 +386,13 @@ Meteor.methods({
 			}
 		});
 
-		return gameResult;
+		if (gameResult) {
+			return {
+				ratingDelta : ratingDelta,
+				gameResult : gameResult
+			};
+		}
+		return null;
 	},
 
 	checkUsername : function(username) {
@@ -469,6 +476,7 @@ function updateRatings(game, gameResult) {
 	meanBlackElo /= numBlack;
 
 	const deltas = utils.computeEloDeltas(gameResult, meanWhiteElo, meanBlackElo);
+	var userDelta = 0;
 
 	Meteor.users.find({
 		_id : {
@@ -476,7 +484,11 @@ function updateRatings(game, gameResult) {
 		}
 	}).forEach(function(user) {
 		const ratio = game.players[user._id].moves.length / game.moves.length;
-		user.rating = (user.rating || INITIAL_RATING) + ratio * (game.players[user._id].isWhite ? deltas.deltaWhite : deltas.deltaBlack);
+		const delta = ratio * (game.players[user._id].isWhite ? deltas.deltaWhite : deltas.deltaBlack);
+		if (user._id == Meteor.userId()) {
+			userDelta = delta;
+		}
+		user.rating = (user.rating || INITIAL_RATING) + delta;
 		Meteor.users.update({
 			_id : user._id
 		}, {
@@ -485,4 +497,5 @@ function updateRatings(game, gameResult) {
 			}
 		});
 	});
+	return userDelta;
 }

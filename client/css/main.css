@@ -162,6 +162,10 @@ body {
 	margin: 12px;
 }
 
+#message-text br {
+	line-height: 36px;
+}
+
 #message-ok-button {
 	margin-left: 140px;
 }
