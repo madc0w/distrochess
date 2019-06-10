@@ -54,23 +54,30 @@ Template.main.events({
 		isLanguageDialog.set(false);
 	},
 
-	"click #language-link" : function(e) {
-		isLanguageDialog.set(true);
-	},
-
-	"click #faq-link" : function(e) {
-		Router.go("/faq");
-	},
-
-	"click #forum-link" : function(e) {
-		Router.go("/forum");
-	},
-
 	"click #header-logo" : function(e) {
 		Router.go("/");
 	},
 
 	"click #message-ok-button" : function(e) {
 		message.set(null);
+	},
+});
+
+Template.headerLink.helpers({
+	selectedClass : function() {
+		return this.key == templateName.get() || (this.key == "play" && templateName.get() == "chessBoard") ? "selected" : null;
+	},
+});
+
+
+Template.headerLink.events({
+	"click .header-menu-item" : function(e) {
+		if (this.key == "language") {
+			isLanguageDialog.set(true);
+		} else if (this.key == "play") {
+			Router.go("/");
+		} else {
+			Router.go("/" + this.key);
+		}
 	},
 });

@@ -64,6 +64,8 @@
 	"email_in_use": "This email address is already in use.<br/>Please choose a differnt one, or use the \"Forgot passowrd\" button.",
 	"check": "CHECK!",
 	"you_are_playing": "You are playing",
+	"history": "History",
+	"play": "Play!",
 	"faq_q1": "What's the big idea?",
 	"faq_a1": "Distrochess is distributed chess. This means that you don't play a single game against a single person &mdash; you play many games against many other users. It's a bit like a simultaneous match, but instead of many people playing against a single opponent, there are several players on each side of the table.<br/> After you make a move, that game is placed back on the queue so that another user can have an opportunity to respond. Meanwhile, you will be given a random game off the queue. In order to avoid players playing against themselves, each player always plays the same side of a given game.",
 	"faq_q2": "How is my Elo rating computed?",
@@ -74,6 +76,8 @@
 	"faq_a4": "Since you are just one member of your team, resigning or offering a draw would mean taking a decision your teammates might not agree with. This is problematic, so instead, Distrochess will simply adjudicate the game in the following conditions:<ul><li>One side has only a king remaining on the board.</li><li>The other side has either a rook or a queen.</li><li>This state has lasted for at least two moves.</li></ul>Draws are determined by the usual rules of chess (position repeated three times, insufficient material, etc.).",
 	"faq_q5": "How do I know if I can capture en passant or if I'm allowed to castle?",
 	"faq_a5": "It is is easier to ask forgiveness than permission. Just try! If it works, then you were allowed.<br/>If you think this information needs to be communicated, please <a href=\"mailto:distrochess@runbox.com\">tell me</a>, and I will happily implement a better solution.",
-	"faq_q6": "Who made this, and why?",
-	"faq_a6": "Distrochess is the brain child of <a href=\"mailto:distrochess@runbox.com\">Marc A. Donis</a>, who was just trying to avoid boredom. It is the reincarnation of an old idea, originally named Discochess back around 2007.<br/>I make no money from this project, and I don't care about your personal data. I do it for the love."
+	"faq_q6": "I have a feature request/bug report.  What should I do with it?",
+	"faq_a6": "Yes, I am very interested in your whatever it is.  Please send it to <a href=\"mailto:distrochess@runbox.com?subject=Distorchess feedback\">distrochess@runbox.com</a>.  I promise to respond.",
+	"faq_q7": "Who made this, and why?",
+	"faq_a7": "Distrochess is the brain child of <a href=\"mailto:distrochess@runbox.com\">Marc A. Donis</a>, who was just trying to avoid boredom. It is the reincarnation of an old idea, originally named Discochess back around 2007.<br/>I make no money from this project, and I don't care about your personal data. I do it for the love.<br/>Thanks goes to Chris Gilmore, for testing and DNS ninja skillz."
 }

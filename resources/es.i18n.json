@@ -64,6 +64,8 @@
 	"email_in_use": "Esta dirección de correo electrónico ya está en uso. <br/> Elija una diferente, o use el botón \"Olvidé mi contraseña\".",
 	"check": "¡JAQUE!",
 	"you_are_playing": "Estás jugando",
+	"history": "Histórico",
+	"play": "¡Jugar!",
 	"faq_q1": "¿Cuál es la gran idea?",
 	"faq_a1": "Distrochess es ajedrez distribuido. Esto significa que no juegas un solo juego contra una sola persona y &mdash; juegas muchos juegos contra muchos otros usuarios. Es un poco como una partida simultánea, pero en lugar de mucha gente jugando contra un solo oponente, hay varios jugadores a cada lado de la mesa. <br/> Después de hacer un movimiento, ese juego vuelve a la cola para que otro usuario pueda tener la oportunidad de responder. dado un juego aleatorio fuera de la cola. Para evitar que los jugadores jueguen contra ellos mismos, cada jugador siempre juega el mismo lado de un juego dado.",
 	"faq_q2": "¿Cómo se calcula mi calificación de Elo?",
@@ -74,7 +76,9 @@
 	"faq_a4": "Ya que solo eres un miembro de tu equipo, renunciar u ofrecer un sorteo significaría tomar una decisión con la que tus compañeros no estén de acuerdo. Esto es problemático, por lo que Distrochess simplemente adjudicará el juego en las siguientes condiciones: <ul> <li> Un lado tiene solo un rey en el tablero. </li> <li> El otro lado tiene una torre o una reina. </li> <li> Este estado ha durado al menos dos movimientos. </li> </ul> Los sorteos están determinados por las reglas habituales del ajedrez (posición repetida tres veces, material insuficiente, etc.). ",
 	"faq_q5": "¿Cómo puedo saber si puedo capturar en passant o si se me permite usar el castillo?",
 	"faq_a5": "Es más fácil pedir perdón que permiso. ¡Solo inténtelo! Si funciona, entonces se le permitió. <br/> Si cree que esta información necesita ser comunicada, por favor <a href=\"mailto:distrochess@runbox.com\">dígame</a>, y con mucho gusto implementaré una mejor solución.",
-	"faq_q6": "¿Quién hizo esto y por qué?",
-	"faq_a6": "Distrochess es el hijo del cerebro de <a href=\"mailto:distrochess@runbox.com\">Marc A. Donis</a>, quien estaba tratando de evitar el aburrimiento. Es la reencarnación de un vieja idea, originalmente llamada Discochess en 2007. <br/> No gano dinero con este proyecto, y no me importan sus datos personales. Lo hago por amor."
+	"faq_q6": "Tengo una solicitud de función / informe de error. ¿Qué debo hacer con eso?",
+	"faq_a6": "Sí, estoy muy interesado en lo que sea. Envíelo a <a href=\"mailto:distrochess@runbox.com?subject=Distorchess feedback\">distrochess@runbox.com</a>. Prometo responder.",
+	"faq_q7": "¿Quién hizo esto y por qué?",
+	"faq_a7": "Distrochess es el hijo del cerebro de <a href=\"mailto:distrochess@runbox.com\">Marc A. Donis</a>, quien estaba tratando de evitar el aburrimiento. Es la reencarnación de un vieja idea, originalmente llamada Discochess en 2007. <br/> No gano dinero con este proyecto, y no me importan sus datos personales. Lo hago por amor.<br/>Gracias a Chris Gilmore, por las habilidades de prueba y DNS ninja."
 }
 

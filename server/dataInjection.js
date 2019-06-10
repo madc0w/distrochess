@@ -1,3 +1,4 @@
+// taken from https://chess-db.com/public/explorer.jsp?interactive=true
 const fens = [
 	"rnbqkb1r/pp1p1ppp/8/2pQ4/8/5N2/PPP1PPPP/R1B1KB1R b KQkq - 0 11",
 	"r1bqkb1r/pp3ppp/2n1pn2/2pp4/3P4/1P1BPN2/P1P2PPP/RNBQ1RK1 b kq - 0 11",
@@ -19,11 +20,13 @@ const fens = [
 	"r1bqk2r/pppp1ppp/2n2n2/2bNp3/2P5/5NP1/PP1PPPBP/R1BQK2R b KQkq - 5 11",
 ];
 
+// taken from https://www.behindthename.com/random/
 const playerNames = [
 	"d00d18",
 	"MisterMe",
 	"chess_head",
 	"megamind",
+	"BigCheese",
 	"Augustin Harford",
 	"Webster Davison",
 	"Rosaleen Marsden",

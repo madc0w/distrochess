@@ -346,6 +346,11 @@ body {
 	border-radius: 20px;
 }
 
+.header-menu-item.selected {
+	background-color: antiquewhite;
+	color: black;
+}
+
 .header-menu-item:hover {
 	color: black;
 	cursor: pointer;
@@ -474,4 +479,3 @@ iframe {
 	position: relative;
 	top: -8px;
 }
-

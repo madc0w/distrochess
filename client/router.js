@@ -14,6 +14,10 @@ Router.route("/forum", function() {
 	setPage.bind(this)("forum");
 });
 
+Router.route("/history", function() {
+	setPage.bind(this)("history");
+});
+
 function setPage(name) {
 	templateName.set(name);
 	this.render("main");

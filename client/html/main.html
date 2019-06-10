@@ -56,13 +56,12 @@
 
 	<div id="header">
 		<div id="header-menu">
-			<div id="faq-link" class="header-menu-item">{{_ "faq"}}</div>
-			<div id="forum-link" class="header-menu-item">{{_ "forum"}}</div>
+			{{> headerLink key="play"}}
+			{{> headerLink key="history"}}
+			{{> headerLink key="faq"}}
+			{{> headerLink key="forum"}}
 			<a id="feedback-link" class="header-menu-item" href="mailto:distrochess@runbox.com?subject=Distrochess feedback">{{_ "feedback"}}</a>
-			<div id="language-link" class="header-menu-item">
-				{{_ "language"}}
-<!-- 				<img src="/img/language-icon.svg"/> -->
-			</div>
+			{{> headerLink key="language"}}
 		</div>
 		<div id="header-left">
 			<img id="header-logo" src="/img/logo.jpg"/>
@@ -78,4 +77,8 @@
 	<div id="content">
 		{{> UI.dynamic template=templateName}}
 	</div>
+</template>
+
+<template name="headerLink">
+	<div id="{{key}}-link" class="header-menu-item {{selectedClass key}}">{{_ key}}</div>
 </template>
