@@ -10,7 +10,7 @@ const fens = [
 	"r1bqk2r/pp1pppbp/2n3p1/1Bp1P3/6n1/2N2N2/PPPP1PPP/R1BQ1RK1 w kq - 1 12",
 	"r2q1rk1/ppp1bppp/2np1n2/8/2B1P1b1/2N1QN2/PPP2PPP/R1B2RK1 w - - 7 16",
 	"r2qk2r/1pp2ppp/p1pb1n2/8/4P3/3P1b1P/PPP2PP1/RNBQK2R w KQkq - 0 16",
-	"r1bqkb1r/1p3ppp/p1n2n2/2pp4/3P4/2NBPN2/PP3PPP/R1BQK2R/ w KQkq - 2 14",
+	"r1bqkb1r/1p3ppp/p1n2n2/2pp4/3P4/2NBPN2/PP3PPP/R1BQK2R w KQkq - 2 14",
 	"r1bq1rk1/pp2bppp/2n2n2/2p1p3/2P3P1/P3P2P/1B1P1P2/RN1QKBNR w KQ - 2 16",
 	"rnbqk2r/1pp1bppp/p3pn2/3p2B1/3PP3/2N2N2/PPP2PPP/R2QKB1R w KQkq - 4 10",
 	"rn1qkbnr/ppp2ppp/4p3/3p1b2/3P4/4PN2/PPP2PPP/RNBQKB1R w KQkq - 0 6",
