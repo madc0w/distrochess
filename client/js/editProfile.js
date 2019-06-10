@@ -1,6 +1,6 @@
 Template.editProfile.helpers({
 	formatInt : function(i) {
-		return i ? parseInt(i) : "-";
+		return i ? Math.round(i) : "-";
 	},
 
 	dateFormat : function(date) {

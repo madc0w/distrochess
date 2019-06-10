@@ -17,7 +17,7 @@ Template.chessBoard.helpers({
 	},
 
 	formatInt : function(i) {
-		return i ? parseInt(i) : "-";
+		return i ? Math.round(i) : "-";
 	},
 
 	isNeedToSignIn : function() {

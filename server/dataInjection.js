@@ -38,7 +38,8 @@ const playerNames = [
 	"Raynard Fülöp",
 	"Jason Noyer",
 	"Oswin Sergeant",
-	"Dagmar Ayers"
+	"Dagmar Ayers",
+	"Brigit O'Dell"
 ];
 
 Meteor.methods({
@@ -46,14 +47,10 @@ Meteor.methods({
 		if (pw == "blimey") {
 			Games.remove({
 				isSeed : true
-			}, {
-				multi : true
 			});
 
 			Meteor.users.remove({
 				isSeed : true
-			}, {
-				multi : true
 			});
 		} else {
 			console.warn("somebody tried to call seedData with bad password", pw);

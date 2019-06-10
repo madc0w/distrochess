@@ -38,7 +38,7 @@
 	"invalid_email": "Ingrese una dirección de correo electrónico válida",
 	"username_too_short": "El nombre de usuario debe tener al menos 3 caracteres.",
 	"password_too_short": "La contraseña debe tener al menos 6 caracteres.",
-	"password_do_not_match": "Las contraseñas no coinciden",
+	"passwords_do_not_match": "Las contraseñas no coinciden",
 	"username_in_use": "Ese nombre de usuario está en uso. Por favor, elija uno diferente.",
 	"set_username": "Establecer nombre de usuario",
 	"username_set": "Su nombre de usuario se ha actualizado.",
