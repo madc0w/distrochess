@@ -16,6 +16,21 @@
 				</div>
 			{{/if}}
 			{{#if gameId}}
+				<div id="game-info">
+					<div id="playing-side">
+						<div id="playing-side-label">
+							{{_ "you_are_playing"}} : 
+						</div>
+						{{#if isWhite}}
+							<img src="/img/chesspieces/wikipedia/wN.png"/>
+						{{else}}
+							<img src="/img/chesspieces/wikipedia/bN.png"/>
+						{{/if}}
+					</div>
+					<div id="in-check">
+						{{#if isInCheck}}{{_ "check"}}{{/if}}
+					</div>
+				</div>
 				<div id="game-controls">
 					<div id="game-id">
 						{{_ "game_id"}} : <strong>{{gameId}}</strong>

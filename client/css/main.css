@@ -444,3 +444,30 @@ iframe {
 	margin-top: 32px;
 }
 
+#playing-side {
+	display: inline-block;
+	width: 160px;
+}
+
+#playing-side-label {
+	position: relative;
+	top: -8px;
+	display: inline-block;
+	font-weight: bold;
+}
+
+#playing-side img {
+	height: 32px;
+}
+
+#in-check {
+	display: inline-block;
+	font-weight: bold;
+	font-size: 22px;
+	color: red;
+	width: 230px;
+	text-align: right;
+	position: relative;
+	top: -8px;
+}
+

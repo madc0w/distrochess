@@ -4,6 +4,7 @@ var isGettingGame = false;
 var game = null;
 
 const board = new ReactiveVar();
+const isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isPromotion = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
@@ -12,12 +13,21 @@ const isNeedToSignIn = new ReactiveVar(false);
 const clockTime = new ReactiveVar(MOVE_TIMEOUT / 1000);
 
 Template.chessBoard.helpers({
+	isWhite : function() {
+		return playingColor() == "w";
+	},
+
 	lowTimeClass : function() {
 		return clockTime.get() <= 10 ? "low-time" : null;
 	},
 
 	formatInt : function(i) {
 		return i ? Math.round(i) : "-";
+	},
+
+	isInCheck : function() {
+		return true;
+		return isInCheck.get();
 	},
 
 	isNeedToSignIn : function() {
@@ -77,6 +87,9 @@ Template.chessBoard.helpers({
 				}
 			}
 		}
+		players.sort(function(player1, player2) {
+			return player1.lastMoveTime < player2.lastMoveTime ? 1 : -1;
+		});
 		return players;
 	},
 
@@ -252,6 +265,7 @@ function getGame() {
 					board.set(_board);
 				}, 0);
 				game = new Chess(result.game.position);
+				isInCheck.set(game.in_check());
 				console.log("game = ", game.fen());
 			} else {
 				isWaiting.set(false);

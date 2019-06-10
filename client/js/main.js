@@ -9,6 +9,9 @@ Template.main.helpers({
 				name : utils.getLanguages()[code]
 			});
 		}
+		languages.sort(function(lang1, lang2) {
+			return lang1.name > lang2.name ? 1 : -1;
+		});
 		return languages;
 	},
 

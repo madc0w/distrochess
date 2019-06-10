@@ -62,6 +62,8 @@
 	"select_language": "Seleccione su idioma",
 	"its_your_move": "Es tu movimiento ...",
 	"email_in_use": "Esta dirección de correo electrónico ya está en uso. <br/> Elija una diferente, o use el botón \"Olvidé mi contraseña\".",
+	"check": "¡JAQUE!",
+	"you_are_playing": "Estás jugando",
 	"faq_q1": "¿Cuál es la gran idea?",
 	"faq_a1": "Distrochess es ajedrez distribuido. Esto significa que no juegas un solo juego contra una sola persona y &mdash; juegas muchos juegos contra muchos otros usuarios. Es un poco como una partida simultánea, pero en lugar de mucha gente jugando contra un solo oponente, hay varios jugadores a cada lado de la mesa. <br/> Después de hacer un movimiento, ese juego vuelve a la cola para que otro usuario pueda tener la oportunidad de responder. dado un juego aleatorio fuera de la cola. Para evitar que los jugadores jueguen contra ellos mismos, cada jugador siempre juega el mismo lado de un juego dado.",
 	"faq_q2": "¿Cómo se calcula mi calificación de Elo?",
