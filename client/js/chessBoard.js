@@ -26,7 +26,6 @@ Template.chessBoard.helpers({
 	},
 
 	isInCheck : function() {
-		return true;
 		return isInCheck.get();
 	},
 
