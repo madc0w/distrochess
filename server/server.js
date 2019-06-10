@@ -158,27 +158,23 @@ Meteor.methods({
 		const game = games[Math.floor(Math.random() * games.length)];
 		console.log("choose game " + game.id + " for user " + utils.getUsername() + " from ", gameIds);
 
-		if (Meteor.userId()) {
-			Games.update({
-				currentUserId : Meteor.userId()
-			}, {
-				$set : {
-					currentUserId : null,
-					assignmentTime : now,
+		Games.update({
+			$or : [
+				{
+					currentUserId : Meteor.userId()
+				},
+				{
+					_id : currentGameId
 				}
-			}, {
-				multi : true
-			});
-		} else if (currentGameId) {
-			Games.update({
-				_id : currentGameId
-			}, {
-				$set : {
-					currentUserId : null,
-					assignmentTime : now,
-				}
-			});
-		}
+			]
+		}, {
+			$set : {
+				currentUserId : null,
+				assignmentTime : now,
+			}
+		}, {
+			multi : true
+		});
 
 		Games.update({
 			_id : game._id
