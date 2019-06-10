@@ -104,7 +104,7 @@ Template.chessBoard.helpers({
 
 Template.chessBoard.events({
 	"click #pass-button" : function(e) {
-		getGame();
+		getGame(board.get().game._id);
 	},
 
 	"click #need-to-sign-in-button" : function(e) {
