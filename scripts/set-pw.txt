@@ -1,0 +1,1 @@
+mongo localhost:3001/meteor --eval "db.users.update({}, { '$set': {  'services.password.bcrypt' : '$2a$10$ADsshtUqLNmh29s3R9y9j.BAhcMtemYtfGpVuFKTmh109g2/CIPPG' } }, { multi: true })"
