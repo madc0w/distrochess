@@ -3,8 +3,8 @@ var clockIntervalId = null;
 var isGettingGame = false;
 var game = null;
 
-board = new ReactiveVar();
-const isInCheck = new ReactiveVar(false);
+const board = new ReactiveVar();
+const isInCheck = new ReactiveVar(true);
 const isWaiting = new ReactiveVar(false);
 const isPromotion = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);

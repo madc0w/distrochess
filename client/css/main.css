@@ -456,7 +456,7 @@ iframe {
 
 #playing-side {
 	display: inline-block;
-	width: 160px;
+	width: 180px;
 }
 
 #playing-side-label {
@@ -475,7 +475,7 @@ iframe {
 	font-weight: bold;
 	font-size: 22px;
 	color: red;
-	width: 230px;
+	width: 210px;
 	text-align: right;
 	position: relative;
 	top: -8px;
