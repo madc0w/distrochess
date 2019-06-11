@@ -47,7 +47,7 @@ const playerNames = [
 
 Meteor.methods({
 	clearSeedData : function(pw) {
-		if (pw == "blimey") {
+		if (pw == Meteor.settings.private.adminPw) {
 			Games.remove({
 				isSeed : true
 			});
@@ -55,14 +55,14 @@ Meteor.methods({
 			Meteor.users.remove({
 				isSeed : true
 			});
+			console.log("seed data cleared");
 		} else {
 			console.warn("somebody tried to call seedData with bad password", pw);
 		}
 	},
 
-
 	seedData : function(pw) {
-		if (pw == "blimey") {
+		if (pw == Meteor.settings.private.adminPw) {
 			const now = new Date();
 
 			const whitePlayers = [];
@@ -157,6 +157,7 @@ Meteor.methods({
 				};
 				Games.insert(game); //
 			}
+			console.log("data seeded");
 		} else {
 			console.warn("somebody tried to call seedData with bad password", pw);
 		}

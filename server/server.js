@@ -104,6 +104,17 @@ Meteor.startup(() => {
 });
 
 Meteor.methods({
+	computeGameResult : function(gameId) {
+		var game = Games.findOne({
+			_id : gameId
+		});
+		const chess = new Chess(game.fen);
+		const pieces = getPieces(chess);
+		const result = computeGameResult(game, chess, pieces);
+		console.log("game result", result);
+		return result;
+	},
+
 	getGame : function(currentGameId) {
 		const now = new Date();
 		var games;
@@ -255,46 +266,12 @@ Meteor.methods({
 			}
 
 			game.history.push({
+				fen : fen,
 				position : currentPosition,
 				pieces : pieces,
 			});
 
-			if (chess.game_over()) {
-				if (chess.in_checkmate()) {
-					gameResult = chess.turn() == "w" ? "WIN_BLACK" : "WIN_WHITE";
-				} else {
-					gameResult = "DRAW";
-				}
-			} else {
-				var repeatCount = 0;
-				if (game.history.length > 2) {
-					for (var i in game.history) {
-						i = parseInt(i);
-						for (var j = i + 1; j < game.history.length; j++) {
-							j = parseInt(j);
-							//							console.log("i", i);
-							//							console.log("j", j);
-							//							console.log("game.history.length", game.history.length);
-							if (game.history[i].position && game.history[i].position == game.history[j].position) {
-								repeatCount++;
-							}
-						}
-					}
-				}
-				if (repeatCount >= 3) {
-					gameResult = "DRAW";
-				} else if (game.history.length > 10) {
-					// if, for two moves, one side has only a king, and the other side has either queen or rook,
-					// then adjudicate win  
-					if (pieces == game.history[game.history.length - 2].pieces) {
-						if (pieces.match(/[A-Z]k$/) && pieces.match(/[QR]/)) {
-							gameResult = "WIN_WHITE";
-						} else if (pieces.match(/^K[a-z]/) && pieces.match(/[qr]/)) {
-							gameResult = "WIN_BLACK";
-						}
-					}
-				}
-			}
+			gameResult = computeGameResult(game, chess, pieces);
 
 			const playerMoves = (players[Meteor.userId()] && players[Meteor.userId()].moves) || [];
 			//			console.log("1 playerMoves", playerMoves);
@@ -528,4 +505,45 @@ function updateRatings(game, gameResult) {
 		});
 	});
 	return userDelta;
+}
+
+function computeGameResult(game, chess, pieces) {
+	var gameResult = null;
+	if (chess.game_over()) {
+		if (chess.in_checkmate()) {
+			gameResult = chess.turn() == "w" ? "WIN_BLACK" : "WIN_WHITE";
+		} else if (chess.in_draw()) {
+			gameResult = "DRAW";
+		} else {
+			console.error("game is over... but neither win nor draw???", game._id);
+		}
+	} else {
+		var maxRepeatCount = 0;
+		const positionsMap = {};
+		for (var i in game.history) {
+			i = parseInt(i);
+			const pos = game.history[i].position;
+			if (pos) {
+				if (!positionsMap[pos]) {
+					positionsMap[pos] = 0;
+				}
+				positionsMap[pos]++;
+				maxRepeatCount = Math.max(positionsMap[pos], maxRepeatCount);
+			}
+		}
+		if (maxRepeatCount >= 3) {
+			gameResult = "DRAW";
+		} else if (game.history.length > 10) {
+			// if, for two moves, one side has only a king, and the other side has either queen or rook,
+			// then adjudicate win  
+			if (pieces == game.history[game.history.length - 2].pieces) {
+				if (pieces.match(/[A-Z]k$/) && pieces.match(/[QR]/)) {
+					gameResult = "WIN_WHITE";
+				} else if (pieces.match(/^K[a-z]/) && pieces.match(/[qr]/)) {
+					gameResult = "WIN_BLACK";
+				}
+			}
+		}
+	}
+	return gameResult;
 }

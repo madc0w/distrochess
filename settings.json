@@ -2,9 +2,13 @@
 	"galaxy.meteor.com": {
 		"env": {
 			"ROOT_URL": "https://www.distrochess.com",
-			"MONGO_URL": "mongodb://distrochess:blimey@mongodb-1650-0.cloudclusters.net:10005/distrochess?authSource=admin"}
-			
+			"MONGO_URL": "mongodb://distrochess:blimey@mongodb-1650-0.cloudclusters.net:10005/distrochess?authSource=admin"
+		}
 	},
 	"public": {
+		
+	},
+	"private": {
+		"adminPw": "sdg97sdf245jbusx395j"
 	}
 }
