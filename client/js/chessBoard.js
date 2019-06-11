@@ -3,7 +3,7 @@ var clockIntervalId = null;
 var isGettingGame = false;
 var game = null;
 
-const board = new ReactiveVar();
+board = new ReactiveVar();
 const isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isPromotion = new ReactiveVar(false);
@@ -154,7 +154,42 @@ Template.chessBoard.onCreated(() => {
 });
 
 Template.chessBoard.onRendered(() => {
-	setBoard();
+	const cfg = {
+		draggable : true,
+		dropOffBoard : "snapback", // this is the default
+		onDrop : function(from, to) {
+			if (to != "offboard") {
+				const _board = board.get();
+				//				if (!game) {
+				//					game = new Chess(_board.fen() + " " + playingColor() + " - - 0 1");
+				//				}
+
+				const isWhiteToMove = _board.game && utils.isWhiteToMove(_board.game);
+				game.setWhiteToMove(isWhiteToMove);
+				const move = game.move({
+					from : from,
+					to : to,
+					promotion : "q" // always promote to queen
+				});
+
+				// illegal move
+				if (move === null) {
+					return "snapback";
+				}
+
+				_board.lastMove = move;
+				if (move.piece == "p" && ((isWhiteToMove && to.endsWith("8")) || (!isWhiteToMove && to.endsWith("1")))) {
+					isOverlay.set(true);
+					isPromotion.set(true);
+				} else {
+					_board.move(move.from + "-" + move.to);
+					saveGame();
+				}
+			}
+		}
+	};
+
+	board.set(new ChessBoard("chess-board", cfg));
 	getGame();
 });
 
@@ -237,7 +272,6 @@ function getGame() {
 				isWaiting.set(true);
 				isPlayers.set(false);
 				game = null;
-				console.log("game = null");
 			} else if (result) {
 				isWaiting.set(false);
 				isClock.set(true);
@@ -260,63 +294,24 @@ function getGame() {
 					const isWhiteToMove = utils.isWhiteToMove(_board.game);
 					if ((!isWhiteToMove && _board.orientation() == "white") ||
 						(isWhiteToMove && _board.orientation() == "black")) {
-						//					console.log("flip");
+						//						console.log("flip");
 						_board.flip();
 					}
 					board.set(_board);
 				}, 0);
 				game = new Chess(result.game.position);
 				isInCheck.set(game.in_check());
-				console.log("game = ", game.fen());
 			} else {
 				isWaiting.set(false);
 				isPlayers.set(false);
 				board.get().start();
 				game = new Chess();
-				console.log("game = ", game.fen());
 			}
+			console.log("game = ", (game ? game.fen() : null));
 			isSpinner.set(false);
 			isGettingGame = false;
 		});
 	}
-}
-
-function setBoard() {
-	const cfg = {
-		draggable : true,
-		dropOffBoard : "snapback", // this is the default
-		onDrop : function(from, to) {
-			if (to != "offboard") {
-				const _board = board.get();
-				//				if (!game) {
-				//					game = new Chess(_board.fen() + " " + playingColor() + " - - 0 1");
-				//				}
-
-				const move = game.move({
-					from : from,
-					to : to,
-					promotion : "q" // always promote to queen
-				});
-
-				// illegal move
-				if (move === null) {
-					return "snapback";
-				}
-
-				_board.lastMove = move;
-				const isWhiteToMove = _board.game && utils.isWhiteToMove(_board.game);
-				if (move.piece == "p" && ((isWhiteToMove && to.endsWith("8")) || (!isWhiteToMove && to.endsWith("1")))) {
-					isOverlay.set(true);
-					isPromotion.set(true);
-				} else {
-					_board.move(move.from + "-" + move.to);
-					saveGame();
-				}
-			}
-		}
-	};
-
-	board.set(new ChessBoard("chess-board", cfg));
 }
 
 function undoLastMove() {

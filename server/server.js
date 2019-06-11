@@ -227,14 +227,12 @@ Meteor.methods({
 			return "WRONG_SIDE";
 		}
 
-		if (players[Meteor.userId()]) {
-			players[Meteor.userId()].lastMoveTime = now;
-		} else {
+		if (!players[Meteor.userId()]) {
 			players[Meteor.userId()] = {
-				lastMoveTime : now,
 				isWhite : !board.game || utils.isWhiteToMove(board.game),
 			};
 		}
+		players[Meteor.userId()].lastMoveTime = now;
 
 		var gameResult = null;
 		const chess = new Chess(fen);
@@ -250,6 +248,11 @@ Meteor.methods({
 			const game = Games.findOne({
 				_id : board.game._id
 			});
+
+			if (game.moves.length > 0 && game.moves[game.moves.length - 1].color == board.lastMove.color) {
+				console.error("attempt to make move by same color twice in a row!", game._id);
+				return null;
+			}
 
 			game.history.push({
 				position : currentPosition,

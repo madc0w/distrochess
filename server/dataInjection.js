@@ -119,13 +119,15 @@ Meteor.methods({
 				const dTime = 20 * Math.random() + 10;
 				moveTime.setDate(moveTime.getDate() - dTime);
 				for (var i = 0; i < numMoves; i++) {
+					const isWhite = i % 2 == 0;
 					history.push({
 						position : "",
 						pieces : ""
 					});
-					moves.push({});
+					moves.push({
+						color : isWhite ? "w" : "b"
+					});
 
-					const isWhite = i % 2 == 0;
 					const players = isWhite ? whitePlayers : blackPlayers;
 					//					console.log("players", players);
 					const player = players[Math.floor(players.length * Math.random())];
