@@ -8,7 +8,7 @@ git pull
 #meteor npm install --save
 
 #meteor login
-DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy www.distrochess.com --settings settings.json
+DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy www.distrochess.com --settings ~/distrochess/settings-prod.json
 
 echo 
 echo "************************************************"
@@ -16,3 +16,4 @@ echo "*** DEPLOYMENT FINISHED IN $SECONDS SECONDS! ***"
 echo "************************************************"
 echo 
 
+date
