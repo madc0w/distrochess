@@ -129,7 +129,7 @@ Template.chessBoard.onRendered(() => {
 		onDrop : function(from, to) {
 			if (to != "offboard") {
 				const _board = board.get();
-				const isWhiteToMove = _board.game && utils.isWhiteToMove(_board.game);
+				const isWhiteToMove = !_board.game || utils.isWhiteToMove(_board.game);
 				game.setWhiteToMove(isWhiteToMove);
 				const move = game.move({
 					from : from,
@@ -269,7 +269,13 @@ function getGame() {
 		isGettingGame = true;
 		isSpinner.set(true);
 		Meteor.call("getGame", function(err, result) {
-			if (result === "WAIT") {
+			if (result === "LOCK") {
+				Meteor.setTimeout(() => {
+					isGettingGame = false;
+					getGame();
+				}, 40);
+				return;
+			} else if (result === "WAIT") {
 				isClock.set(false);
 				isWaiting.set(true);
 				isPlayers.set(false);

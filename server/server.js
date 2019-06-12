@@ -5,6 +5,8 @@ const moveTimeoutTimersIds = {};
 
 const collections = [ Games, Meteor.users, SystemData, GameAssignments, SystemLog ];
 
+var isGettingGame = false;
+
 Meteor.startup(() => {
 	// code to run on server at startup
 	for (var i in collections) {
@@ -116,6 +118,10 @@ Meteor.methods({
 	},
 
 	getGame : function(currentGameId) {
+		if (isGettingGame) {
+			return "LOCK";
+		}
+		isGettingGame = true;
 		const now = new Date();
 		var games;
 		if (Meteor.userId()) {
@@ -143,6 +149,7 @@ Meteor.methods({
 					console.log("pushed user onto queue", userQueue);
 				}
 				console.log("user " + utils.getUsername() + " must wait for available game");
+				isGettingGame = false;
 				return "WAIT";
 			}
 
@@ -158,16 +165,17 @@ Meteor.methods({
 			}).fetch();
 			if (games.length == 0) {
 				console.log("will create new game for anonymous user");
+				isGettingGame = false;
 				return null;
 			}
 		}
 
-		const gameIds = [];
-		for (var i in games) {
-			gameIds.push(games[i].id);
-		}
 		const game = games[Math.floor(Math.random() * games.length)];
-		console.log("choose game " + game.id + " for user " + utils.getUsername() + " from ", gameIds);
+		//		const gameIds = [];
+		//		for (var i in games) {
+		//			gameIds.push(games[i].id);
+		//		}
+		//		console.log("choose game " + game.id + " for user " + utils.getUsername() + " from ", gameIds);
 
 		Games.update({
 			$or : [
@@ -221,6 +229,7 @@ Meteor.methods({
 			};
 		});
 
+		isGettingGame = false;
 		return {
 			game : game,
 			playerData : playerData,
@@ -261,7 +270,7 @@ Meteor.methods({
 			});
 
 			if (game.moves.length > 0 && game.moves[game.moves.length - 1].color == board.lastMove.color) {
-				console.error("attempt to make move by same color twice in a row!", game._id);
+				console.error("attempt to make move by same color twice in a row! game._id=", game._id);
 				return null;
 			}
 
@@ -354,7 +363,7 @@ Meteor.methods({
 				//			console.log("board.game.isWhiteToMove", board.game.isWhiteToMove);
 				if (!board.game.players[queueUserId] || board.game.players[queueUserId].isWhite == utils.isWhiteToMove(board.game)) {
 					userQueue.splice(i, 1);
-					console.log("assigning game" + board.game._id + " to user " + queueUserId);
+					console.log("assigning game " + board.game._id + " to user " + queueUserId);
 					GameAssignments.update(
 						{
 							userId : queueUserId,
