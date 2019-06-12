@@ -301,6 +301,10 @@ function getGame() {
 				game = new Chess(result.game.position);
 				if (result.game.moves.length > 0) {
 					const lastMove = result.game.moves[result.game.moves.length - 1];
+					const chessBoardDiv = $(".chess-board div");
+					chessBoardDiv.removeClass("last-move-square");
+					chessBoardDiv.removeClass("from-square");
+					chessBoardDiv.removeClass("to-square");
 					$(".square-" + lastMove.from).addClass("last-move-square from-square");
 					$(".square-" + lastMove.to).addClass("last-move-square to-square");
 				}
