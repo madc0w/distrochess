@@ -20,4 +20,49 @@ Meteor.startup(function() {
 
 	Meteor.subscribe("userData");
 	Meteor.subscribe("gameAssignments");
+
+	Template.registerHelper("equals", function(a, b) {
+		return a == b;
+	});
+
+	/**
+	 * pass any number of args from a template, like this:
+	 *  {{#if or arg1 arg2 arg3}} .... {{/if}}
+	 */
+	Template.registerHelper("or", function() {
+		for (var i in arguments) {
+			if (i == arguments.length - 1) {
+				return false;
+			}
+			if (arguments[i]) {
+				return true;
+			}
+		}
+		return false;
+	});
+
+	/**
+	 * pass any number of args from a template, like this:
+	 *  {{#if and arg1 arg2 arg3}} .... {{/if}}
+	 */
+	Template.registerHelper("and", function() {
+		for (var i in arguments) {
+			if (i == arguments.length - 1) {
+				return true;
+			}
+			if (!arguments[i]) {
+				return false;
+			}
+		}
+		return true;
+	});
+
+	/**
+	 * pass a single argument from a template, like this:
+	 *  {{#if not arg}} .... {{/if}}
+	 */
+	Template.registerHelper("not", function(arg) {
+		return !arg;
+	});
+
 });

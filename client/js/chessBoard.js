@@ -21,10 +21,6 @@ Template.chessBoard.helpers({
 		return clockTime.get() <= 10 ? "low-time" : null;
 	},
 
-	formatInt : function(i) {
-		return i ? Math.round(i) : "-";
-	},
-
 	isInCheck : function() {
 		return isInCheck.get();
 	},
@@ -63,33 +59,6 @@ Template.chessBoard.helpers({
 	gameId : function() {
 		const _board = board.get();
 		return _board && _board.game && _board.game.id;
-	},
-
-	formatDateTime : function(date) {
-		return utils.moment(date).fromNow();
-	},
-
-	players : function(isWhite) {
-		const players = [];
-		const _board = board.get();
-		if (_board.game && _board.game.players) {
-			for (var playerId in _board.game.players) {
-				if (_board.game.players[playerId].isWhite == isWhite) {
-					const percent = 100 * _board.game.players[playerId].moves.length / _board.game.moves.length;
-					const movesRatio = _board.game.players[playerId].moves.length + "/" + _board.game.moves.length + " (" + percent.toFixed(1) + "%)";
-					players.push({
-						username : _board.game.playerData[playerId].username,
-						movesRatio : movesRatio,
-						lastMoveTime : _board.game.players[playerId].lastMoveTime,
-						rating : _board.game.playerData[playerId].rating,
-					});
-				}
-			}
-		}
-		players.sort(function(player1, player2) {
-			return player1.lastMoveTime < player2.lastMoveTime ? 1 : -1;
-		});
-		return players;
 	},
 
 	needToSignInCancel : function() {
@@ -219,6 +188,41 @@ Template.promotionPiece.events({
 	},
 });
 
+
+Template.players.helpers({
+	formatDateTime : function(date) {
+		return utils.moment(date).fromNow();
+	},
+
+	formatInt : function(i) {
+		return i ? Math.round(i) : "-";
+	},
+
+	players : function() {
+		const players = [];
+		const _board = board.get();
+		if (_board.game && _board.game.players) {
+			for (var playerId in _board.game.players) {
+				if (_board.game.players[playerId].isWhite == this.isWhite) {
+					const percent = 100 * _board.game.players[playerId].moves.length / _board.game.moves.length;
+					const movesRatio = _board.game.players[playerId].moves.length + "/" + _board.game.moves.length + " (" + percent.toFixed(1) + "%)";
+					players.push({
+						username : _board.game.playerData[playerId].username,
+						movesRatio : movesRatio,
+						lastMoveTime : _board.game.players[playerId].lastMoveTime,
+						rating : _board.game.playerData[playerId].rating,
+					});
+				}
+			}
+		}
+		players.sort(function(player1, player2) {
+			return player1.lastMoveTime < player2.lastMoveTime ? 1 : -1;
+		});
+		return players;
+	},
+});
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -301,12 +305,15 @@ function getGame() {
 				game = new Chess(result.game.position);
 				if (result.game.moves.length > 0) {
 					const lastMove = result.game.moves[result.game.moves.length - 1];
+					console.log("lastMove", lastMove);
 					const chessBoardDiv = $(".chess-board div");
 					chessBoardDiv.removeClass("last-move-square");
 					chessBoardDiv.removeClass("from-square");
 					chessBoardDiv.removeClass("to-square");
-					$(".square-" + lastMove.from).addClass("last-move-square from-square");
-					$(".square-" + lastMove.to).addClass("last-move-square to-square");
+					Meteor.setTimeout(() => {
+						$(".square-" + lastMove.from).addClass("last-move-square from-square");
+						$(".square-" + lastMove.to).addClass("last-move-square to-square");
+					}, 200);
 				}
 				isInCheck.set(game.in_check());
 			} else {
