@@ -160,10 +160,6 @@ Template.chessBoard.onRendered(() => {
 		onDrop : function(from, to) {
 			if (to != "offboard") {
 				const _board = board.get();
-				//				if (!game) {
-				//					game = new Chess(_board.fen() + " " + playingColor() + " - - 0 1");
-				//				}
-
 				const isWhiteToMove = _board.game && utils.isWhiteToMove(_board.game);
 				game.setWhiteToMove(isWhiteToMove);
 				const move = game.move({
@@ -178,11 +174,13 @@ Template.chessBoard.onRendered(() => {
 				}
 
 				_board.lastMove = move;
+				board.set(_board);
 				if (move.piece == "p" && ((isWhiteToMove && to.endsWith("8")) || (!isWhiteToMove && to.endsWith("1")))) {
 					isOverlay.set(true);
 					isPromotion.set(true);
 				} else {
 					_board.move(move.from + "-" + move.to);
+					board.set(_board);
 					saveGame();
 				}
 			}
@@ -288,6 +286,7 @@ function getGame() {
 				Meteor.setTimeout(() => {
 					isSigninDialog.set(false);
 					const _board = board.get();
+					_board.lastMove = null;
 					_board.game = result.game;
 					_board.game.playerData = result.playerData;
 					_board.position(result.game.position);
@@ -300,6 +299,11 @@ function getGame() {
 					board.set(_board);
 				}, 0);
 				game = new Chess(result.game.position);
+				if (result.game.moves.length > 0) {
+					const lastMove = result.game.moves[result.game.moves.length - 1];
+					$(".square-" + lastMove.from).addClass("last-move-square from-square");
+					$(".square-" + lastMove.to).addClass("last-move-square to-square");
+				}
 				isInCheck.set(game.in_check());
 			} else {
 				isWaiting.set(false);
