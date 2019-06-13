@@ -85,6 +85,7 @@
 	"no_game_history": "You have not yet played any games.",
 	"pgn_fail": "Sorry, PGN export failed.",
 	"faq_q1": "What's the big idea?",
+	"moves": "Moves",
 	"faq_a1": "Distrochess is distributed chess. This means that you don't play a single game against a single person &mdash; you play many games against many other users. It's a bit like a simultaneous match, but instead of many people playing against a single opponent, there are several players on each side of the table.<br/> After you make a move, that game is placed back on the queue so that another user can have an opportunity to respond. Meanwhile, you will be given a random game off the queue. In order to avoid players playing against themselves, each player always plays the same side of a given game.",
 	"faq_q2": "How is my Elo rating computed?",
 	"faq_a2": "Your Elo rating is initially set to __initialRating__. When a game in which you have participated is decided, your Elo will change according to the <a href=\"https://www.geeksforgeeks.org/elo-rating-algorithm/\">normal rules</a>, except that you will receive a proportion of the allocated points according to your ratio of participation in that game. The ratings of the black and white teams used for this calculation are determined as the average of all the ratings of the participants, weighted by their participation ratio.",

@@ -48,7 +48,7 @@
 					</tr>
 				</table>
 			</div>
-			<div id="export-pgn-button" class="button">{{_ "export_pgn"}}</div>
+			<a id="export-pgn-button" class="button" download="{{pgnFilename}}" href="data:text/plain;charset=utf-8,{{pgnData}}">{{_ "export_pgn"}}</a>
 		{{/if}}
 	</div>
 	{{#if games.count}}
@@ -57,6 +57,7 @@
 				<tr>
 					<th></th>
 					<th>{{_ "your_side"}}</th>
+					<th>{{_ "game_id"}}</th>
 					<th>{{_ "created"}}</th>
 					<th>{{_ "last_move"}}</th>
 					<th>{{_ "moves"}}</th>
@@ -70,6 +71,7 @@
 						<td>
 							<img class="side-color-image" src="/img/chesspieces/wikipedia/{{#if isWhite}}w{{else}}b{{/if}}N.png"/>
 						</td>
+						<td>{{id}}</td>
 						<td>{{formatDateTime creationDate}}</td>
 						<td>{{formatDateTime lastMoveTime}}</td>
 						<td>{{game.moves.length}}</td>

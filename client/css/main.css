@@ -596,6 +596,7 @@ iframe {
 
 #export-pgn-button {
 	margin-left: 132px;
+	text-decoration: none;
 }
 
 #current-move {

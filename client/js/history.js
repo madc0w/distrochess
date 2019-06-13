@@ -3,6 +3,21 @@ var moveNum = new ReactiveVar(0);
 var board = null;
 
 Template.history.helpers({
+	pgnData : function() {
+		const chess = new Chess();
+		const _game = game.get();
+		for (var i in _game.moves) {
+			chess.move(_game.moves[i]);
+		}
+		const pgn = chess.pgn();
+		console.log(pgn);
+		return encodeURIComponent(pgn);
+	},
+
+	pgnFilename : function() {
+		return "distrochess-game-" + game.get().id + ".pgn";
+	},
+
 	isWhite : function() {
 		return this.players[Meteor.userId()].isWhite;
 	},
@@ -103,28 +118,7 @@ Template.history.events({
 			chess.move(_game.moves[i]);
 		}
 		const pgn = chess.pgn();
-		if (pgn) {
-			console.log(pgn);
-
-			// stolen from https://stackoverflow.com/questions/8310657/how-to-create-a-dynamic-file-link-for-download-in-javascript
-			const blob = new Blob([ pgn + "\n" ], {
-				type : "text/plain"
-			});
-
-			const dlink = document.createElement("a");
-			dlink.download = "distrochess-game-" + _game.id + ".pgn";
-			dlink.href = window.URL.createObjectURL(blob);
-			dlink.onclick = function(e) {
-				// revokeObjectURL needs a delay to work properly
-				const that = this;
-				Meteor.setTimeout(function() {
-					window.URL.revokeObjectURL(that.href);
-				}, 1500);
-			};
-
-			dlink.click();
-			dlink.remove();
-		} else {
+		if (!pgn) {
 			message.set(TAPi18n.__("pgn_fail"));
 		}
 	},
