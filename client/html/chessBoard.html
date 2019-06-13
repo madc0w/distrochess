@@ -32,7 +32,7 @@
 					<div id="game-id">
 						{{_ "game_id"}} : <strong>{{gameId}}</strong>
 					</div>
-					<div id="pass-button" class="button">{{_ "pass"}}</div>
+					<div id="pass-or-ignore-button" class="button">{{_ "pass"}}</div>
 				</div>
 			{{/if}}
 		{{/unless}}
@@ -41,6 +41,15 @@
 		<div id="players">
 			{{> players isWhite=(not isWhite)}}
 			{{> players isWhite=isWhite}}
+		</div>
+	{{/if}}
+	
+	{{#if isPassDialog}}
+		<div id="pass-dialog" class="dialog">
+			<div>{{_ "pass_once_or_ignore_permanently"}}</div>
+			<div id="pass-button" class="button">{{_ "pass"}}</div>
+			<div id="ignore-button" class="button">{{_ "ignore"}}</div>
+			{{> cancelButton id="pass-cancel-button" callback=passCancel}}
 		</div>
 	{{/if}}
 	

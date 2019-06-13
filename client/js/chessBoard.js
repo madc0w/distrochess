@@ -10,6 +10,7 @@ const isPromotion = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
 const isPlayers = new ReactiveVar(false);
 const isNeedToSignIn = new ReactiveVar(false);
+const isPassDialog = new ReactiveVar(false);
 const clockTime = new ReactiveVar(MOVE_TIMEOUT / 1000);
 
 Template.chessBoard.helpers({
@@ -19,6 +20,10 @@ Template.chessBoard.helpers({
 
 	lowTimeClass : function() {
 		return clockTime.get() <= 10 ? "low-time" : null;
+	},
+
+	isPassDialog : function() {
+		return isPassDialog.get();
 	},
 
 	isInCheck : function() {
@@ -68,12 +73,32 @@ Template.chessBoard.helpers({
 			isOverlay.set(false);
 		};
 	},
+
+	passCancel : function() {
+		return function() {
+			isPassDialog.set(false);
+		};
+	},
 });
 
 
 Template.chessBoard.events({
+	"click #pass-or-ignore-button" : function(e) {
+		isPassDialog.set(true);
+	},
+
 	"click #pass-button" : function(e) {
-		getGame(board.get().game._id);
+		isPassDialog.set(false);
+		getGame();
+	},
+
+	"click #ignore-button" : function(e) {
+		isPassDialog.set(false);
+		isSpinner.set(true);
+		Meteor.call("ignoreGame", board.get().game._id, function(err, result) {
+			getGame();
+			isSpinner.set(false);
+		});
 	},
 
 	"click #need-to-sign-in-button" : function(e) {

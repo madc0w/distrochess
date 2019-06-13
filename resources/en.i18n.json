@@ -66,6 +66,8 @@
 	"you_are_playing": "You are playing as",
 	"history": "History",
 	"play": "Play!",
+	"pass_once_or_ignore_permanently": "Do you wish to pass your turn just this one time, or would you prefer to ignore this game forever?",
+	"ignore": "Ignore",
 	"faq_q1": "What's the big idea?",
 	"faq_a1": "Distrochess is distributed chess. This means that you don't play a single game against a single person &mdash; you play many games against many other users. It's a bit like a simultaneous match, but instead of many people playing against a single opponent, there are several players on each side of the table.<br/> After you make a move, that game is placed back on the queue so that another user can have an opportunity to respond. Meanwhile, you will be given a random game off the queue. In order to avoid players playing against themselves, each player always plays the same side of a given game.",
 	"faq_q2": "How is my Elo rating computed?",

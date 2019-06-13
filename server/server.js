@@ -1,5 +1,9 @@
 import { Meteor } from "meteor/meteor";
 
+const FLAG_CHECK_INTERVAL_MINS = 8;
+const MIN_ACTIVE_GAMES_CHECK_INTERVAL_MINS = 4;
+const MIN_ACTIVE_GAMES = 16;
+
 const userQueue = [];
 const moveTimeoutTimersIds = {};
 
@@ -32,6 +36,33 @@ Meteor.startup(() => {
 		multi : true
 	});
 
+	// check every 10 minutes to ensure a minimum number of active games
+	Meteor.setInterval(() => {
+		const numActiveGames = Games.find({
+			gameResult : null
+		}).count();
+
+		const now = new Date();
+		const startingPosition = new Chess().fen();
+		console.log("found " + numActiveGames + " active games");
+		for (var i = 0; i < MIN_ACTIVE_GAMES - numActiveGames; i++) {
+			const game = {
+				id : getNextGameId(),
+				history : [],
+				moves : [],
+				gameResult : null,
+				currentUserId : null,
+				assignmentTime : now,
+				players : {},
+				position : startingPosition,
+				creationDate : now,
+				lastMoveTime : now,
+			};
+			game._id = Games.insert(game);
+			console.log("new game created", game._id);
+		}
+	}, MIN_ACTIVE_GAMES_CHECK_INTERVAL_MINS * 60 * 1000);
+
 	// check for games to be flagged every 10 minutes
 	Meteor.setInterval(() => {
 		const now = new Date();
@@ -50,6 +81,7 @@ Meteor.startup(() => {
 				gameResult : gameResult,
 				flagTime : now,
 			});
+			console.log("game flagged for inactivity", game._id);
 
 			GameAssignments.remove({
 				gameId : game._id
@@ -57,7 +89,7 @@ Meteor.startup(() => {
 
 			updateRatings(game, gameResult);
 		});
-	}, 10 * 60 * 1000);
+	}, FLAG_CHECK_INTERVAL_MINS * 60 * 1000);
 
 	// assign authKey to new users, used to authenticate account deletion requests
 	Meteor.users.find({
@@ -135,7 +167,7 @@ Meteor.methods({
 		return result;
 	},
 
-	getGame : function(currentGameId) {
+	getGame : function() {
 		if (isGettingGame) {
 			console.log("getGame concurrency lock");
 			return "LOCK";
@@ -147,6 +179,9 @@ Meteor.methods({
 			games = [];
 			Games.find({
 				gameResult : null,
+				_id : {
+					$nin : Meteor.user().ignoredGameIds || []
+				},
 				$or : [
 					{
 						currentUserId : null,
@@ -197,14 +232,7 @@ Meteor.methods({
 		//		console.log("choose game " + game.id + " for user " + utils.getUsername() + " from ", gameIds);
 
 		Games.update({
-			$or : [
-				{
-					currentUserId : Meteor.userId()
-				},
-				{
-					_id : currentGameId
-				}
-			]
+			currentUserId : Meteor.userId()
 		}, {
 			$set : {
 				currentUserId : null,
@@ -293,6 +321,11 @@ Meteor.methods({
 				return null;
 			}
 
+			if (game.currentUserId != Meteor.userId()) {
+				console.error("attempt to make move by user who is not currently assigned user. game._id: " + game._id + "  game.id: " + game.id + "  user: " + utils.getUsername());
+				return null;
+			}
+
 			game.history.push({
 				fen : fen,
 				position : currentPosition,
@@ -331,28 +364,15 @@ Meteor.methods({
 			});
 		} else {
 			// create a new game
-			players[Meteor.userId()].moves = [ board.lastMove ];
 
-			const gameIdRecord = SystemData.findOne({
-				key : "GAME_ID"
-			});
-			var currGameId = 1;
-			if (gameIdRecord) {
-				currGameId = gameIdRecord.data + 1;
-				SystemData.update({
-					_id : gameIdRecord._id
-				}, {
-					$set : {
-						data : currGameId
-					}
-				});
-			} else {
-				SystemData.insert({
-					key : "GAME_ID",
-					data : currGameId
-				});
+			if (board.lastMove.color != "w") {
+				console.error("attempt to create new game where first move is not white");
+				return null;
 			}
 
+			players[Meteor.userId()].moves = [ board.lastMove ];
+
+			const gameIdRecord = getNextGameId();
 			board.game = {
 				id : currGameId,
 				history : [ {
@@ -460,6 +480,20 @@ Meteor.methods({
 			});
 		}
 		return true;
+	},
+
+	ignoreGame : function(gameId) {
+		const ignoredGameIds = Meteor.user().ignoredGameIds || [];
+		if (!ignoredGameIds.includes(gameId)) {
+			ignoredGameIds.push(gameId);
+			Meteor.users.update({
+				_id : Meteor.userId()
+			}, {
+				$set : {
+					ignoredGameIds : ignoredGameIds
+				}
+			});
+		}
 	},
 });
 
@@ -574,4 +608,27 @@ function computeGameResult(game, chess, pieces) {
 		}
 	}
 	return gameResult;
+}
+
+function getNextGameId() {
+	const gameIdRecord = SystemData.findOne({
+		key : "GAME_ID"
+	});
+	var currGameId = 1;
+	if (gameIdRecord) {
+		currGameId = gameIdRecord.data + 1;
+		SystemData.update({
+			_id : gameIdRecord._id
+		}, {
+			$set : {
+				data : currGameId
+			}
+		});
+	} else {
+		SystemData.insert({
+			key : "GAME_ID",
+			data : currGameId
+		});
+	}
+	return currGameId;
 }
