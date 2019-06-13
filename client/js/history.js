@@ -112,7 +112,7 @@ Template.history.events({
 			});
 
 			const dlink = document.createElement("a");
-			dlink.download = "distrochess-game-" + game.get().id + ".pgn";
+			dlink.download = "distrochess-game-" + _game.id + ".pgn";
 			dlink.href = window.URL.createObjectURL(blob);
 			dlink.onclick = function(e) {
 				// revokeObjectURL needs a delay to work properly

@@ -2,19 +2,23 @@
 	<div id="history-game">
 		<div id="history-chess-board" class="chess-board {{#unless game}}hidden{{/unless}}"></div>
 		{{#if game}}
+			<div id="current-move">
+				<div id="move-num">
+					{{_ "move_number"}}
+					{{currentMove}} / {{numMoves}}
+				</div>
+				{{#if moveUsername}}
+					<div id="move-user">
+						: {{_ "made_by"}}
+						{{moveUsername}}
+					</div>
+				{{/if}}
+			</div>
 			<div id="game-controls">
 				<img id="first-move" src="/img/left-arrow-full.png"/>
 				<img id="prev-move" src="/img/left-arrow.png"/>
 				<img id="next-move" src="/img/right-arrow.png"/>
 				<img id="last-move" src="/img/right-arrow-full.png"/>
-			</div>
-			<div id="current-move">
-				<div id="move-num">
-					{{currentMove}} / {{numMoves}}
-				</div>
-				<div id="move-user">
-					{{moveUsername}}
-				</div>
 			</div>
 			<div id="game-info">
 				<table>
@@ -43,8 +47,8 @@
 						<td>{{_ (gameResult game)}}</td>
 					</tr>
 				</table>
-				<div id="export-pgn-button" class="button">{{_ "export_pgn"}}</div>
 			</div>
+			<div id="export-pgn-button" class="button">{{_ "export_pgn"}}</div>
 		{{/if}}
 	</div>
 	{{#if games.count}}
@@ -58,12 +62,12 @@
 					<th>{{_ "result"}}</th>
 				</tr>
 				{{#each games}}
-					<tr>
+					<tr class="data-row">
 						<td>
 							<div class="select-game-button button">{{_ "select"}}</div> 
 						</td>
 						<td>
-							<img src="/img/chesspieces/wikipedia/{{#if isWhite}}w{{else}}b{{/if}}N.png"/>
+							<img class="side-color-image" src="/img/chesspieces/wikipedia/{{#if isWhite}}w{{else}}b{{/if}}N.png"/>
 						</td>
 						<td>{{formatDateTime creationDate}}</td>
 						<td>{{formatDateTime lastMoveTime}}</td>
