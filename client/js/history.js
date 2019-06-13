@@ -105,6 +105,25 @@ Template.history.events({
 		const pgn = chess.pgn();
 		if (pgn) {
 			console.log(pgn);
+
+			// stolen from https://stackoverflow.com/questions/8310657/how-to-create-a-dynamic-file-link-for-download-in-javascript
+			const blob = new Blob([ pgn + "\n" ], {
+				type : "text/plain"
+			});
+
+			const dlink = document.createElement("a");
+			dlink.download = "distrochess-game-" + game.get().id + ".pgn";
+			dlink.href = window.URL.createObjectURL(blob);
+			dlink.onclick = function(e) {
+				// revokeObjectURL needs a delay to work properly
+				const that = this;
+				Meteor.setTimeout(function() {
+					window.URL.revokeObjectURL(that.href);
+				}, 1500);
+			};
+
+			dlink.click();
+			dlink.remove();
 		} else {
 			message.set(TAPi18n.__("pgn_fail"));
 		}
