@@ -135,6 +135,13 @@ Template.history.onCreated(function() {
 	this.autorun(() => {
 		const gameId = historyGameId.get();
 		if (gameId) {
+			Meteor.subscribe("game", gameId);
+		}
+	});
+
+	this.autorun(() => {
+		const gameId = historyGameId.get();
+		if (gameId) {
 			const _game = Games.findOne({
 				id : gameId
 			});

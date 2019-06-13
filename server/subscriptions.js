@@ -43,3 +43,9 @@ Meteor.publish("userGames", function() {
 	}
 	this.ready();
 });
+
+Meteor.publish("game", function(gameId) {
+	return Games.find({
+		id : gameId
+	});
+});
