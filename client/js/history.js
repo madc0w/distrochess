@@ -63,7 +63,7 @@ Template.history.helpers({
 	},
 
 	gameResult : function(_game) {
-		return _game.result ? _game.result.toLowerCase() : "ongoing";
+		return _game.gameResult ? _game.gameResult.toLowerCase() : "ongoing";
 	},
 });
 
