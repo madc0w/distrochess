@@ -1,8 +1,7 @@
 import { Meteor } from "meteor/meteor";
 
 const FLAG_CHECK_INTERVAL_MINS = 8;
-const MIN_ACTIVE_GAMES_CHECK_INTERVAL_MINS = 4;
-const MIN_ACTIVE_GAMES = 16;
+const USER_QUEUE_CHECK_INTERVAL_SECS = 40;
 
 const userQueue = [];
 const moveTimeoutTimersIds = {};
@@ -36,16 +35,11 @@ Meteor.startup(() => {
 		multi : true
 	});
 
-	// check every 10 minutes to ensure a minimum number of active games
+	// check periodically to ensure a minimum number of active games
 	Meteor.setInterval(() => {
-		const numActiveGames = Games.find({
-			gameResult : null
-		}).count();
-
 		const now = new Date();
 		const startingPosition = new Chess().fen();
-		console.log("found " + numActiveGames + " active games");
-		for (var i = 0; i < MIN_ACTIVE_GAMES - numActiveGames; i++) {
+		while (userQueue.length > 0) {
 			const game = {
 				id : getNextGameId(),
 				history : [],
@@ -60,11 +54,24 @@ Meteor.startup(() => {
 				isAutoCreated : true,
 			};
 			game._id = Games.insert(game);
-			console.log("new game created", game._id);
-		}
-	}, MIN_ACTIVE_GAMES_CHECK_INTERVAL_MINS * 60 * 1000);
+			console.log("new game auto-created", game._id);
 
-	// check for games to be flagged every 10 minutes
+			// assign game to first user in the queue
+			const queueUserId = userQueue.shift();
+			console.log("assigning auto-created game " + game._id + " to user " + queueUserId);
+			GameAssignments.update({
+				userId : queueUserId,
+			}, {
+				userId : queueUserId,
+				gameId : game._id,
+				date : now,
+			}, {
+				upsert : true
+			});
+		}
+	}, USER_QUEUE_CHECK_INTERVAL_SECS * 1000);
+
+	// check for games to be flagged 
 	Meteor.setInterval(() => {
 		const now = new Date();
 		const cutoffTime = new Date();
@@ -104,7 +111,7 @@ Meteor.startup(() => {
 				_id : user._id
 			}, {
 				$set : {
-					authKey : parseInt(Math.random() * 1e12)
+					authKey : parseInt(Math.random() * 1e12).toString()
 				}
 			});
 		}
@@ -321,7 +328,8 @@ Meteor.methods({
 				return null;
 			}
 
-			if (game.currentUserId != "NONE" && game.currentUserId != Meteor.userId()) {
+			// game.currentUserId may be null if the server was restarted. let's just allow that.
+			if (game.currentUserId && game.currentUserId != "NONE" && game.currentUserId != Meteor.userId()) {
 				console.error("attempt to make move by user who is not currently assigned user. game._id: " + game._id + "  game.id: " + game.id + "  user: " + utils.getUsername() + "  game.currentUserId: " + game.currentUserId);
 				return null;
 			}
