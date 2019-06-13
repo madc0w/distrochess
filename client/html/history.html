@@ -59,6 +59,7 @@
 					<th>{{_ "your_side"}}</th>
 					<th>{{_ "created"}}</th>
 					<th>{{_ "last_move"}}</th>
+					<th>{{_ "moves"}}</th>
 					<th>{{_ "result"}}</th>
 				</tr>
 				{{#each games}}
@@ -71,6 +72,7 @@
 						</td>
 						<td>{{formatDateTime creationDate}}</td>
 						<td>{{formatDateTime lastMoveTime}}</td>
+						<td>{{game.moves.length}}</td>
 						<td>{{_ (gameResult this)}}</td>
 					</tr>
 				{{/each}}

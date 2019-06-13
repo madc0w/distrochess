@@ -22,7 +22,7 @@ input {
 	left: 154px;
 	z-index: 100;
 	width: 100px;
-	background-color: antiquewhite;
+	background-color: #fdcc05;
 	border-width: 4px;
 	border-style: double;
 	border-radius: 8px;
@@ -51,7 +51,7 @@ input {
 	cursor: pointer;
 	text-align: center;
 	padding: 4px;
-	background-color: #B5651D;
+	background-color: #e32129;
 	color: white;
 	border-radius: 8px;
 	font-weight: bold;
@@ -70,7 +70,7 @@ input {
 	color: black;
 	background-color: white;
 	border-width: 2px;
-	border-color: #B5651D;
+	border-color: #e32129;
 }
 
 #header {
@@ -78,7 +78,7 @@ input {
 	margin-bottom: 6px;
 	padding-left: 6px;
 	padding-right: 6px;
-	background-color: antiquewhite;
+	background-color: #fdcc05;
 	border-width: 2px;
 	border-style: solid;
 	border-color: black;
@@ -176,7 +176,7 @@ input {
 }
 
 #clock {
-	background-color: antiquewhite;
+	background-color: #fdcc05;
 	width: 380px;
 	text-align: center;
 	font-weight: bold;
@@ -196,16 +196,17 @@ input {
 }
 
 #players th {
-	background-color: antiquewhite;
+	background-color: #fdcc05;
 }
 
 #players .data-row:hover {
 	color: white;
-	background-color: #B5651D;
+	background-color: #e32129;
 }
 
 #board-container {
 	display: inline-block;
+	max-width: 400px;
 }
 
 .players-table-container {
@@ -214,7 +215,7 @@ input {
 }
 
 .team-header {
-	background-color: antiquewhite;
+	background-color: #fdcc05;
 	font-size: 18px;
 	font-weight: bold;
 }
@@ -260,7 +261,7 @@ input {
 }
 
 #profile-header {
-	background-color: antiquewhite;
+	background-color: #fdcc05;
 	padding: 4px;
 	font-weight: bold;
 	font-size: 22px;
@@ -296,7 +297,7 @@ input {
 	border-radius: 8px;
 	font-size: 24px;
 	text-align: center;
-	background-color: antiquewhite;
+	background-color: #fdcc05;
 	line-height: 42px;
 }
 
@@ -333,7 +334,7 @@ input {
 }
 
 #header-menu {
-	background-color: #B5651D;
+	background-color: #e32129;
 	width: calc(100% + 12px);
 	position: relative;
 	left: -6px;
@@ -355,7 +356,7 @@ input {
 }
 
 .header-menu-item.selected, .header-menu-item:hover {
-	background-color: antiquewhite;
+	background-color: #fdcc05;
 	color: black;
 	border-color: black;
 	border-width: 2px;
@@ -385,7 +386,7 @@ iframe {
 	font-weight: bold;
 	margin-bottom: 12px;
 	padding: 8px;
-	background-color: antiquewhite;
+	background-color: #fdcc05;
 }
 
 .faq-answer {
@@ -425,6 +426,12 @@ iframe {
 	margin-bottom: 8px;
 	font-weight: bold;
 	text-align: center;
+/* 	background-color: #fdcc05; */
+	-webkit-transform: scale(2, 1); /* Safari and Chrome */
+	-moz-transform: scale(2, 1); /* Firefox */
+	-ms-transform: scale(2, 1); /* IE 9 */
+	-o-transform: scale(2, 1); /* Opera */
+	transform: scale(2, 1); /* W3C */
 }
 
 .button.cancel img {
@@ -519,7 +526,7 @@ iframe {
 	padding: 4px;
 	border-radius: 20px;
 	border-color: transparent;
-	border-style:solid;
+	border-style: solid;
 	border-width: 1px;
 }
 
@@ -529,7 +536,7 @@ iframe {
 }
 
 #history-game #game-controls #first-move {
-	margin-left: calc(50% - 70px);
+	margin-left: calc(50% - 90px);
 }
 
 #history-game {
@@ -537,7 +544,7 @@ iframe {
 }
 
 #history-game-list {
-	max-height: 90vh;
+	max-height: calc(100vh - 180px);
 	overflow-y: auto;
 	display: inline-block;
 	vertical-align: top;
@@ -549,8 +556,12 @@ iframe {
 }
 
 #history-game-list th {
-	background-color: antiquewhite;
+	background-color: #fdcc05;
 	padding: 8px;
+}
+
+#history-game-list td {
+	text-align: center;
 }
 
 #pass-dialog {
@@ -565,21 +576,21 @@ iframe {
 }
 
 .side-color-image {
-	height: 30px;
-	margin-left: 12px;
+	width: 32px;
+	margin-left: calc(50% - 16px);
 }
 
 #history-game-list .data-row:hover {
 	color: white;
-	background-color: #B5651D;
+	background-color: #e32129;
 }
 
-#game-info {
+#history-game #game-info {
 	margin: 12px;
 	margin-left: 96px;
 }
 
-#game-info th {
+#history-game #game-info th {
 	text-align: right;
 }
 
@@ -588,7 +599,7 @@ iframe {
 }
 
 #current-move {
-	background-color: antiquewhite;
+	background-color: #fdcc05;
 	max-width: 388px;
 	padding: 4px;
 }
@@ -600,4 +611,3 @@ iframe {
 #current-move #move-user {
 	display: inline-block;
 }
-

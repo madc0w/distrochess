@@ -132,7 +132,10 @@ Template.history.events({
 
 
 Template.history.onCreated(function() {
-	Meteor.subscribe("userGames");
+	isSpinner.set(true);
+	Meteor.subscribe("userGames", function() {
+		isSpinner.set(false);
+	});
 	game.set(null);
 
 	this.autorun(() => {
