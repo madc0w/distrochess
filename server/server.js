@@ -57,6 +57,7 @@ Meteor.startup(() => {
 				position : startingPosition,
 				creationDate : now,
 				lastMoveTime : now,
+				isAutoCreated : true,
 			};
 			game._id = Games.insert(game);
 			console.log("new game created", game._id);
