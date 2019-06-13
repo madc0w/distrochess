@@ -75,7 +75,9 @@
 	<div id="header">
 		<div id="header-menu">
 			{{> headerLink key="play"}}
-			{{> headerLink key="history"}}
+			{{#if currentUser}}
+				{{> headerLink key="history"}}
+			{{/if}}
 			{{> headerLink key="faq"}}
 			{{> headerLink key="forum"}}
 			<a id="feedback-link" class="header-menu-item" href="mailto:distrochess@runbox.com?subject=Distrochess feedback">{{_ "feedback"}}</a>

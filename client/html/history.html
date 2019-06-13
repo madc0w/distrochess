@@ -1,5 +1,80 @@
 <template name="history">
-	<h1>{{_ "history"}}</h1>
-	{{_ "not_implemented"}}
+	<div id="history-game">
+		<div id="history-chess-board" class="chess-board {{#unless game}}hidden{{/unless}}"></div>
+		{{#if game}}
+			<div id="game-controls">
+				<img id="first-move" src="/img/left-arrow-full.png"/>
+				<img id="prev-move" src="/img/left-arrow.png"/>
+				<img id="next-move" src="/img/right-arrow.png"/>
+				<img id="last-move" src="/img/right-arrow-full.png"/>
+			</div>
+			<div id="current-move">
+				<div id="move-num">
+					{{currentMove}} / {{numMoves}}
+				</div>
+				<div id="move-user">
+					{{moveUsername}}
+				</div>
+			</div>
+			<div id="game-info">
+				<table>
+					<tr>
+						<th>{{_ "game_id"}}</th>
+						<td>{{game.id}}</td>
+					</tr>
+					<tr>
+						<th>{{_ "created"}}</th>
+						<td>{{formatDateTime game.creationDate}}</td>
+					</tr>
+					<tr>
+						<th>{{_ "last_move"}}</th>
+						<td>{{formatDateTime game.lastMoveTime}}</td>
+					</tr>
+					<tr>
+						<th>{{_ "white_players"}}</th>
+						<td>{{numPlayers true}}</td>
+					</tr>
+					<tr>
+						<th>{{_ "black_players"}}</th>
+						<td>{{numPlayers false}}</td>
+					</tr>
+					<tr>
+						<th>{{_ "result"}}</th>
+						<td>{{_ (gameResult game)}}</td>
+					</tr>
+				</table>
+				<div id="export-pgn-button" class="button">{{_ "export_pgn"}}</div>
+			</div>
+		{{/if}}
+	</div>
+	{{#if games.count}}
+		<div id="history-game-list">
+			<table>
+				<tr>
+					<th></th>
+					<th>{{_ "your_side"}}</th>
+					<th>{{_ "created"}}</th>
+					<th>{{_ "last_move"}}</th>
+					<th>{{_ "result"}}</th>
+				</tr>
+				{{#each games}}
+					<tr>
+						<td>
+							<div class="select-game-button button">{{_ "select"}}</div> 
+						</td>
+						<td>
+							<img src="/img/chesspieces/wikipedia/{{#if isWhite}}w{{else}}b{{/if}}N.png"/>
+						</td>
+						<td>{{formatDateTime creationDate}}</td>
+						<td>{{formatDateTime lastMoveTime}}</td>
+						<td>{{_ (gameResult this)}}</td>
+					</tr>
+				{{/each}}
+			</table>
+		</div>
+	{{else}}
+		<div id="no-game-history">
+			{{{_ "no_game_history"}}}
+		</div>
+	{{/if}}
 </template>
-

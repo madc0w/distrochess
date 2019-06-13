@@ -15,6 +15,8 @@ Router.route("/forum", function() {
 });
 
 Router.route("/history", function() {
+	const gameId = this.params.query.id;
+	historyGameId.set(parseInt(gameId));
 	setPage.bind(this)("history");
 });
 

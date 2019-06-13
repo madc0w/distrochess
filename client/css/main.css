@@ -4,6 +4,10 @@ body {
 	background-color: lightyellow;
 }
 
+input {
+	width: 160px;
+}
+
 .chess-board {
 	width: 400px;
 }

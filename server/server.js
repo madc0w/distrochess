@@ -152,7 +152,6 @@ Meteor.startup(() => {
 			}
 		}
 	});
-
 });
 
 Meteor.methods({
@@ -321,8 +320,8 @@ Meteor.methods({
 				return null;
 			}
 
-			if (game.currentUserId != Meteor.userId()) {
-				console.error("attempt to make move by user who is not currently assigned user. game._id: " + game._id + "  game.id: " + game.id + "  user: " + utils.getUsername());
+			if (game.currentUserId != "NONE" && game.currentUserId != Meteor.userId()) {
+				console.error("attempt to make move by user who is not currently assigned user. game._id: " + game._id + "  game.id: " + game.id + "  user: " + utils.getUsername() + "  game.currentUserId: " + game.currentUserId);
 				return null;
 			}
 
@@ -330,6 +329,7 @@ Meteor.methods({
 				fen : fen,
 				position : currentPosition,
 				pieces : pieces,
+				userId : Meteor.userId(),
 			});
 
 			gameResult = computeGameResult(game, chess, pieces);
@@ -372,12 +372,14 @@ Meteor.methods({
 
 			players[Meteor.userId()].moves = [ board.lastMove ];
 
-			const gameIdRecord = getNextGameId();
+			const currGameId = getNextGameId();
 			board.game = {
 				id : currGameId,
 				history : [ {
+					fen : fen,
 					position : currentPosition,
-					pieces : pieces
+					pieces : pieces,
+					userId : Meteor.userId(),
 				} ],
 				moves : [ board.lastMove ],
 				gameResult : null,

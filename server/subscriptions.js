@@ -18,3 +18,28 @@ Meteor.publish("gameAssignments", function() {
 	}
 	this.ready();
 });
+
+Meteor.publish("usernames", function(userIds) {
+	return Meteor.users.find({
+		_id : {
+			$in : userIds
+		}
+	}, {
+		fields : {
+			username : true,
+			"profile.name" : true,
+		}
+	});
+
+});
+
+Meteor.publish("userGames", function() {
+	if (this.userId) {
+		return Games.find({
+			_id : {
+				$in : Meteor.user().gameIds
+			}
+		});
+	}
+	this.ready();
+});
