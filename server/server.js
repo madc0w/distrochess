@@ -59,6 +59,24 @@ Meteor.startup(() => {
 		});
 	}, 10 * 60 * 1000);
 
+	// assign authKey to new users, used to authenticate account deletion requests
+	Meteor.users.find({
+		authKey : null,
+	}).observe({
+		// not observerChanges, which fails due to record not having been added yet!
+		// utterly undocumented behavior here https://docs.meteor.com/api/collections.html#Mongo-Cursor-observe
+		// 2 hours lost
+		added : function(user) {
+			Meteor.users.update({
+				_id : user._id
+			}, {
+				$set : {
+					authKey : parseInt(Math.random() * 1e12)
+				}
+			});
+		}
+	});
+
 	// assign sequential username if none provided
 	Meteor.users.find({
 		username : null,
@@ -98,7 +116,7 @@ Meteor.startup(() => {
 					}
 				});
 			} catch (e) {
-				utils.logError(e);
+				utils.logError("error assigning sequential username for " + user._id, e);
 			}
 		}
 	});
@@ -119,6 +137,7 @@ Meteor.methods({
 
 	getGame : function(currentGameId) {
 		if (isGettingGame) {
+			console.log("getGame concurrency lock");
 			return "LOCK";
 		}
 		isGettingGame = true;
@@ -270,7 +289,7 @@ Meteor.methods({
 			});
 
 			if (game.moves.length > 0 && game.moves[game.moves.length - 1].color == board.lastMove.color) {
-				console.error("attempt to make move by same color twice in a row! game._id=", game._id);
+				console.error("attempt to make move by same color twice in a row! game._id: " + game._id + "  game.id: " + game.id + "  user: " + utils.getUsername());
 				return null;
 			}
 

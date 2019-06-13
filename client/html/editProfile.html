@@ -61,7 +61,7 @@
 			</div>
 			<div id="gdpr-buttons">
 				<a class="button" href="mailto:distrochess@runbox.com?subject=Distrochess data request&body=SEND DATA%0D%0AUser ID: {{currentUser._id}}%0D%0AEmail: {{email}}">{{_ "send_data_request"}}</a>
-				<a class="button" href="mailto:distrochess@runbox.com?subject=Distrochess account deletion request&body=DELETE%0D%0AUser ID: {{currentUser._id}}">{{_ "delete_account"}}</a>
+				<a class="button" href="mailto:distrochess@runbox.com?subject=Distrochess account deletion request&body=DELETE%0D%0AUser ID: {{currentUser._id}}%0D%0Aauth: {{currentUser.authKey}}">{{_ "delete_account"}}</a>
 			</div>
 		</div>
 	</div>
