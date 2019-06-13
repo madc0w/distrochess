@@ -4,7 +4,7 @@ var game = null;
 var clockIntervalId = null;
 
 const board = new ReactiveVar();
-const isInCheck = new ReactiveVar(true);
+const isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isPromotion = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
