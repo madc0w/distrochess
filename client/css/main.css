@@ -515,6 +515,17 @@ iframe {
 #history-game #game-controls img {
 	height: 32px;
 	cursor: pointer;
+	padding: 4px;
+	padding: 4px;
+	border-radius: 20px;
+	border-color: transparent;
+	border-style:solid;
+	border-width: 1px;
+}
+
+#history-game #game-controls img:hover {
+	background-color: white;
+	border-color: black;
 }
 
 #history-game #game-controls #first-move {
@@ -589,3 +600,4 @@ iframe {
 #current-move #move-user {
 	display: inline-block;
 }
+
