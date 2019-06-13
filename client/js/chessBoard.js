@@ -1,7 +1,7 @@
 var isSaveGameAfterSignin = false;
-var clockIntervalId = null;
 var isGettingGame = false;
 var game = null;
+var clockIntervalId = null;
 
 const board = new ReactiveVar();
 const isInCheck = new ReactiveVar(true);
@@ -109,15 +109,25 @@ Template.chessBoard.events({
 });
 
 
+Template.chessBoard.onDestroyed(() => {
+	Meteor.clearInterval(clockIntervalId);
+});
+
 Template.chessBoard.onCreated(() => {
 	isSaveGameAfterSignin = false;
-	clockIntervalId = null;
 	isGettingGame = false;
 	isWaiting.set(false);
 	isPromotion.set(false);
 	isClock.set(false);
 	isPlayers.set(false);
 	clockTime.set(MOVE_TIMEOUT / 1000);
+
+	clockIntervalId = Meteor.setInterval(() => {
+		clockTime.set(clockTime.get() - 1);
+		if (clockTime.get() <= 0) {
+			getGame();
+		}
+	}, 1000);
 
 	Tracker.autorun(() => {
 		const assigments = GameAssignments.find().fetch();
@@ -183,11 +193,6 @@ Template.chessBoard.onRendered(() => {
 
 	board.set(new ChessBoard("chess-board", cfg));
 	getGame();
-});
-
-
-Template.chessBoard.onDestroyed(() => {
-	Meteor.clearInterval(clockIntervalId);
 });
 
 
@@ -310,14 +315,6 @@ function getGame() {
 				isClock.set(true);
 				isPlayers.set(true);
 				clockTime.set(MOVE_TIMEOUT / 1000);
-				Meteor.clearInterval(clockIntervalId);
-				clockIntervalId = Meteor.setInterval(() => {
-					clockTime.set(clockTime.get() - 1);
-					if (clockTime.get() <= 0) {
-						Meteor.clearInterval(clockIntervalId);
-						getGame();
-					}
-				}, 1000);
 				Meteor.setTimeout(() => {
 					isSigninDialog.set(false);
 					const _board = board.get();
