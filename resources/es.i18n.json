@@ -83,5 +83,11 @@
 	"made_by": "por",
 	"no_game_history": "Aún no has jugado ningún juego.",
 	"pgn_fail": "Lo sentimos, la exportación PGN falló.",
-	"moves": "Movimientos"
+	"moves": "Movimientos",
+	"games_youve_played": "Juegos que has jugado",
+	"comments_on_this_game": "Comentarios sobre este juego",
+	"send": "Enviar",
+	"be_the_first_to_comment": "Sé el primero en comentar",
+	"no_comments": "No hay comentarios",
+	"move": "juego"
 }

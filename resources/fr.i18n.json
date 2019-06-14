@@ -83,5 +83,11 @@
 	"made_by": "joué par",
 	"no_game_history": "Vous n'avez encore joué à aucun jeu.",
 	"pgn_fail": "Désolé, l'export PGN a échoué.",
-	"moves": "Tours"
+	"moves": "Tours",
+	"games_youve_played": "Jeux dans lesquels vous avez joué",
+	"comments_on_this_game": "Commentaires sur ce jeu",
+	"send": "Envoyer",
+	"be_the_first_to_comment": "Soyez le premier à commenter",
+	"no_comments": "Aucun commentaire",
+	"move": "tour"
 }

@@ -83,5 +83,11 @@
 	"made_by": "gemacht von",
 	"no_game_history": "Du hast noch keine Spiele gespielt.",
 	"pgn_fail": "Der PGN-Export ist fehlgeschlagen.",
-	"moves": "Zügen"
+	"moves": "Zügen",
+	"games_youve_played": "Spiele, die du gespielt hast",
+	"comments_on_this_game": "Kommentare zu diesem Spiel",
+	"send": "Senden",
+	"be_the_first_to_comment": "Schreibe den ersten Kommentar",
+	"no_comments": "Keine Kommentare",
+	"move": "Spiel"
 }
