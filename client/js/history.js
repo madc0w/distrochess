@@ -18,8 +18,8 @@ Template.history.helpers({
 		return "distrochess-game-" + game.get().id + ".pgn";
 	},
 
-	isWhite : function() {
-		return this.players[Meteor.userId()].isWhite;
+	isWhite : function(_game) {
+		return _game.players[Meteor.userId()].isWhite;
 	},
 
 	numPlayers : function(isWhite) {

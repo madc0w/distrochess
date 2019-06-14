@@ -4,6 +4,10 @@ body {
 	background-color: lightyellow;
 }
 
+#content {
+	white-space: nowrap;
+}
+
 input {
 	width: 160px;
 }
@@ -544,6 +548,7 @@ iframe {
 }
 
 #history-game-list {
+	margin-left: 12px;
 	max-height: calc(100vh - 180px);
 	overflow-y: auto;
 	display: inline-block;

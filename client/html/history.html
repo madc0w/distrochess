@@ -51,6 +51,12 @@
 			<a id="export-pgn-button" class="button" download="{{pgnFilename}}" href="data:text/plain;charset=utf-8,{{pgnData}}">{{_ "export_pgn"}}</a>
 		{{/if}}
 	</div>
+	{{#if game}}
+		<div id="players">
+			{{> players game=game isWhite=(not (isWhite game))}}
+			{{> players game=game isWhite=(isWhite game)}}
+		</div>
+	{{/if}}
 	{{#if games.count}}
 		<div id="history-game-list">
 			<table>
@@ -68,7 +74,7 @@
 							<div class="select-game-button button">{{_ "select"}}</div> 
 						</td>
 						<td>
-							<img class="side-color-image" src="/img/chesspieces/wikipedia/{{#if isWhite}}w{{else}}b{{/if}}N.png"/>
+							<img class="side-color-image" src="/img/chesspieces/wikipedia/{{#if (isWhite this)}}w{{else}}b{{/if}}N.png"/>
 						</td>
 						<td>{{id}}</td>
 						<td>{{formatDateTime lastMoveTime}}</td>

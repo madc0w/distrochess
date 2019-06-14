@@ -1,0 +1,28 @@
+<template name="players">
+	<div class="team-header">
+		<img src="/img/chesspieces/wikipedia/{{#if isWhite}}w{{else}}b{{/if}}N.png"/>
+		{{#if isWhite}}
+			{{_ "white_team"}}
+		{{else}}
+			{{_ "black_team"}}
+		{{/if}}
+	</div>
+	<div class="players-table-container">
+		<table>
+			<tr>
+				<th>{{_ "username"}}</th>
+				<th>{{_ "moves_ratio"}}</th>
+				<th>{{_ "last_move_time"}}</th>
+				<th>{{_ "rating"}}</th>
+			</tr>
+			{{#each players isWhite}}
+				<tr class="data-row">
+					<td>{{username}}</td>
+					<td>{{movesRatio}}</td>
+					<td>{{formatDateTime lastMoveTime}}</td>
+					<td>{{formatInt rating}}</td>
+				</tr>
+			{{/each}}
+		</table>
+	</div>
+</template>

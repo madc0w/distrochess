@@ -79,6 +79,10 @@ Template.chessBoard.helpers({
 			isPassDialog.set(false);
 		};
 	},
+
+	game : function() {
+		return board.get().game;
+	},
 });
 
 
@@ -222,43 +226,7 @@ Template.promotionPiece.events({
 	},
 });
 
-
-Template.players.helpers({
-	formatDateTime : function(date) {
-		return utils.moment(date).fromNow();
-	},
-
-	formatInt : function(i) {
-		return i ? Math.round(i) : "-";
-	},
-
-	players : function() {
-		const players = [];
-		const _board = board.get();
-		if (_board.game && _board.game.players) {
-			for (var playerId in _board.game.players) {
-				if (_board.game.players[playerId].isWhite == this.isWhite) {
-					const percent = 100 * _board.game.players[playerId].moves.length / _board.game.moves.length;
-					const movesRatio = _board.game.players[playerId].moves.length + "/" + _board.game.moves.length + " (" + percent.toFixed(1) + "%)";
-					players.push({
-						username : _board.game.playerData[playerId].username,
-						movesRatio : movesRatio,
-						lastMoveTime : _board.game.players[playerId].lastMoveTime,
-						rating : _board.game.playerData[playerId].rating,
-					});
-				}
-			}
-		}
-		players.sort(function(player1, player2) {
-			return player1.lastMoveTime < player2.lastMoveTime ? 1 : -1;
-		});
-		return players;
-	},
-});
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 function playingColor(isSwap) {
 	const _board = board.get();

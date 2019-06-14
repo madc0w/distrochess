@@ -174,120 +174,120 @@ Meteor.methods({
 		return result;
 	},
 
+	getPlayerData : function(gameId) {
+		const game = Games.findOne({
+			id : gameId
+		});
+		if (game) {
+			return getPlayerData(game);
+		} else {
+			console.error("getPlayerData : failed to find game with id ", gameId);
+			return {};
+		}
+	},
+
 	getGame : function() {
 		if (isGettingGame) {
 			console.log("getGame concurrency lock");
 			return "LOCK";
 		}
 		isGettingGame = true;
-		const now = new Date();
-		var games;
-		if (Meteor.userId()) {
-			games = [];
-			Games.find({
-				gameResult : null,
-				_id : {
-					$nin : Meteor.user().ignoredGameIds || []
-				},
-				$or : [
-					{
-						currentUserId : null,
+		try {
+			const now = new Date();
+			var games;
+			if (Meteor.userId()) {
+				games = [];
+				Games.find({
+					gameResult : null,
+					_id : {
+						$nin : Meteor.user().ignoredGameIds || []
 					},
-					{
-						currentUserId : Meteor.userId(),
+					$or : [
+						{
+							currentUserId : null,
+						},
+						{
+							currentUserId : Meteor.userId(),
+						}
+					]
+				}).forEach(function(game) {
+					const gamePlayer = game.players[Meteor.userId()];
+					if (!gamePlayer || (gamePlayer && gamePlayer.isWhite == utils.isWhiteToMove(game))) {
+						games.push(game);
 					}
-				]
-			}).forEach(function(game) {
-				const gamePlayer = game.players[Meteor.userId()];
-				if (!gamePlayer || (gamePlayer && gamePlayer.isWhite == utils.isWhiteToMove(game))) {
-					games.push(game);
+				});
+
+				if (games.length == 0) {
+					if (!userQueue.includes(Meteor.userId())) {
+						userQueue.push(Meteor.userId());
+						console.log("pushed user onto queue", userQueue);
+					}
+					console.log("user " + utils.getUsername() + " must wait for available game");
+					return "WAIT";
 				}
-			});
 
-			if (games.length == 0) {
-				if (!userQueue.includes(Meteor.userId())) {
-					userQueue.push(Meteor.userId());
-					console.log("pushed user onto queue", userQueue);
+				GameAssignments.remove({
+					userId : Meteor.userId()
+				});
+
+			} else {
+				// no user
+				games = Games.find({
+					gameResult : null,
+					currentUserId : null,
+				}).fetch();
+				if (games.length == 0) {
+					console.log("will create new game for anonymous user");
+					return null;
 				}
-				console.log("user " + utils.getUsername() + " must wait for available game");
-				isGettingGame = false;
-				return "WAIT";
 			}
 
-			GameAssignments.remove({
-				userId : Meteor.userId()
-			});
+			const game = games[Math.floor(Math.random() * games.length)];
+			//		const gameIds = [];
+			//		for (var i in games) {
+			//			gameIds.push(games[i].id);
+			//		}
+			//		console.log("choose game " + game.id + " for user " + utils.getUsername() + " from ", gameIds);
 
-		} else {
-			// no user
-			games = Games.find({
-				gameResult : null,
-				currentUserId : null,
-			}).fetch();
-			if (games.length == 0) {
-				console.log("will create new game for anonymous user");
-				isGettingGame = false;
-				return null;
-			}
-		}
-
-		const game = games[Math.floor(Math.random() * games.length)];
-		//		const gameIds = [];
-		//		for (var i in games) {
-		//			gameIds.push(games[i].id);
-		//		}
-		//		console.log("choose game " + game.id + " for user " + utils.getUsername() + " from ", gameIds);
-
-		Games.update({
-			currentUserId : Meteor.userId()
-		}, {
-			$set : {
-				currentUserId : null,
-				assignmentTime : now,
-			}
-		}, {
-			multi : true
-		});
-
-		Games.update({
-			_id : game._id
-		}, {
-			$set : {
-				currentUserId : Meteor.userId() || "NONE",
-				assignmentTime : now,
-			}
-		});
-		moveTimeoutTimersIds[game._id] = Meteor.setTimeout(() => {
-			console.log("move timer timed out for game " + game.id, game._id);
 			Games.update({
-				_id : game._id
+				currentUserId : Meteor.userId()
 			}, {
 				$set : {
 					currentUserId : null,
 					assignmentTime : now,
 				}
+			}, {
+				multi : true
 			});
-		}, MOVE_TIMEOUT);
 
-		const playerData = {};
-		Meteor.users.find({
-			_id : {
-				$in : Object.keys(game.players)
-			}
-		}).forEach((user) => {
-			const username = utils.getUsername(user);
-			playerData[user._id] = {
-				rating : user.rating,
-				username : username,
-				numGames : user.gameIds && user.gameIds.length
+			Games.update({
+				_id : game._id
+			}, {
+				$set : {
+					currentUserId : Meteor.userId() || "NONE",
+					assignmentTime : now,
+				}
+			});
+			moveTimeoutTimersIds[game._id] = Meteor.setTimeout(() => {
+				console.log("move timer timed out for game " + game.id, game._id);
+				Games.update({
+					_id : game._id
+				}, {
+					$set : {
+						currentUserId : null,
+						assignmentTime : now,
+					}
+				});
+			}, MOVE_TIMEOUT);
+
+			const playerData = getPlayerData(game);
+			return {
+				game : game,
+				playerData : playerData,
 			};
-		});
-
-		isGettingGame = false;
-		return {
-			game : game,
-			playerData : playerData,
-		};
+		} finally {
+			isGettingGame = false;
+		}
 	},
 
 	saveGame : function(board, fen) {
@@ -642,4 +642,21 @@ function getNextGameId() {
 		});
 	}
 	return currGameId;
+}
+
+function getPlayerData(game) {
+	const playerData = {};
+	Meteor.users.find({
+		_id : {
+			$in : Object.keys(game.players)
+		}
+	}).forEach((user) => {
+		const username = utils.getUsername(user);
+		playerData[user._id] = {
+			rating : user.rating,
+			username : username,
+			numGames : user.gameIds && user.gameIds.length
+		};
+	});
+	return playerData;
 }
