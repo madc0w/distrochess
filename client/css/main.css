@@ -576,8 +576,7 @@ iframe {
 }
 
 .side-color-image {
-	width: 32px;
-	margin-left: calc(50% - 16px);
+	width: 24px;
 }
 
 #history-game-list .data-row:hover {
@@ -611,4 +610,9 @@ iframe {
 
 #current-move #move-user {
 	display: inline-block;
+}
+
+#board-container #history-button {
+	margin-left: calc(100% - 122px);
+	width: 100px;
 }

@@ -57,8 +57,7 @@
 				<tr>
 					<th></th>
 					<th>{{_ "your_side"}}</th>
-					<th>{{_ "game_id"}}</th>
-					<th>{{_ "created"}}</th>
+					<th>ID</th>
 					<th>{{_ "last_move"}}</th>
 					<th>{{_ "moves"}}</th>
 					<th>{{_ "result"}}</th>
@@ -72,9 +71,8 @@
 							<img class="side-color-image" src="/img/chesspieces/wikipedia/{{#if isWhite}}w{{else}}b{{/if}}N.png"/>
 						</td>
 						<td>{{id}}</td>
-						<td>{{formatDateTime creationDate}}</td>
 						<td>{{formatDateTime lastMoveTime}}</td>
-						<td>{{game.moves.length}}</td>
+						<td>{{moves.length}}</td>
 						<td>{{_ (gameResult this)}}</td>
 					</tr>
 				{{/each}}

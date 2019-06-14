@@ -83,6 +83,10 @@ Template.chessBoard.helpers({
 
 
 Template.chessBoard.events({
+	"click #history-button" : function(e) {
+		open("/history?id=" + board.get().game.id, "game-history");
+	},
+
 	"click #pass-or-ignore-button" : function(e) {
 		isPassDialog.set(true);
 	},
