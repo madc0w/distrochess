@@ -88,7 +88,7 @@ Template.chessBoard.helpers({
 
 Template.chessBoard.events({
 	"click #history-button" : function(e) {
-		open("/history?id=" + board.get().game.id, "game-history");
+		open("/history?id=" + board.get().game.id, location.pathname == "/history" ? null : "game-history");
 	},
 
 	"click #pass-or-ignore-button" : function(e) {
