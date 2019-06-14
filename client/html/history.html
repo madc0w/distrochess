@@ -64,30 +64,33 @@
 	{{/if}}
 	{{#if games.count}}
 		<div id="history-game-list">
-			<table>
-				<tr>
-					<th></th>
-					<th>{{_ "your_side"}}</th>
-					<th>ID</th>
-					<th>{{_ "last_move"}}</th>
-					<th>{{_ "moves"}}</th>
-					<th>{{_ "result"}}</th>
-				</tr>
-				{{#each games}}
-					<tr class="data-row">
-						<td>
-							<div class="select-game-button button">{{_ "select"}}</div> 
-						</td>
-						<td>
-							<img class="side-color-image" src="/img/chesspieces/wikipedia/{{#if (isWhite this)}}w{{else}}b{{/if}}N.png"/>
-						</td>
-						<td>{{id}}</td>
-						<td>{{formatDateTime lastMoveTime}}</td>
-						<td>{{moves.length}}</td>
-						<td>{{_ (gameResult this)}}</td>
+			<div id="history-header">{{{_ "games_youve_played"}}}</div>
+			<div id="list-container">
+				<table>
+					<tr>
+						<th></th>
+						<th>{{_ "your_side"}}</th>
+						<th>ID</th>
+						<th>{{_ "last_move"}}</th>
+						<th>{{_ "moves"}}</th>
+						<th>{{_ "result"}}</th>
 					</tr>
-				{{/each}}
-			</table>
+					{{#each games}}
+						<tr class="data-row">
+							<td>
+								<div class="select-game-button button">{{_ "select"}}</div> 
+							</td>
+							<td>
+								<img class="side-color-image" src="/img/chesspieces/wikipedia/{{#if (isWhite this)}}w{{else}}b{{/if}}N.png"/>
+							</td>
+							<td>{{id}}</td>
+							<td>{{formatDateTime lastMoveTime}}</td>
+							<td>{{moves.length}}</td>
+							<td>{{_ (gameResult this)}}</td>
+						</tr>
+					{{/each}}
+				</table>
+			</div>
 		</div>
 	{{else}}
 		<div id="no-game-history">
