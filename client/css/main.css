@@ -524,9 +524,8 @@ iframe {
 }
 
 #history-game #game-controls img {
-	height: 32px;
 	cursor: pointer;
-	padding: 4px;
+	height: 32px;
 	padding: 4px;
 	border-radius: 20px;
 	border-color: transparent;
@@ -535,7 +534,7 @@ iframe {
 }
 
 #history-game #game-controls img:hover {
-	background-color: white;
+	background-color: #fdcc05;
 	border-color: black;
 }
 

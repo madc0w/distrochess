@@ -22,7 +22,6 @@
 	"white_team": "Equipo blanco",
 	"black_team": "Equipo negro",
 	"moves_ratio": "Relación de movimientos",
-	"last_move_time": "Tiempo de último movimiento",
 	"rating": "Rating de Elo",
 	"game_id": "ID juego",
 	"edit_profile": "Editar perfil",
