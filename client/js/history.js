@@ -10,12 +10,16 @@ Template.history.helpers({
 			chess.move(_game.moves[i]);
 		}
 		const pgn = chess.pgn();
-		console.log(pgn);
+		//		console.log(pgn);
 		return encodeURIComponent(pgn);
 	},
 
 	pgnFilename : function() {
 		return "distrochess-game-" + game.get().id + ".pgn";
+	},
+
+	gamePlayer : function() {
+		return game.get().players[Meteor.userId()];
 	},
 
 	isWhite : function(_game) {

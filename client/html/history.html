@@ -53,8 +53,13 @@
 	</div>
 	{{#if game}}
 		<div id="players">
-			{{> players game=game isWhite=(not (isWhite game))}}
-			{{> players game=game isWhite=(isWhite game)}}
+			{{#if gamePlayer}}
+				{{> players game=game isWhite=(not (isWhite game))}}
+				{{> players game=game isWhite=(isWhite game)}}
+			{{else}}
+				{{> players game=game isWhite=true}}
+				{{> players game=game isWhite=false}}
+			{{/if}}
 		</div>
 	{{/if}}
 	{{#if games.count}}

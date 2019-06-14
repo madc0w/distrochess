@@ -179,7 +179,8 @@ Meteor.methods({
 			id : gameId
 		});
 		if (game) {
-			return getPlayerData(game);
+			const playerData = getPlayerData(game);
+			return playerData;
 		} else {
 			console.error("getPlayerData : failed to find game with id ", gameId);
 			return {};

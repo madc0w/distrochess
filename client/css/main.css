@@ -620,3 +620,9 @@ iframe {
 	margin-left: calc(100% - 122px);
 	width: 100px;
 }
+
+#no-game-history {
+	display: inline-block;
+	margin-left: 22px;
+	vertical-align: top;
+}
