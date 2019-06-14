@@ -45,20 +45,32 @@
 		</div>
 	{{/if}}
 	<div id="game-comments-container">
+		<div id="game-comments-header">{{_ "comments_on_this_game"}}</div>
 		<div id="game-comments">
-			{{#each comments}}
-				<div class="game-comment">
-					<div class="comment-metadata">
-						<div class="comment-username">
-							{{commentUsername this}}
-						</div> &mdash; 
-						<div class="comment-date">
-							{{formatDateTime date}}
-						</div> :
+			{{#if isLoadingComments}}
+				<img id="comments-spinner" src="/img/spinner.svg">
+			{{else if comments.count}}
+				{{#each comments}}
+					<div class="game-comment">
+						<div class="comment-metadata">
+							<div class="comment-username">
+								{{commentUsername this}}
+							</div> &mdash; 
+							<div class="comment-date">
+								{{formatDateTime date}}
+							</div>,
+							<div class="comment-move-num">
+								{{_ "move"}} {{moveNum}}
+							</div> 
+						</div>
+						<div class="comment-text">{{text}}</div>
 					</div>
-					<div class="comment-text">{{text}}</div>
+				{{/each}}
+			{{else}}
+				<div id="no-comments-message">
+					{{_ "be_the_first_to_comment"}}
 				</div>
-			{{/each}}
+			{{/if}}
 		</div>
 		<div id="comment-input">
 			<input id="game-comment" maxlength="{{maxCommentLength}}"/> 

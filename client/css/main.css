@@ -432,7 +432,7 @@ iframe {
 	margin-bottom: 8px;
 	font-weight: bold;
 	text-align: center;
-/* 	background-color: #fdcc05; */
+	/* 	background-color: #fdcc05; */
 	-webkit-transform: scale(2, 1); /* Safari and Chrome */
 	-moz-transform: scale(2, 1); /* Firefox */
 	-ms-transform: scale(2, 1); /* IE 9 */
@@ -498,14 +498,6 @@ iframe {
 	top: -8px;
 }
 
-.last-move-square.from-square {
-	
-}
-
-.last-move-square.to-square {
-	
-}
-
 .last-move-square {
 	border-color: yellow;
 	border-style: solid;
@@ -550,13 +542,13 @@ iframe {
 
 #history-game-list {
 	position: relative;
-	margin-left: 12px;
+	margin-left: 74px;
 	display: inline-block;
 	vertical-align: top;
-/* 	border-style: solid; */
-/* 	border-width: 2px; */
-/* 	border-color: black; */
-/* 	border-radius: 8px; */
+	/* 	border-style: solid; */
+	/* 	border-width: 2px; */
+	/* 	border-color: black; */
+	/* 	border-radius: 8px; */
 }
 
 #history-game-list #list-container {
@@ -643,7 +635,7 @@ iframe {
 
 #game-comments-container {
 	width: 360px;
-	height: 220px;
+	height: 320px;
 	border-style: solid;
 	border-color: black;
 	border-width: 2px;
@@ -656,7 +648,7 @@ iframe {
 }
 
 #game-comments {
-	max-height: 186px;
+	max-height: 286px;
 	overflow-y: auto;
 }
 
@@ -667,7 +659,7 @@ iframe {
 
 #comment-input {
 	position: absolute;
-	top: 192px;
+	top: 292px;
 	left: 8px;
 }
 
@@ -689,5 +681,34 @@ iframe {
 
 .game-comment {
 	max-width: 300px;
-	white-space: initial !important; 
+	white-space: initial !important;
+}
+
+#game-comments-header {
+	font-weight: bold;
+	background-color: #fdcc05;
+	padding: 4px;
+}
+
+#comments-spinner {
+	width: 120px;
+	margin-left: calc(50% - 60px);
+	margin-top: 40px;
+}
+
+#no-comments-message {
+	font-weight: bold;
+	margin-top: 16px;
+	margin-left: 16px;
+}
+
+.history-comment-move-num {
+	cursor: pointer;
+	text-decoration: underline;
+	background-color: #fdcc05;
+	border-radius: 4px;
+	margin-top: 4px;
+	padding-right: 4px;
+	padding-left: 4px;
+	font-weight: bold;
 }

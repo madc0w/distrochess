@@ -11,6 +11,7 @@ const isClock = new ReactiveVar(false);
 const isPlayers = new ReactiveVar(false);
 const isNeedToSignIn = new ReactiveVar(false);
 const isPassDialog = new ReactiveVar(false);
+const isLoadingComments = new ReactiveVar(false);
 const clockTime = new ReactiveVar(MOVE_TIMEOUT / 1000);
 
 Template.chessBoard.helpers({
@@ -48,6 +49,10 @@ Template.chessBoard.helpers({
 
 	lowTimeClass : function() {
 		return clockTime.get() <= 10 ? "low-time" : null;
+	},
+
+	isLoadingComments : function() {
+		return isLoadingComments.get();
 	},
 
 	isPassDialog : function() {
@@ -188,7 +193,7 @@ Template.chessBoard.onCreated(function() {
 				}
 			});
 
-
+			isLoadingComments.set(true);
 			Meteor.subscribe("comments", board.get().game._id, function() {
 				const userIds = [];
 				Comments.find({
@@ -196,7 +201,9 @@ Template.chessBoard.onCreated(function() {
 				}).forEach(function(comment) {
 					userIds.push(comment.userId);
 				});
-				Meteor.subscribe("usernames", userIds);
+				Meteor.subscribe("usernames", userIds, function() {
+					isLoadingComments.set(false);
+				});
 			});
 		}
 	});
@@ -402,7 +409,7 @@ function undoLastMove() {
 
 function saveComment() {
 	const text = $("#game-comment").val();
-	Meteor.call("saveComment", text, board.get().game._id, function(err, result) {
+	Meteor.call("saveComment", text, board.get().game._id, board.get().game.moves.length, function(err, result) {
 		$("#game-comment").val("");
 	});
 }

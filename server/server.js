@@ -173,7 +173,7 @@ Meteor.methods({
 		});
 	},
 
-	saveComment : function(text, gameId) {
+	saveComment : function(text, gameId, moveNum) {
 		const now = new Date();
 		if (Meteor.userId() && text.length <= MAX_COMMENT_LENGTH) {
 			Comments.insert({
@@ -181,6 +181,7 @@ Meteor.methods({
 				userId : Meteor.userId(),
 				gameId : gameId,
 				date : now,
+				moveNum : moveNum
 			});
 			return true;
 		}
@@ -249,6 +250,17 @@ Meteor.methods({
 					}
 					console.log("user " + utils.getUsername() + " must wait for available game");
 					return "WAIT";
+				}
+
+				// if any of these games are games in which the user has made a move, then only choose among those
+				const playerGames = [];
+				for (var _game of games) {
+					if (_game.players[Meteor.userId()]) {
+						playerGames.push(_game);
+					} //
+				}
+				if (playerGames.length > 0) {
+					games = playerGames;
 				}
 
 				GameAssignments.remove({

@@ -1,8 +1,34 @@
 const game = new ReactiveVar(null);
+const isLoadingComments = new ReactiveVar(false);
 var moveNum = new ReactiveVar(0);
 var board = null;
 
 Template.history.helpers({
+	commentUsername : function(comment) {
+		const user = Meteor.users.findOne({
+			_id : comment.userId
+		});
+		return user ? utils.getUsername(user) : "?";
+	},
+
+	comments : function() {
+		const _game = game.get();
+		if (_game) {
+			return Comments.find({
+				gameId : _game._id
+			}, {
+				sort : {
+					date : 1
+				}
+			});
+		}
+		return [];
+	},
+
+	isLoadingComments : function() {
+		return isLoadingComments.get();
+	},
+
 	pgnData : function() {
 		const chess = new Chess();
 		const _game = game.get();
@@ -87,7 +113,12 @@ Template.history.helpers({
 });
 
 Template.history.events({
-	"click .select-game-button " : function(e) {
+	"click .history-comment-move-num" : function(e) {
+		moveNum.set(this.moveNum);
+		setBoard();
+	},
+
+	"click .select-game-button" : function(e) {
 		Router.go("/history?id=" + this.id);
 	},
 
@@ -136,6 +167,7 @@ Template.history.onCreated(function() {
 	});
 	game.set(null);
 
+	isLoadingComments.set(true);
 	this.autorun(() => {
 		const gameId = historyGameId.get();
 		if (gameId) {
@@ -157,6 +189,10 @@ Template.history.onCreated(function() {
 					draggable : false,
 				});
 				board.start();
+
+				Meteor.subscribe("comments", _game._id, function() {
+					isLoadingComments.set(false);
+				});
 			}
 		}
 	});

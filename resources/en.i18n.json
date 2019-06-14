@@ -85,5 +85,10 @@
 	"pgn_fail": "Sorry, PGN export failed.",
 	"faq_q1": "What's the big idea?",
 	"moves": "Moves",
-	"games_youve_played": "Games You've Played"
+	"games_youve_played": "Games You've Played",
+	"comments_on_this_game": "Comments on this game",
+	"send": "Send",
+	"be_the_first_to_comment": "Be the first to comment",
+	"no_comments": "No comments",
+	"move": "move"
 }
