@@ -39,6 +39,9 @@ Meteor.publish("userGames", function() {
 			_id : {
 				$in : Meteor.user().gameIds
 			}
+		}, {
+			lastMoveTime : -1,
+			limit : GAME_HISTORY_LIMIT
 		});
 	}
 	this.ready();
