@@ -175,7 +175,7 @@ Meteor.methods({
 
 	saveComment : function(text, gameId, moveNum) {
 		const now = new Date();
-		if (Meteor.userId() && text.length <= MAX_COMMENT_LENGTH) {
+		if (Meteor.userId() && text && text.length <= MAX_COMMENT_LENGTH) {
 			Comments.insert({
 				text : text,
 				userId : Meteor.userId(),
