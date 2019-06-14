@@ -17,6 +17,12 @@ Meteor.startup(function() {
 		}
 	});
 
+	Tracker.autorun(() => {
+		const language = TAPi18n.getLanguage();
+		if (Meteor.user()) {
+			Meteor.call("setLanguage", language);
+		}
+	});
 	TAPi18n.setLanguage(localStorage.getItem("language") || navigator.language);
 
 	Meteor.subscribe("userData");

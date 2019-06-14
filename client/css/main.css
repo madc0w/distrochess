@@ -640,3 +640,54 @@ iframe {
 	margin-left: 22px;
 	vertical-align: top;
 }
+
+#game-comments-container {
+	width: 360px;
+	height: 220px;
+	border-style: solid;
+	border-color: black;
+	border-width: 2px;
+	border-radius: 8px;
+	display: inline-block;
+	position: absolute;
+	top: 564px;
+	left: 420px;
+	padding: 4px;
+}
+
+#game-comments {
+	max-height: 186px;
+	overflow-y: auto;
+}
+
+#submit-comment-button {
+	display: inline-block;
+	width: 60px;
+}
+
+#comment-input {
+	position: absolute;
+	top: 192px;
+	left: 8px;
+}
+
+#comment-input input {
+	width: 270px;
+}
+
+.comment-metadata div {
+	display: inline-block;
+}
+
+.comment-username {
+	font-weight: bold;
+}
+
+.comment-text {
+	margin-left: 12px;
+}
+
+.game-comment {
+	max-width: 300px;
+	white-space: initial !important; 
+}

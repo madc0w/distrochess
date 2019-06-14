@@ -44,6 +44,27 @@
 			{{> players game=game isWhite=isWhite}}
 		</div>
 	{{/if}}
+	<div id="game-comments-container">
+		<div id="game-comments">
+			{{#each comments}}
+				<div class="game-comment">
+					<div class="comment-metadata">
+						<div class="comment-username">
+							{{commentUsername this}}
+						</div> &mdash; 
+						<div class="comment-date">
+							{{formatDateTime date}}
+						</div> :
+					</div>
+					<div class="comment-text">{{text}}</div>
+				</div>
+			{{/each}}
+		</div>
+		<div id="comment-input">
+			<input id="game-comment" maxlength="{{maxCommentLength}}"/> 
+			<div id="submit-comment-button" class="button">{{_ "send"}}</div>
+		</div>
+	</div>
 	
 	{{#if isPassDialog}}
 		<div id="pass-dialog" class="dialog">

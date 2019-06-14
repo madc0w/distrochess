@@ -52,3 +52,12 @@ Meteor.publish("game", function(gameId) {
 		id : gameId
 	});
 });
+
+Meteor.publish("comments", function(gameId) {
+	return Comments.find({
+		gameId : gameId
+	}, {
+		date : -1,
+		limit : COMMENT_HISTORY_LIMIT
+	});
+});

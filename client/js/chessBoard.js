@@ -3,7 +3,7 @@ var isGettingGame = false;
 var game = null;
 var clockIntervalId = null;
 
-const board = new ReactiveVar();
+board = new ReactiveVar();
 const isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isPromotion = new ReactiveVar(false);
@@ -14,6 +14,34 @@ const isPassDialog = new ReactiveVar(false);
 const clockTime = new ReactiveVar(MOVE_TIMEOUT / 1000);
 
 Template.chessBoard.helpers({
+	maxCommentLength : function() {
+		return MAX_COMMENT_LENGTH;
+	},
+
+	formatDateTime : function(date) {
+		return utils.moment(date).fromNow();
+	},
+
+	commentUsername : function(comment) {
+		const user = Meteor.users.findOne({
+			_id : comment.userId
+		});
+		return user ? utils.getUsername(user) : "?";
+	},
+
+	comments : function() {
+		if (board.get() && board.get().game) {
+			return Comments.find({
+				gameId : board.get().game._id
+			}, {
+				sort : {
+					date : 1
+				}
+			});
+		}
+		return [];
+	},
+
 	isWhite : function() {
 		return playingColor() == "w";
 	},
@@ -87,6 +115,14 @@ Template.chessBoard.helpers({
 
 
 Template.chessBoard.events({
+	"keyup #game-comment" : function(e) {
+		if (e.key == "Enter") {
+			saveComment();
+		}
+	},
+
+	"click #submit-comment-button" : saveComment,
+
 	"click #history-button" : function(e) {
 		open("/history?id=" + board.get().game.id, location.pathname == "/history" ? null : "game-history");
 	},
@@ -121,7 +157,7 @@ Template.chessBoard.onDestroyed(() => {
 	Meteor.clearInterval(clockIntervalId);
 });
 
-Template.chessBoard.onCreated(() => {
+Template.chessBoard.onCreated(function() {
 	isSaveGameAfterSignin = false;
 	isGettingGame = false;
 	isWaiting.set(false);
@@ -137,7 +173,35 @@ Template.chessBoard.onCreated(() => {
 		}
 	}, 1000);
 
-	Tracker.autorun(() => {
+
+	this.autorun(() => {
+		if (board.get() && board.get().game) {
+			Comments.find({
+				gameId : board.get().game._id
+			}).observe({
+				added : function(comment) {
+					Meteor.setTimeout(() => {
+						const gameCommentsDiv = $("#game-comments")[0];
+						console.log("gameCommentsDiv.scrollHeight", gameCommentsDiv.scrollHeight);
+						gameCommentsDiv.scrollTop = gameCommentsDiv.scrollHeight;
+					}, 100);
+				}
+			});
+
+
+			Meteor.subscribe("comments", board.get().game._id, function() {
+				const userIds = [];
+				Comments.find({
+					gameId : board.get().game._id
+				}).forEach(function(comment) {
+					userIds.push(comment.userId);
+				});
+				Meteor.subscribe("usernames", userIds);
+			});
+		}
+	});
+
+	this.autorun(() => {
 		const assigments = GameAssignments.find().fetch();
 		console.log("assigments", assigments);
 		if (assigments.length > 0) {
@@ -146,7 +210,7 @@ Template.chessBoard.onCreated(() => {
 	});
 
 	var isUser = false;
-	Tracker.autorun(() => {
+	this.autorun(() => {
 		var _board;
 		Tracker.nonreactive(() => {
 			_board = board.get();
@@ -334,4 +398,11 @@ function undoLastMove() {
 	const _board = board.get();
 	_board.position(game.fen());
 	board.set(_board);
+}
+
+function saveComment() {
+	const text = $("#game-comment").val();
+	Meteor.call("saveComment", text, board.get().game._id, function(err, result) {
+		$("#game-comment").val("");
+	});
 }

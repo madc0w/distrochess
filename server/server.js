@@ -6,7 +6,7 @@ const USER_QUEUE_CHECK_INTERVAL_SECS = 40;
 const userQueue = [];
 const moveTimeoutTimersIds = {};
 
-const collections = [ Games, Meteor.users, SystemData, GameAssignments, SystemLog ];
+const collections = [ Games, Meteor.users, SystemData, GameAssignments, Comments ];
 
 var isGettingGame = false;
 
@@ -163,6 +163,30 @@ Meteor.startup(() => {
 });
 
 Meteor.methods({
+	setLanguage : function(language) {
+		Meteor.users.update({
+			_id : Meteor.userId()
+		}, {
+			$set : {
+				language : language
+			}
+		});
+	},
+
+	saveComment : function(text, gameId) {
+		const now = new Date();
+		if (Meteor.userId() && text.length <= MAX_COMMENT_LENGTH) {
+			Comments.insert({
+				text : text,
+				userId : Meteor.userId(),
+				gameId : gameId,
+				date : now,
+			});
+			return true;
+		}
+		return false;
+	},
+
 	computeGameResult : function(gameId) {
 		var game = Games.findOne({
 			_id : gameId
