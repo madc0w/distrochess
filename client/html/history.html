@@ -61,36 +61,36 @@
 				{{> players game=game isWhite=false}}
 			{{/if}}
 		</div>
-	{{/if}}
-	<div id="game-comments-container">
-		<div id="game-comments-header">{{_ "comments_on_this_game"}}</div>
-		<div id="game-comments">
-			{{#if isLoadingComments}}
-				<img id="comments-spinner" src="/img/spinner.svg">
-			{{else if comments.count}}
-				{{#each comments}}
-					<div class="game-comment">
-						<div class="comment-metadata">
-							<div class="comment-username">
-								{{commentUsername this}}
-							</div> &mdash; 
-							<div class="comment-date">
-								{{formatDateTime date}}
-							</div>,
-							<div class="history-comment-move-num">
-								{{_ "move"}} {{moveNum}}
-							</div> 
+		<div id="game-comments-container">
+			<div id="game-comments-header">{{_ "comments_on_this_game"}}</div>
+			<div id="game-comments">
+				{{#if isLoadingComments}}
+					<img id="comments-spinner" src="/img/spinner.svg">
+				{{else if comments.count}}
+					{{#each comments}}
+						<div class="game-comment">
+							<div class="comment-metadata">
+								<div class="comment-username">
+									{{commentUsername this}}
+								</div> &mdash; 
+								<div class="comment-date">
+									{{formatDateTime date}}
+								</div>,
+								<div class="history-comment-move-num">
+									{{_ "move"}} {{moveNum}}
+								</div> 
+							</div>
+							<div class="comment-text">{{text}}</div>
 						</div>
-						<div class="comment-text">{{text}}</div>
+					{{/each}}
+				{{else}}
+					<div id="no-comments-message">
+						{{_ "no_comments"}}
 					</div>
-				{{/each}}
-			{{else}}
-				<div id="no-comments-message">
-					{{_ "no_comments"}}
-				</div>
-			{{/if}}
+				{{/if}}
+			</div>
 		</div>
-	</div>
+	{{/if}}
 	{{#if games.count}}
 		<div id="history-game-list">
 			<div id="history-header">{{{_ "games_youve_played"}}}</div>
