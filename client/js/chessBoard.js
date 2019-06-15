@@ -169,7 +169,7 @@ Template.chessBoard.onCreated(function() {
 	clockTime.set(MOVE_TIMEOUT / 1000);
 
 	clockIntervalId = Meteor.setInterval(() => {
-		clockTime.set(clockTime.get() - 1);
+		clockTime.set(Math.max(0, clockTime.get() - 1));
 		if (clockTime.get() <= 0) {
 			getGame();
 		}
