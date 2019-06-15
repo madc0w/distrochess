@@ -4,6 +4,14 @@ var moveNum = new ReactiveVar(0);
 var board = null;
 
 Template.history.helpers({
+	userColor : function(userId) {
+		const _game = game.get();
+		if (_game && _game.players[userId]) {
+			return _game.players[userId].isWhite ? "w" : "b";
+		}
+		return null;
+	},
+
 	commentUsername : function(comment) {
 		const user = Meteor.users.findOne({
 			_id : comment.userId

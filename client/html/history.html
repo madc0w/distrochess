@@ -72,6 +72,9 @@
 							<div class="comment-metadata">
 								<div class="comment-username">
 									{{commentUsername this}}
+									{{#if userColor this.userId}}
+										<img src="/img/chesspieces/wikipedia/{{userColor this.userId}}N.png"/>
+									{{/if}}
 								</div> &mdash; 
 								<div class="comment-date">
 									{{formatDateTime date}}
