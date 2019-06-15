@@ -374,6 +374,10 @@ iframe {
 	width: 100%;
 }
 
+#faqs {
+	white-space: initial;
+}
+
 #faqs br {
 	line-height: 32px;
 }
