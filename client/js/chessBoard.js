@@ -24,6 +24,14 @@ Template.chessBoard.helpers({
 		return utils.moment(date).fromNow();
 	},
 
+	userColor : function(userId) {
+		const _board = board.get();
+		if (_board && _board.game && _board.game.players[userId]) {
+			return _board.game.players[userId].isWhite ? "w" : "b";
+		}
+		return null;
+	},
+
 	commentUsername : function(comment) {
 		const user = Meteor.users.findOne({
 			_id : comment.userId
@@ -32,9 +40,10 @@ Template.chessBoard.helpers({
 	},
 
 	comments : function() {
-		if (board.get() && board.get().game) {
+		const _board = board.get();
+		if (_board && _board.game) {
 			return Comments.find({
-				gameId : board.get().game._id
+				gameId : _board.game._id
 			}, {
 				sort : {
 					date : 1
@@ -353,6 +362,7 @@ function getGame() {
 				isWaiting.set(true);
 				isPlayers.set(false);
 				game = null;
+				board.set(null);
 			} else if (result) {
 				isWaiting.set(false);
 				isClock.set(true);

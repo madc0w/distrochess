@@ -681,6 +681,12 @@ iframe {
 	font-weight: bold;
 }
 
+.comment-username img {
+	width: 22px;
+	position: relative;
+	top: 4px;
+}
+
 .comment-text {
 	margin-left: 12px;
 }
