@@ -152,7 +152,6 @@ Template.chessBoard.events({
 		isSpinner.set(true);
 		Meteor.call("ignoreGame", board.get().game._id, function(err, result) {
 			getGame();
-			isSpinner.set(false);
 		});
 	},
 
