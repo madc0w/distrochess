@@ -15,7 +15,7 @@
 					{{formatTime clockTime}}
 				</div>
 			{{/if}}
-			{{#if gameId}}
+			{{#if game.id}}
 				<div id="game-info">
 					<div id="playing-side">
 						<div id="playing-side-label">
@@ -30,7 +30,7 @@
 				<hr/>
 				<div id="game-controls">
 					<div id="game-id">
-						{{_ "game_id"}} : <strong>{{gameId}}</strong>
+						{{_ "game_id"}} : <strong>{{game.id}}</strong>
 					</div>
 					<div id="pass-or-ignore-button" class="button">{{_ "pass"}}</div>
 				</div>
@@ -44,39 +44,41 @@
 			{{> players game=game isWhite=isWhite}}
 		</div>
 	{{/if}}
-	<div id="game-comments-container">
-		<div id="game-comments-header">{{_ "comments_on_this_game"}}</div>
-		<div id="game-comments">
-			{{#if isLoadingComments}}
-				<img id="comments-spinner" src="/img/spinner.svg">
-			{{else if comments.count}}
-				{{#each comments}}
-					<div class="game-comment">
-						<div class="comment-metadata">
-							<div class="comment-username">
-								{{commentUsername this}}
-							</div> &mdash; 
-							<div class="comment-date">
-								{{formatDateTime date}}
-							</div>,
-							<div class="comment-move-num">
-								{{_ "move"}} {{moveNum}}
-							</div> 
+	{{#if game}}
+		<div id="game-comments-container">
+			<div id="game-comments-header">{{_ "comments_on_this_game"}}</div>
+			<div id="game-comments">
+				{{#if isLoadingComments}}
+					<img id="comments-spinner" src="/img/spinner.svg">
+				{{else if comments.count}}
+					{{#each comments}}
+						<div class="game-comment">
+							<div class="comment-metadata">
+								<div class="comment-username">
+									{{commentUsername this}}
+								</div> &mdash; 
+								<div class="comment-date">
+									{{formatDateTime date}}
+								</div>,
+								<div class="comment-move-num">
+									{{_ "move"}} {{moveNum}}
+								</div> 
+							</div>
+							<div class="comment-text">{{text}}</div>
 						</div>
-						<div class="comment-text">{{text}}</div>
+					{{/each}}
+				{{else}}
+					<div id="no-comments-message">
+						{{_ "be_the_first_to_comment"}}
 					</div>
-				{{/each}}
-			{{else}}
-				<div id="no-comments-message">
-					{{_ "be_the_first_to_comment"}}
-				</div>
-			{{/if}}
+				{{/if}}
+			</div>
+			<div id="comment-input">
+				<input id="game-comment" maxlength="{{maxCommentLength}}"/> 
+				<div id="submit-comment-button" class="button">{{_ "send"}}</div>
+			</div>
 		</div>
-		<div id="comment-input">
-			<input id="game-comment" maxlength="{{maxCommentLength}}"/> 
-			<div id="submit-comment-button" class="button">{{_ "send"}}</div>
-		</div>
-	</div>
+	{{/if}}
 	
 	{{#if isPassDialog}}
 		<div id="pass-dialog" class="dialog">
@@ -99,7 +101,7 @@
 		</div>
 	{{/if}}
 	
-	{{#if isNeedToSignIn }}
+	{{#if isNeedToSignIn}}
 		<div id="need-to-sign-in" class="dialog">
 			<div id="need-to-sign-text">
 				{{_ "need_to_sign_in"}}

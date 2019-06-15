@@ -21,6 +21,7 @@ input {
 }
 
 .dialog {
+	white-space: initial;
 	position: absolute;
 	top: 110px;
 	left: 154px;
@@ -161,6 +162,7 @@ input {
 }
 
 #message {
+	white-space: initial;
 	z-index: 120;
 	width: 400px;
 	line-height: 24px;

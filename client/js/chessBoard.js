@@ -1,9 +1,10 @@
 var isSaveGameAfterSignin = false;
+var isSaveCommentAfterSignin = false;
 var isGettingGame = false;
 var game = null;
 var clockIntervalId = null;
 
-board = new ReactiveVar();
+const board = new ReactiveVar();
 const isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isPromotion = new ReactiveVar(false);
@@ -94,11 +95,6 @@ Template.chessBoard.helpers({
 		return Math.floor(time / 60) + ":" + (secs < 10 ? "0" : "") + secs;
 	},
 
-	gameId : function() {
-		const _board = board.get();
-		return _board && _board.game && _board.game.id;
-	},
-
 	needToSignInCancel : function() {
 		return function() {
 			undoLastMove();
@@ -114,7 +110,8 @@ Template.chessBoard.helpers({
 	},
 
 	game : function() {
-		return board.get().game;
+		const _board = board.get();
+		return _board && _board.game;
 	},
 });
 
@@ -229,6 +226,9 @@ Template.chessBoard.onCreated(function() {
 			if (_board && isSaveGameAfterSignin) {
 				isSaveGameAfterSignin = false;
 				saveGame();
+			} else if (isSaveCommentAfterSignin) {
+				isSaveCommentAfterSignin = false;
+				saveComment();
 			}
 		} else if (isUser) {
 			location.reload();
@@ -341,7 +341,7 @@ function getGame() {
 	if (!isGettingGame) {
 		isGettingGame = true;
 		isSpinner.set(true);
-		Meteor.call("getGame", function(err, result) {
+		Meteor.call("getGame", board.get() && board.get().game && board.get().game._id, function(err, result) {
 			if (result === "LOCK") {
 				Meteor.setTimeout(() => {
 					isGettingGame = false;
@@ -408,8 +408,13 @@ function undoLastMove() {
 }
 
 function saveComment() {
-	const text = $("#game-comment").val();
-	Meteor.call("saveComment", text, board.get().game._id, board.get().game.moves.length, function(err, result) {
-		$("#game-comment").val("");
-	});
+	if (Meteor.userId()) {
+		const text = $("#game-comment").val();
+		Meteor.call("saveComment", text, board.get().game._id, board.get().game.moves.length, function(err, result) {
+			$("#game-comment").val("");
+		});
+	} else {
+		isSaveCommentAfterSignin = true;
+		isNeedToSignIn.set(true);
+	}
 }
