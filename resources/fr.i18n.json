@@ -89,5 +89,9 @@
 	"send": "Envoyer",
 	"be_the_first_to_comment": "Soyez le premier à commenter",
 	"no_comments": "Aucun commentaire",
-	"move": "tour"
+	"move": "tour",
+	"flag_as_inappropriate": "Signaler le commentaire comme étant inapproprié",
+	"flag_reason": "Veuillez expliquer ce que vous avez trouvé offensant dans de ce commentaire.",
+	"comment_flagged": "Merci de vos commentaires. Nous examinerons ce commentaire.",
+	"flag_comment": "Signaler ce commentaire comme inapproprié"
 }

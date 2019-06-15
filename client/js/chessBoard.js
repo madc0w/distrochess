@@ -3,8 +3,10 @@ var isSaveCommentAfterSignin = false;
 var isGettingGame = false;
 var game = null;
 var clockIntervalId = null;
+var flaggingCommentId = null;
 
 const board = new ReactiveVar();
+const isFlagComment = new ReactiveVar(false);
 const isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isPromotion = new ReactiveVar(false);
@@ -61,6 +63,11 @@ Template.chessBoard.helpers({
 		return clockTime.get() <= 10 ? "low-time" : null;
 	},
 
+
+	isFlagComment : function() {
+		return isFlagComment.get();
+	},
+
 	isLoadingComments : function() {
 		return isLoadingComments.get();
 	},
@@ -112,6 +119,13 @@ Template.chessBoard.helpers({
 		};
 	},
 
+	flagCommentCancel : function() {
+		return function() {
+			flaggingCommentId = null;
+			isFlagComment.set(false);
+		};
+	},
+
 	passCancel : function() {
 		return function() {
 			isPassDialog.set(false);
@@ -126,6 +140,20 @@ Template.chessBoard.helpers({
 
 
 Template.chessBoard.events({
+	"click #flag-button" : function(e) {
+		const text = $("#flag-reason-input").val();
+		Meteor.call("flagComment", text, flaggingCommentId, function(err, result) {
+			isFlagComment.set(false);
+			flaggingCommentId = null;
+			message.set(TAPi18n.__("comment_flagged"));
+		});
+	},
+
+	"click .flag-container" : function(e) {
+		flaggingCommentId = this._id;
+		isFlagComment.set(true);
+	},
+
 	"keyup #game-comment" : function(e) {
 		if (e.key == "Enter") {
 			saveComment();

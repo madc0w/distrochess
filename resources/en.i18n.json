@@ -89,5 +89,9 @@
 	"send": "Send",
 	"be_the_first_to_comment": "Be the first to comment",
 	"no_comments": "No comments",
-	"move": "move"
+	"move": "move",
+	"flag_as_inappropriate": "Flag comment as inappropriate",
+	"flag_reason": "Please tell us what you found offensive about this comment.",
+	"comment_flagged": "Thanks for your feedback. We will review this comment.",
+	"flag_comment": "Flag comment as inappropriate"
 }

@@ -689,6 +689,7 @@ iframe {
 
 .comment-text {
 	margin-left: 12px;
+	display: inline-block;
 }
 
 .game-comment {
@@ -723,4 +724,33 @@ iframe {
 	padding-right: 4px;
 	padding-left: 4px;
 	font-weight: bold;
+}
+
+.flag-container img {
+	width: 18px;
+	display: inline-block;
+	position: relative;
+	top: 2px;
+}
+
+.flag-container {
+	text-align: center;
+	width: 24px;
+	border-radius: 18px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.flag-container:hover {
+	background-color: #fdcc05;
+}
+
+#flag-comment {
+	top: 420px;
+	left: 472px;
+}
+
+#flag-comment .button {
+	margin-left: calc(50% - 70px);
+	margin-top: 12px;
 }

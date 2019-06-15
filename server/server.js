@@ -163,6 +163,24 @@ Meteor.startup(() => {
 });
 
 Meteor.methods({
+	flagComment : function(reasonText, commentId) {
+		const comment = Comments.findOne({
+			_id : commentId
+		});
+
+		if (comment) {
+			CommentFlags.insert({
+				reason : reasonText,
+				commentId : commentId,
+				userId : Meteor.userId(),
+				commentText : comment.text,
+			});
+			return true;
+		} else {
+			return false;
+		}
+	},
+
 	setLanguage : function(language) {
 		Meteor.users.update({
 			_id : Meteor.userId()

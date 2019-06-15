@@ -89,5 +89,9 @@
 	"send": "Enviar",
 	"be_the_first_to_comment": "Sé el primero en comentar",
 	"no_comments": "No hay comentarios",
-	"move": "juego"
+	"move": "juego",
+	"flag_as_inappropriate": "Marcar comentario como inapropiado",
+	"flag_reason": "Por favor, díganos lo que encontró ofensivo sobre este comentario",
+	"comment_flagged": "Gracias por sus comentarios. Revisaremos este comentario",
+	"flag_comment": "Marcar comentario como inapropiado"
 }

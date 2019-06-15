@@ -67,7 +67,10 @@
 									{{_ "move"}} {{moveNum}}
 								</div> 
 							</div>
-							<div class="comment-text">{{text}}</div>
+							<div class="flag-container">
+								<img src="/img/x.png"/>
+							</div>
+							<div class="comment-text" alt="{{_ "flag_as_inappropriate"}}">{{text}}</div>
 						</div>
 					{{/each}}
 				{{else}}
@@ -111,6 +114,17 @@
 			</div>
 			<div id="need-to-sign-in-button" class="button">{{_ "sign_in"}}</div>
 			{{> cancelButton id="need-to-sign-in-cancel-button" callback=needToSignInCancel}}
+		</div>
+	{{/if}}
+	
+	{{#if isFlagComment}}
+		<div id="flag-comment" class="dialog">
+			<div id="flag-comment-text">
+				{{_ "flag_reason"}}
+			</div>
+			<input id="flag-reason-input" maxlength="400"/>
+			<div id="flag-button" class="button">{{_ "flag_comment"}}</div>
+			{{> cancelButton id="flag-comment-cancel-button" callback=flagCommentCancel}}
 		</div>
 	{{/if}}
 	
