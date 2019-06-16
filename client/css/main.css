@@ -761,4 +761,9 @@ iframe {
 
 #receive-emails-checkbox {
 	width: 22px;
+	height: 18px;
+}
+
+.dialog td {
+	text-align: left;
 }

@@ -137,6 +137,8 @@ Template.signin.events({
 									message.set(err);
 								}
 							} else {
+								const isReceiveNotifications = $("#receive-emails-checkbox").prop("checked");
+								Meteor.call("setReceiveNotifcations", isReceiveNotifications);
 								isUsernameDialog.set(false);
 								isSigninDialog.set(false);
 								isSignup.set(false);
@@ -164,7 +166,11 @@ Template.signin.events({
 				message.set(err);
 			} else {
 				isSigninDialog.set(false);
-				location.reload();
+				if (location.pathname == "/") {
+					location.reload();
+				} else {
+					location.pathname = "/";
+				}
 			}
 		});
 	},
