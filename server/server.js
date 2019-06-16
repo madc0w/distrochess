@@ -134,7 +134,9 @@ Meteor.startup(() => {
 					Meteor.users.update({
 						_id : userId
 					}, {
-						username : username + "-2"
+						$set : {
+							username : username + "-2"
+						}
 					});
 				} else if (otherUsername && otherUsername.startsWith("Anonymous-")) {
 					user.username = null;
