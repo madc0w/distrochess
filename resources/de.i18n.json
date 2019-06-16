@@ -96,5 +96,7 @@
 	"flag_comment": "Kommentar als unangemessen markieren",
 	"receive_email_notifications": "E-Mail-Benachrichtigungen erhalten?",
 	"password_reset_subject": "Distrochess: Anfrage zum Zurücksetzen des Passworts",
-	"password_reset_success": "Sie haben Ihr Passwort erfolgreich geändert."
+	"password_reset_success": "Sie haben Ihr Passwort erfolgreich geändert.",
+	"password_reset_email_sent": "Eine E-Mail mit Anweisungen zum Zurücksetzen Ihres Passworts wurde an die Adresse gesendet, die Sie bei der Registrierung registriert haben.",
+	"enter_username_or_email": "Bitte geben Sie den Benutzernamen oder die E-Mail-Adresse ein, mit der Sie sich registriert haben."
 }

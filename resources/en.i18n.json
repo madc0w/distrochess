@@ -96,5 +96,7 @@
 	"flag_comment": "Flag comment as inappropriate",
 	"receive_email_notifications": "Receive email notifications?",
 	"password_reset_subject": "Distrochess: Password reset request",
-	"password_reset_success": "You have successfully changed your password."
+	"password_reset_success": "You have successfully changed your password.",
+	"password_reset_email_sent": "An email containing instructions to reset your password has been sent to the address you registered when you signed up.",
+	"enter_username_or_email": "Please enter the username or email address you used to sign up."
 }

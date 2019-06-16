@@ -96,5 +96,7 @@
 	"flag_comment": "Marcar comentario como inapropiado",
 	"receive_email_notifications": "¿Recibir notificaciones por email?",
 	"password_reset_subject": "Distrochess: Solicitud de restablecimiento de contraseña",
-	"password_reset_success": "Ha cambiado su contraseña con éxito."
+	"password_reset_success": "Ha cambiado su contraseña con éxito.",
+	"password_reset_email_sent": "Se envió un email con instrucciones para restablecer su contraseña a la dirección que registró cuando se registró.",
+	"enter_username_or_email": "Ingrese el nombre de usuario o la dirección de email que usó para registrarse."
 }

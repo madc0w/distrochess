@@ -96,5 +96,7 @@
 	"flag_comment": "Signaler ce commentaire comme inapproprié",
 	"receive_email_notifications": "Recevoir des notifications par email?",
 	"password_reset_subject": "Distrochess: Demande de réinitialisation du mot de passe",
-	"password_reset_success": "Vous avez bien modifié votre mot de passe."
+	"password_reset_success": "Vous avez bien modifié votre mot de passe.",
+	"password_reset_email_sent": "Un e-mail contenant les instructions pour réinitialiser votre mot de passe a été envoyé à l'adresse que vous avez enregistrée lors de votre inscription.",
+	"enter_username_or_email": "Veuillez saisir le nom d'utilisateur ou l'adresse e-mail avec lesquels vous vous êtes inscrit."
 }
