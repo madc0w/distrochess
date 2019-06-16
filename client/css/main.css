@@ -758,3 +758,7 @@ iframe {
 .user-avatar {
 	height: 40px;
 }
+
+#receive-emails-checkbox {
+	width: 22px;
+}

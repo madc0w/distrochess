@@ -93,5 +93,6 @@
 	"flag_as_inappropriate": "Signaler le commentaire comme étant inapproprié",
 	"flag_reason": "Veuillez expliquer ce que vous avez trouvé offensant dans de ce commentaire.",
 	"comment_flagged": "Merci de vos commentaires. Nous examinerons ce commentaire.",
-	"flag_comment": "Signaler ce commentaire comme inapproprié"
+	"flag_comment": "Signaler ce commentaire comme inapproprié",
+	"receive_email_notifications": "Recevoir des notifications par email?"
 }

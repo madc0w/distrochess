@@ -202,6 +202,16 @@ Meteor.startup(() => {
 });
 
 Meteor.methods({
+	setReceiveNotifcations : function(isReceiveNotifications) {
+		Meteor.users.update({
+			_id : Meteor.userId()
+		}, {
+			$set : {
+				isReceiveNotifications : isReceiveNotifications
+			}
+		});
+	},
+
 	flagComment : function(reasonText, commentId) {
 		const comment = Comments.findOne({
 			_id : commentId
@@ -553,11 +563,12 @@ Meteor.methods({
 		if (pw == Meteor.settings.private.adminPw) {
 			Email.send({
 				from : "no-reply@distrochess.com",
+				//				to : "bounce@simulator.amazonses.com",
 				//				to : "complaint@simulator.amazonses.com",
 				//				to : "chris.gilmore@gmail.com",
 				to : "distrochess@runbox.com",
 				subject : "test",
-				text : "this be a test."
+				text : "this be a test.\nsent at " + new Date()
 			});
 		} else {
 			console.warn("somebody tried to call testEmail with bad password", pw);

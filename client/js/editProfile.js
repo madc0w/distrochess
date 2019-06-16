@@ -25,6 +25,14 @@ Template.editProfile.helpers({
 });
 
 Template.editProfile.events({
+	"click #receive-emails-checkbox" : function(e) {
+		const isReceiveNotifications = $("#receive-emails-checkbox").prop("checked");
+		isSpinner.set(true);
+		Meteor.call("setReceiveNotifcations", isReceiveNotifications, function(err, result) {
+			isSpinner.set(false);
+		});
+	},
+
 	"click #save-password-button" : function(e) {
 		$("#password1-input").removeClass("invalid");
 		$("#password2-input").removeClass("invalid");
@@ -81,6 +89,11 @@ Template.editProfile.events({
 
 
 Template.editProfile.onRendered(function() {
+	this.autorun(() => {
+		if (Meteor.user()) {
+			$("#receive-emails-checkbox").prop("checked", Meteor.user().isReceiveNotifications);
+		}
+	});
 	this.autorun(() => {
 		if (Meteor.user()) {
 			$("#username-field").val(utils.getUsername());
