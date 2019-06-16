@@ -117,45 +117,49 @@ Meteor.startup(() => {
 		}
 	});
 
-	Meteor.users.find().observeChanges({
-		added : function(userId) {
-			//			console.log("added ", userId);
-			const newUser = Meteor.users.findOne({
-				_id : userId
-			});
-			const username = utils.getUsername(newUser);
-			console.log("username", username);
+	// WARNING! extremely dangerous code here, which IS NOT WORKING!!!
+	// the idea was was detect and rectify username collisions, and also to update usernames that 
+	// were erroneously set to Anonymous instead of the Github username.
+	// but instead, all usernames are set to null, for some reason!  and... other insanity.
 
-			Meteor.users.find().forEach(function(user) {
-				const otherUsername = utils.getUsername(user);
-				console.log("otherUsername ", otherUsername);
-				if (otherUsername == username && user._id != userId) {
-					console.log("username collision: " + username + " user._id: " + user._id + " and newUser._id: " + userId);
-					Meteor.users.update({
-						_id : userId
-					}, {
-						$set : {
-							username : username + "-2"
-						}
-					});
-				} else if (otherUsername && otherUsername.startsWith("Anonymous-")) {
-					user.username = null;
-					const updatedUsername = utils.getUsername(user);
-					if (updatedUsername) {
-						console.log("setting username to null on user with id ", userId);
-						Meteor.users.update({
-							_id : userId
-						}, {
-							$set : {
-								username : null
-							}
-						});
-					}
-				}
-			});
-		}
-	});
-
+	//	Meteor.users.find().observeChanges({
+	//		added : function(userId) {
+	//			//			console.log("added ", userId);
+	//			const newUser = Meteor.users.findOne({
+	//				_id : userId
+	//			});
+	//			const username = utils.getUsername(newUser);
+	//			//			console.log("username", username);
+	//
+	//			Meteor.users.find().forEach(function(user) {
+	//				const otherUsername = utils.getUsername(user);
+	//				//				console.log("otherUsername ", otherUsername);
+	//				if (otherUsername == username && user._id != userId) {
+	//					console.log("username collision: " + username + " user._id: " + user._id + " and newUser._id: " + userId);
+	//					Meteor.users.update({
+	//						_id : userId
+	//					}, {
+	//						$set : {
+	//							username : username + "-2"
+	//						}
+	//					});
+	//				} else if (otherUsername && otherUsername.startsWith("Anonymous-")) {
+	//					user.username = null;
+	//					const updatedUsername = utils.getUsername(user);
+	//					if (updatedUsername) {
+	//						console.log("setting username to null on user with id ", userId);
+	//						Meteor.users.update({
+	//							_id : userId
+	//						}, {
+	//							$unset : {
+	//								username : null
+	//							}
+	//						});
+	//					}
+	//				}
+	//			});
+	//		}
+	//	});
 
 	// assign sequential username if none provided
 	Meteor.users.find().observe({
@@ -549,6 +553,8 @@ Meteor.methods({
 		if (pw == Meteor.settings.private.adminPw) {
 			Email.send({
 				from : "no-reply@distrochess.com",
+				//				to : "complaint@simulator.amazonses.com",
+				//				to : "chris.gilmore@gmail.com",
 				to : "distrochess@runbox.com",
 				subject : "test",
 				text : "this be a test."
