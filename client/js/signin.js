@@ -27,8 +27,21 @@ Template.signin.helpers({
 
 Template.signin.events({
 	"click #forgot-password-button" : function(e) {
-		// TODO send password reset email 
-		message.set(TAPi18n.__("not_implemented"));
+		const emailOrUsername = $("#username-input").val().trim();
+		if (emailOrUsername) {
+			// send password reset email
+			isSpinner.set(true);
+			Meteor.call("sendResetPasswordEmail", emailOrUsername, function(err, result) {
+				isSpinner.set(false);
+				if (err) {
+					message.set(err);
+				} else {
+					message.set("password_reset_email_sent");
+				}
+			});
+		} else {
+			message.set(TAPi18n.__("enter_username_or_email"));
+		}
 	},
 
 	"click #signin-google-button" : function(e) {

@@ -18,11 +18,17 @@ Router.route("/forum", function() {
 	setPage.bind(this)("forum");
 });
 
+Router.route("/reset-password/:token", function() {
+	passwordResetToken = this.params.token;
+	setPage.bind(this)("passwordReset");
+});
+
 Router.route("/history", function() {
 	const gameId = this.params.query.id;
 	historyGameId.set(parseInt(gameId));
 	setPage.bind(this)("history");
 });
+
 
 function setPage(name) {
 	templateName.set(name);

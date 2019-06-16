@@ -94,5 +94,7 @@
 	"flag_reason": "Veuillez expliquer ce que vous avez trouvé offensant dans de ce commentaire.",
 	"comment_flagged": "Merci de vos commentaires. Nous examinerons ce commentaire.",
 	"flag_comment": "Signaler ce commentaire comme inapproprié",
-	"receive_email_notifications": "Recevoir des notifications par email?"
+	"receive_email_notifications": "Recevoir des notifications par email?",
+	"password_reset_subject": "Distrochess: Demande de réinitialisation du mot de passe",
+	"password_reset_success": "Vous avez bien modifié votre mot de passe."
 }

@@ -5,6 +5,8 @@ isOverlay = new ReactiveVar(false);
 isSigninDialog = new ReactiveVar(false);
 historyGameId = new ReactiveVar();
 
+passwordResetToken = null;
+
 Meteor.startup(function() {
 	// because we can't seem to redirect everything to www.distrochess.com by using DNS, for obscure reasons
 	if (!location.host.startsWith("localhost") && location.host != "www.distrochess.com") {

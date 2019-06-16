@@ -94,5 +94,7 @@
 	"flag_reason": "Please tell us what you found offensive about this comment.",
 	"comment_flagged": "Thanks for your feedback. We will review this comment.",
 	"flag_comment": "Flag comment as inappropriate",
-	"receive_email_notifications": "Receive email notifications?"
+	"receive_email_notifications": "Receive email notifications?",
+	"password_reset_subject": "Distrochess: Password reset request",
+	"password_reset_success": "You have successfully changed your password."
 }

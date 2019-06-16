@@ -12,12 +12,38 @@ var isGettingGame = false;
 
 Meteor.startup(() => {
 	// code to run on server at startup
+
+	Accounts.emailTemplates.resetPassword = {
+		//		from : function(user) {
+		//			// Overrides the value set in Accounts.emailTemplates.from when resetting passwords.
+		//			return "Spoticle Admin <noreply@mail.spoticle.com>";
+		//		},
+		subject : function(user) {
+			const language = user.language || "en";
+			return TAPi18n.__("password_reset_subject", {}, language);
+		},
+		text : function(user, url) {
+			url = url.replace("/#/", "/");
+			return getEmail("passwordResetEmail", user, false, {
+				url : url,
+				email : utils.getEmail(user),
+			});
+		},
+		html : function(user, url) {
+			url = url.replace("/#/", "/");
+			return getEmail("passwordResetEmail", user, true, {
+				url : url,
+				email : utils.getEmail(user),
+			});
+		}
+	};
+
+	const deny = function() {
+		return true;
+	};
 	for (var i in collections) {
-		var collection = collections[i];
+		const collection = collections[i];
 		// deny every kind of write operation from client
-		var deny = function() {
-			return true;
-		};
 		collection.deny({
 			insert : deny,
 			update : deny,
@@ -202,6 +228,31 @@ Meteor.startup(() => {
 });
 
 Meteor.methods({
+	sendResetPasswordEmail : function(emailOrUsername) {
+		//		console.log("sendResetPasswordEmail : emailOrUsername ", emailOrUsername);
+		//		this.unblock();
+		const user = Meteor.users.findOne({
+			$or : [ {
+				username : {
+					$regex : "^" + emailOrUsername + "$",
+					$options : "i"
+				}
+			}, {
+				"emails.address" : {
+					$regex : "^" + emailOrUsername + "$",
+					$options : "i"
+				}
+			} ]
+		});
+		//		console.log("sendResetPasswordEmail : user ", user);
+		if (user) {
+			Accounts.sendResetPasswordEmail(user._id);
+			return true;
+		}
+		console.log("sendResetPasswordEmail : no user found having email or username " + emailOrUsername);
+		return false;
+	},
+
 	setReceiveNotifcations : function(isReceiveNotifications) {
 		Meteor.users.update({
 			_id : Meteor.userId()
@@ -822,4 +873,27 @@ function ensureUniqueUsernames() {
 	});
 	console.log("username collision count", collisionCount);
 	return collisionCount;
+}
+
+function getEmail(baseFilename, user, isHtml, vars) {
+	const language = user.language || "en";
+	const filename = "emails/" + baseFilename + "_" + language + "." + (isHtml ? "html" : "txt");
+	var text;
+	try {
+		text = Assets.getText(filename);
+	} catch (e) {
+		console.warn("No email file '" + filename + "' found.  Attempting English...");
+		text = Assets.getText("emails/" + baseFilename + "_en." + (isHtml ? "html" : "txt"));
+	}
+	text = replaceVars(text, vars);
+	return text;
+}
+
+function replaceVars(text, varsDict) {
+	for (var name in varsDict) {
+		const regExp = new RegExp("\\$\\b" + name + "\\b", "g");
+		const value = utils.escapeHtml(varsDict[name]);
+		text = text.replace(regExp, value);
+	}
+	return text;
 }
