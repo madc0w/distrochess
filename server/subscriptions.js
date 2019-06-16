@@ -33,6 +33,14 @@ Meteor.publish("usernames", function(userIds) {
 
 });
 
+Meteor.publish("users", function() {
+	if (Meteor.user() && Meteor.user().isAdmin) {
+		return Meteor.users.find();
+	}
+	this.ready();
+});
+
+
 Meteor.publish("userGames", function() {
 	if (this.userId) {
 		return Games.find({

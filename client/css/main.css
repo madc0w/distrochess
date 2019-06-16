@@ -754,3 +754,7 @@ iframe {
 	margin-left: calc(50% - 70px);
 	margin-top: 12px;
 }
+
+.user-avatar {
+	height: 40px;
+}

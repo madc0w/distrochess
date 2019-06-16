@@ -6,6 +6,10 @@ Router.route("/edit-profile", function() {
 	setPage.bind(this)("editProfile");
 });
 
+Router.route("/users", function() {
+	setPage.bind(this)("users");
+});
+
 Router.route("/faq", function() {
 	setPage.bind(this)("faq");
 });

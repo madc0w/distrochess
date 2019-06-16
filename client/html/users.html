@@ -1,0 +1,28 @@
+<template name="users">
+	{{#if currentUser.isAdmin}}
+		<table>
+			<tr>
+				<th>Username</th>
+				<th>Created</th>
+				<th>Avatar</th>
+				<th>Email</th>
+				<th>Auth Service</th>
+			</tr>
+			{{#each users}}
+				<tr>
+					<td>{{username}}</td>
+					<td>{{dateFormat createdAt}}</td>
+					<td>
+						{{#if avatarUrl}}
+							<img class="user-avatar" src="{{avatarUrl}}"/>
+						{{/if}}
+					</td>
+					<td>{{email}}</td>
+					<td>{{authService}}</td>
+				</tr>
+			{{/each}}
+		</table>
+	{{else}}
+You are not admin!  Now go away.
+	{{/if}}
+</template>

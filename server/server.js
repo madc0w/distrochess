@@ -117,16 +117,51 @@ Meteor.startup(() => {
 		}
 	});
 
+	Meteor.users.find().observeChanges({
+		added : function(userId) {
+			//			console.log("added ", userId);
+			const newUser = Meteor.users.findOne({
+				_id : userId
+			});
+			const username = utils.getUsername(newUser);
+			console.log("username", username);
+
+			Meteor.users.find().forEach(function(user) {
+				const otherUsername = utils.getUsername(user);
+				console.log("otherUsername ", otherUsername);
+				if (otherUsername == username && user._id != userId) {
+					console.log("username collision: " + username + " user._id: " + user._id + " and newUser._id: " + userId);
+					Meteor.users.update({
+						_id : userId
+					}, {
+						username : username + "-2"
+					});
+				} else if (otherUsername && otherUsername.startsWith("Anonymous-")) {
+					user.username = null;
+					const updatedUsername = utils.getUsername(user);
+					if (updatedUsername) {
+						console.log("setting username to null on user with id ", userId);
+						Meteor.users.update({
+							_id : userId
+						}, {
+							$set : {
+								username : null
+							}
+						});
+					}
+				}
+			});
+		}
+	});
+
+
 	// assign sequential username if none provided
-	Meteor.users.find({
-		username : null,
-		"profile.name" : null,
-	}).observe({
+	Meteor.users.find().observe({
 		// not observerChanges, which fails due to record not having been added yet!
 		// utterly undocumented behavior here https://docs.meteor.com/api/collections.html#Mongo-Cursor-observe
 		// 2 hours lost
 		added : function(user) {
-			try {
+			if (!utils.getUsername(user)) {
 				//				utils.log("user added with no username", user);
 				const userIdRecord = SystemData.findOne({
 					key : "USER_ID"
@@ -155,8 +190,6 @@ Meteor.startup(() => {
 						username : user.username
 					}
 				});
-			} catch (e) {
-				utils.logError("error assigning sequential username for " + user._id, e);
 			}
 		}
 	});
@@ -510,6 +543,27 @@ Meteor.methods({
 		return null;
 	},
 
+	testEmail : function(pw) {
+		if (pw == Meteor.settings.private.adminPw) {
+			Email.send({
+				from : "no-reply@distrochess.com",
+				to : "distrochess@runbox.com",
+				subject : "test",
+				text : "this be a test."
+			});
+		} else {
+			console.warn("somebody tried to call testEmail with bad password", pw);
+		}
+	},
+
+	ensureUniqueUsernames : function(pw) {
+		if (pw == Meteor.settings.private.adminPw) {
+			return ensureUniqueUsernames();
+		} else {
+			console.warn("somebody tried to call ensureUniqueUsernames with bad password", pw);
+		}
+	},
+
 	checkUsername : function(username) {
 		const existingUser = Meteor.users.findOne({
 			$or : [
@@ -522,6 +576,13 @@ Meteor.methods({
 				{
 					username : null,
 					"profile.name" : {
+						$regex : username,
+						$options : "i"
+					}
+				},
+				{
+					username : null,
+					"services.github.username" : {
 						$regex : username,
 						$options : "i"
 					}
@@ -716,4 +777,30 @@ function getPlayerData(game) {
 		};
 	});
 	return playerData;
+}
+
+function ensureUniqueUsernames() {
+	var collisionCount = 0;
+	const usernames = {};
+	Meteor.users.find({}, {
+		sort : {
+			createdAt : -1
+		}
+	}).forEach(function(user) {
+		const username = utils.getUsername(user);
+		if (usernames[username]) {
+			console.log("username collision: " + username + " user._id: ", user._id);
+			collisionCount++;
+			usernames[username]++;
+			Meteor.users.update({
+				_id : user._id
+			}, {
+				username : username + "-" + usernames[username]
+			});
+		} else {
+			usernames[username] = 1;
+		}
+	});
+	console.log("username collision count", collisionCount);
+	return collisionCount;
 }
