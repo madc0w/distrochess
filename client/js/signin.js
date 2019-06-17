@@ -147,7 +147,7 @@ Template.signin.events({
 								if (err.reason == "Email already exists") {
 									message.set(TAPi18n.__("email_in_use"));
 								} else {
-									message.set(err);
+									message.set(err.reason);
 								}
 							} else {
 								const isReceiveNotifications = $("#receive-emails-checkbox").prop("checked");
