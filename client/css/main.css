@@ -767,3 +767,7 @@ iframe {
 .dialog td {
 	text-align: left;
 }
+
+#profile-data {
+	white-space: initial;
+}

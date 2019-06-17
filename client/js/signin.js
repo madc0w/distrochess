@@ -144,7 +144,7 @@ Template.signin.events({
 						Accounts.createUser(options, function(err) {
 							isSpinner.set(false);
 							if (err) {
-								if (err.match(/Email already exists/)) {
+								if (err.reason == "Email already exists") {
 									message.set(TAPi18n.__("email_in_use"));
 								} else {
 									message.set(err);
