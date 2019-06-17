@@ -93,12 +93,8 @@ Template.editProfile.events({
 Template.editProfile.onRendered(function() {
 	this.autorun(() => {
 		if (Meteor.user()) {
-			$("#receive-emails-checkbox").prop("checked", Meteor.user().isReceiveNotifications);
-		}
-	});
-	this.autorun(() => {
-		if (Meteor.user()) {
 			$("#username-field").val(utils.getUsername());
+			$("#receive-emails-checkbox").prop("checked", !!Meteor.user().isReceiveNotifications);
 		}
 	});
 });

@@ -37,7 +37,7 @@ Template.signin.events({
 	"click #signin-google-button" : function(e) {
 		isSpinner.set(true);
 		Meteor.loginWithGoogle({
-			requestPermissions : [ "email" ]
+			requestPermissions : [ "email", "name" ]
 		}, (err) => {
 			isSpinner.set(false);
 			if (err) {
@@ -53,7 +53,7 @@ Template.signin.events({
 		// https://github.com/settings/applications/1075304
 		isSpinner.set(true);
 		Meteor.loginWithGithub({
-			requestPermissions : [ "email" ]
+			requestPermissions : [ "email", "username" ]
 		}, (err) => {
 			isSpinner.set(false);
 			if (err) {
