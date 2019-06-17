@@ -1,5 +1,3 @@
-const isLanguageDialog = new ReactiveVar(false);
-
 Template.main.helpers({
 	languages : function() {
 		const languages = [];
@@ -15,10 +13,6 @@ Template.main.helpers({
 		return languages;
 	},
 
-	isLanguageDialog : function() {
-		return isLanguageDialog.get();
-	},
-
 	templateName : function() {
 		return templateName.get();
 	},
@@ -27,17 +21,13 @@ Template.main.helpers({
 		return message.get();
 	},
 
-	isOverlay : function() {
-		return isOverlay.get();
-	},
-
 	isSpinner : function() {
 		return isSpinner.get();
 	},
 
 	languageCancel : function() {
 		return function() {
-			isLanguageDialog.set(false);
+			dialog.set(null);
 		};
 	},
 });
@@ -51,7 +41,7 @@ Template.main.events({
 		const language = $(e.target).attr("language");
 		TAPi18n.setLanguage(language);
 		localStorage.setItem("language", language);
-		isLanguageDialog.set(false);
+		dialog.set(null);
 	},
 
 	"click #header-logo" : function(e) {
@@ -73,7 +63,7 @@ Template.headerLink.helpers({
 Template.headerLink.events({
 	"click .header-menu-item" : function(e) {
 		if (this.key == "language") {
-			isLanguageDialog.set(true);
+			dialog.set("language-dialog");
 		} else if (this.key == "play") {
 			Router.go("/");
 		} else {

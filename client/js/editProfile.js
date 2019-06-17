@@ -34,22 +34,22 @@ Template.editProfile.events({
 	},
 
 	"click #save-password-button" : function(e) {
-		$("#password1-input").removeClass("invalid");
-		$("#password2-input").removeClass("invalid");
+		$("#profile-password1-input").removeClass("invalid");
+		$("#profile-password2-input").removeClass("invalid");
 		const currentPassword = $("#current-password-input").val();
-		const password = $("#password1-input").val();
-		const password2 = $("#password2-input").val();
+		const password = $("#profile-password1-input").val();
+		const password2 = $("#profile-password2-input").val();
 
 		var messageText = "";
 		var isValid = true;
 		if (password.length < 6) {
-			$("#password1-input").addClass("invalid");
+			$("#profile-password1-input").addClass("invalid");
 			messageText += TAPi18n.__("password_too_short") + "<br/>";
 			isValid = false;
 		}
 
 		if (password != password2) {
-			$("#password2-input").addClass("invalid");
+			$("#profile-password2-input").addClass("invalid");
 			messageText += TAPi18n.__("passwords_do_not_match") + "<br/>";
 			isValid = false;
 		}
@@ -58,7 +58,9 @@ Template.editProfile.events({
 			// https://docs.meteor.com/api/passwords.html#Accounts-setPassword  wtf?!!?
 			//			Accounts.setPassword(Meteor.userId(), password);
 			Accounts.changePassword(currentPassword, password, function(err) {
-				if (!err) {
+				if (err) {
+					message.set(err.reason);
+				} else {
 					message.set(TAPi18n.__("password_set"));
 				}
 			});
@@ -69,10 +71,10 @@ Template.editProfile.events({
 	},
 
 	"click #save-username-button" : function(e) {
-		$("#username-input").removeClass("invalid");
-		const username = $("#username-input").val().trim();
+		$("#profile-username-input").removeClass("invalid");
+		const username = $("#profile-username-input").val().trim();
 		if (username.length < 3) {
-			$("#username-input").addClass("invalid");
+			$("#profile-username-input").addClass("invalid");
 			message.set(TAPi18n.__("username_too_short"));
 		} else {
 			Meteor.call("setUsername", username, function(err, isAvailable) {
@@ -80,7 +82,7 @@ Template.editProfile.events({
 					message.set(TAPi18n.__("username_set"));
 				} else {
 					message.set(TAPi18n.__("username_in_use"));
-					$("#username-input").addClass("invalid");
+					$("#profile-username-input").addClass("invalid");
 				}
 			});
 		}

@@ -10,7 +10,7 @@ Template.passwordReset.events({
 		} else if (password1 == password2) {
 			Accounts.resetPassword(passwordResetToken, password1, function(err) {
 				if (err) {
-					message.set(err);
+					message.set(err.reason);
 				} else {
 					message.set(TAPi18n.__("password_reset_success"));
 					Router.go("/");

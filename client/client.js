@@ -1,8 +1,7 @@
 message = new ReactiveVar(null);
+dialog = new ReactiveVar(null);
 templateName = new ReactiveVar();
 isSpinner = new ReactiveVar(false);
-isOverlay = new ReactiveVar(false);
-isSigninDialog = new ReactiveVar(false);
 historyGameId = new ReactiveVar();
 
 passwordResetToken = null;
@@ -26,6 +25,23 @@ Meteor.startup(function() {
 		}
 	});
 	TAPi18n.setLanguage(localStorage.getItem("language") || navigator.language);
+
+	Tracker.autorun(() => {
+		const _dialog = dialog.get();
+		if (_dialog) {
+			$("#" + _dialog + ",#overlay").fadeIn(500);
+		} else {
+			$(".dialog,#overlay").hide();
+		}
+	});
+
+	Tracker.autorun(() => {
+		if (message.get()) {
+			$("#overlay,#message").fadeIn(200);
+		} else {
+			$("#overlay,#message").hide();
+		}
+	});
 
 	Meteor.subscribe("userData");
 	Meteor.subscribe("gameAssignments");

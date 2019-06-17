@@ -38,38 +38,29 @@
 </body>
 
 <template name="main">
-	{{#if isOverlay}}
-		<div id="overlay"></div>
-	{{/if}}
+	<div id="overlay hidden"></div>
 	{{#if isSpinner}}
 		<div id="spinner">
 			<img src="/img/spinner.svg">
 		</div>
-		<div id="overlay"></div>
 	{{/if}}
-	{{#if message}}
-		<div id="message" class="dialog">
-			<div id="message-text">
-				{{{message}}}
-			</div>
-			<div id="message-ok-button" class="button">
-				{{_ "ok"}}
-			</div>
+	<div id="message" class="dialog hidden">
+		<div id="message-text">
+			{{{message}}}
 		</div>
-		<div id="overlay"></div>
-	{{/if}}
-	{{#if isLanguageDialog}}
-		<div id="language-dialog" class="dialog">
-			<div id="language-dialog-header">
-				{{_ "select_language"}} 
-			</div>
-			{{#each languages}}
-				<div class="button language-button" language="{{code}}">{{name}}</div>
-			{{/each}}
-			{{> cancelButton id="cancel-language" callback=languageCancel}}
+		<div id="message-ok-button" class="button">
+			{{_ "ok"}}
 		</div>
-		<div id="overlay"></div>
-	{{/if}}
+	</div>
+	<div id="language-dialog" class="dialog hidden">
+		<div id="language-dialog-header">
+			{{_ "select_language"}} 
+		</div>
+		{{#each languages}}
+			<div class="button language-button" language="{{code}}">{{name}}</div>
+		{{/each}}
+		{{> cancelButton id="cancel-language" callback=languageCancel}}
+	</div>
 	
 	<div id="header">
 		<div id="header-menu">

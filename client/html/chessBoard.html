@@ -86,48 +86,39 @@
 		</div>
 	{{/if}}
 	
-	{{#if isPassDialog}}
-		<div id="pass-dialog" class="dialog">
-			<div>{{_ "pass_once_or_ignore_permanently"}}</div>
-			<div id="pass-button" class="button">{{_ "pass"}}</div>
-			<div id="ignore-button" class="button">{{_ "ignore"}}</div>
-			{{> cancelButton id="pass-cancel-button" callback=passCancel}}
-		</div>
-	{{/if}}
+	<div id="pass-dialog" class="dialog hidden">
+		<div>{{_ "pass_once_or_ignore_permanently"}}</div>
+		<div id="pass-button" class="button">{{_ "pass"}}</div>
+		<div id="ignore-button" class="button">{{_ "ignore"}}</div>
+		{{> cancelButton id="pass-cancel-button" callback=passCancel}}
+	</div>
 	
-	{{#if isPromotion}}
-		<div id="promotion-dialog" class="dialog">
-			<div>{{_ "promote_to"}}</div>
-			<div>
-				{{> promotionPiece piece="Q"}}
-				{{> promotionPiece piece="R"}}
-				{{> promotionPiece piece="N"}}
-				{{> promotionPiece piece="B"}}
-			</div>
+	<div id="promotion-dialog" class="dialog hidden">
+		<div>{{_ "promote_to"}}</div>
+		<div>
+			{{> promotionPiece piece="Q"}}
+			{{> promotionPiece piece="R"}}
+			{{> promotionPiece piece="N"}}
+			{{> promotionPiece piece="B"}}
 		</div>
-	{{/if}}
+	</div>
 	
-	{{#if isNeedToSignIn}}
-		<div id="need-to-sign-in" class="dialog">
-			<div id="need-to-sign-text">
-				{{_ "need_to_sign_in"}}
-			</div>
-			<div id="need-to-sign-in-button" class="button">{{_ "sign_in"}}</div>
-			{{> cancelButton id="need-to-sign-in-cancel-button" callback=needToSignInCancel}}
+	<div id="need-to-sign-in" class="dialog hidden">
+		<div id="need-to-sign-text">
+			{{_ "need_to_sign_in"}}
 		</div>
-	{{/if}}
+		<div id="need-to-sign-in-button" class="button">{{_ "sign_in"}}</div>
+		{{> cancelButton id="need-to-sign-in-cancel-button" callback=needToSignInCancel}}
+	</div>
 	
-	{{#if isFlagComment}}
-		<div id="flag-comment" class="dialog">
-			<div id="flag-comment-text">
-				{{_ "flag_reason"}}
-			</div>
-			<input id="flag-reason-input" maxlength="400"/>
-			<div id="flag-button" class="button">{{_ "flag_comment"}}</div>
-			{{> cancelButton id="flag-comment-cancel-button" callback=flagCommentCancel}}
+	<div id="flag-comment" class="dialog hidden">
+		<div id="flag-comment-text">
+			{{_ "flag_reason"}}
 		</div>
-	{{/if}}
-	
+		<input id="flag-reason-input" maxlength="400"/>
+		<div id="flag-button" class="button">{{_ "flag_comment"}}</div>
+		{{> cancelButton id="flag-comment-cancel-button" callback=flagCommentCancel}}
+	</div>
 </template>
 
 <template name="promotionPiece">

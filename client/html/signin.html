@@ -5,75 +5,71 @@
 		<div id="signin-or-signup-button" class="button">{{_ "sign_in"}}</div>
 	{{/if}}
 	
-	{{#if isUsernameDialog}}
-		<div id="username-dialog" class="dialog">
-			<div id="edit-profile-button" class="button">{{_ "edit_profile"}}</div>
-			<div id="signout-button" class="button">{{_ "sign_out"}}</div>
-			{{> cancelButton id="cancel-profile-button" callback=cancelCallback}}
-		</div>
-	{{/if}}
+	<div id="username-dialog" class="dialog hidden">
+		<div id="edit-profile-button" class="button">{{_ "edit_profile"}}</div>
+		<div id="signout-button" class="button">{{_ "sign_out"}}</div>
+		{{> cancelButton id="cancel-profile-button" callback=cancelCallback}}
+	</div>
 
-	{{#if isSigninDialog}}
-		<div id="signin-dialog" class="dialog">
-			<div id="signin-google-button" class="signin-button button">
-				<div class="signin-button-text">{{_ "signin_with_google"}}</div>
-				<img src="/img/google-icon.png"/>
-			</div>
-			<div id="signin-github-button" class="signin-button button">
-				<div class="signin-button-text">{{_ "signin_with_github"}}</div>
-				<img src="/img/github-icon.svg"/>
-			</div>
-			<div id="or" >
-				&mdash; {{_ "or"}} &mdash;
-			</div>
-			<table>
-				<tr>
-					<th>
-						{{#if isSignup}}
-							{{_ "username"}}
-						{{else}}
-							{{_ "email_or_username"}}
-						{{/if}}
-					</th>
-					<td>
-						<input id="username-input" maxlength="100"/>
-					</td>
-				</tr>
-				{{#if isSignup}}
-					<tr>
-						<th>{{_ "email"}}</th>
-						<td>
-							<input id="email-input"/>
-						</td>
-					</tr>
-				{{/if}}
-				<tr>
-					<th>{{_ "password"}}</th>
-					<td>
-						<input type="password" id="password1-input" maxlength="100"/>
-					</td>
-				</tr>
-				{{#if isSignup}}
-					<tr>
-						<th>{{_ "repeat_password"}}</th>
-						<td>
-							<input type="password" id="password2-input" maxlength="100"/>
-						</td>
-					</tr>
-					<tr>
-						<th>{{_ "receive_email_notifications"}}</th>
-						<td><input type="checkbox" id="receive-emails-checkbox" checked="true"/></td>
-					</tr>
-				{{/if}}
-			</table>
-			{{#unless isSignup}}
-				<div id="signin-button" class="button">{{_ "sign_in"}}</div>
-			{{/unless}}
-			<div id="signup-button" class="button">{{_ "sign_up"}}</div>
-			{{#unless isSignup}}
-				<div id="forgot-password-button" class="button">{{_ "forgot_password"}}</div>
-			{{/unless}}
-			{{> cancelButton id="cancel-signin-button" callback=cancelCallback}}
+	<div id="signin-dialog" class="dialog hidden">
+		<div id="signin-google-button" class="signin-button button">
+			<div class="signin-button-text">{{_ "signin_with_google"}}</div>
+			<img src="/img/google-icon.png"/>
 		</div>
-	{{/if}}
+		<div id="signin-github-button" class="signin-button button">
+			<div class="signin-button-text">{{_ "signin_with_github"}}</div>
+			<img src="/img/github-icon.svg"/>
+		</div>
+		<div id="or" >
+			&mdash; {{_ "or"}} &mdash;
+		</div>
+		<table>
+			<tr>
+				<th>
+					{{#if isSignup}}
+						{{_ "username"}}
+					{{else}}
+						{{_ "email_or_username"}}
+					{{/if}}
+				</th>
+				<td>
+					<input id="signin-username-input" maxlength="100"/>
+				</td>
+			</tr>
+			{{#if isSignup}}
+				<tr>
+					<th>{{_ "email"}}</th>
+					<td>
+						<input id="email-input"/>
+					</td>
+				</tr>
+			{{/if}}
+			<tr>
+				<th>{{_ "password"}}</th>
+				<td>
+					<input type="password" id="password1-input" maxlength="100"/>
+				</td>
+			</tr>
+			{{#if isSignup}}
+				<tr>
+					<th>{{_ "repeat_password"}}</th>
+					<td>
+						<input type="password" id="password2-input" maxlength="100"/>
+					</td>
+				</tr>
+				<tr>
+					<th>{{_ "receive_email_notifications"}}</th>
+					<td><input type="checkbox" id="receive-emails-checkbox" checked="true"/></td>
+				</tr>
+			{{/if}}
+		</table>
+		{{#unless isSignup}}
+			<div id="signin-button" class="button">{{_ "sign_in"}}</div>
+		{{/unless}}
+		<div id="signup-button" class="button">{{_ "sign_up"}}</div>
+		{{#unless isSignup}}
+			<div id="forgot-password-button" class="button">{{_ "forgot_password"}}</div>
+		{{/unless}}
+		{{> cancelButton id="cancel-signin-button" callback=cancelCallback}}
+	</div>
 </template>

@@ -2,7 +2,11 @@ var callback = null;
 
 Template.cancelButton.events({
 	"click .cancel.button" : function(e) {
-		this.callback();
+		if (callback) {
+			callback();
+		} else {
+			dialog.set(null);
+		}
 	},
 });
 
@@ -17,6 +21,10 @@ Template.cancelButton.onDestroyed(function() {
 
 function escKeyListener(e) {
 	if (e.key == "Escape") {
-		callback();
+		if (callback) {
+			callback();
+		} else {
+			dialog.set(null);
+		}
 	}
 }

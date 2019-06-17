@@ -5,15 +5,11 @@ var game = null;
 var clockIntervalId = null;
 var flaggingCommentId = null;
 
-const board = new ReactiveVar();
-const isFlagComment = new ReactiveVar(false);
+board = new ReactiveVar();
 const isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
-const isPromotion = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
 const isPlayers = new ReactiveVar(false);
-const isNeedToSignIn = new ReactiveVar(false);
-const isPassDialog = new ReactiveVar(false);
 const isLoadingComments = new ReactiveVar(false);
 const clockTime = new ReactiveVar(MOVE_TIMEOUT / 1000);
 
@@ -63,25 +59,12 @@ Template.chessBoard.helpers({
 		return clockTime.get() <= 10 ? "low-time" : null;
 	},
 
-
-	isFlagComment : function() {
-		return isFlagComment.get();
-	},
-
 	isLoadingComments : function() {
 		return isLoadingComments.get();
 	},
 
-	isPassDialog : function() {
-		return isPassDialog.get();
-	},
-
 	isInCheck : function() {
 		return isInCheck.get();
-	},
-
-	isNeedToSignIn : function() {
-		return isNeedToSignIn.get();
 	},
 
 	isPlayers : function() {
@@ -94,10 +77,6 @@ Template.chessBoard.helpers({
 
 	isWaiting : function() {
 		return isWaiting.get();
-	},
-
-	isPromotion : function() {
-		return isPromotion.get();
 	},
 
 	clockTime : function() {
@@ -114,21 +93,14 @@ Template.chessBoard.helpers({
 	needToSignInCancel : function() {
 		return function() {
 			undoLastMove();
-			isNeedToSignIn.set(false);
-			isOverlay.set(false);
+			dialog.set(null);
 		};
 	},
 
 	flagCommentCancel : function() {
 		return function() {
 			flaggingCommentId = null;
-			isFlagComment.set(false);
-		};
-	},
-
-	passCancel : function() {
-		return function() {
-			isPassDialog.set(false);
+			dialog.set(null);
 		};
 	},
 
@@ -141,9 +113,11 @@ Template.chessBoard.helpers({
 
 Template.chessBoard.events({
 	"click #flag-button" : function(e) {
+		isSpinner.set(true);
 		const text = $("#flag-reason-input").val();
 		Meteor.call("flagComment", text, flaggingCommentId, function(err, result) {
-			isFlagComment.set(false);
+			dialog.set(null);
+			isSpinner.set(false);
 			flaggingCommentId = null;
 			message.set(TAPi18n.__("comment_flagged"));
 		});
@@ -151,7 +125,7 @@ Template.chessBoard.events({
 
 	"click .flag-container" : function(e) {
 		flaggingCommentId = this._id;
-		isFlagComment.set(true);
+		dialog.set("flag-comment");
 	},
 
 	"keyup #game-comment" : function(e) {
@@ -167,16 +141,16 @@ Template.chessBoard.events({
 	},
 
 	"click #pass-or-ignore-button" : function(e) {
-		isPassDialog.set(true);
+		dialog.set("pass-dialog");
 	},
 
 	"click #pass-button" : function(e) {
-		isPassDialog.set(false);
+		dialog.set(null);
 		getGame();
 	},
 
 	"click #ignore-button" : function(e) {
-		isPassDialog.set(false);
+		dialog.set(null);
 		isSpinner.set(true);
 		Meteor.call("ignoreGame", board.get().game._id, function(err, result) {
 			getGame();
@@ -184,9 +158,10 @@ Template.chessBoard.events({
 	},
 
 	"click #need-to-sign-in-button" : function(e) {
-		isNeedToSignIn.set(false);
-		isOverlay.set(false);
-		isSigninDialog.set(true);
+		dialog.set(null);
+		Meteor.setTimeout(() => {
+			dialog.set("signin-dialog");
+		}, 0);
 	},
 });
 
@@ -199,7 +174,6 @@ Template.chessBoard.onCreated(function() {
 	isSaveGameAfterSignin = false;
 	isGettingGame = false;
 	isWaiting.set(false);
-	isPromotion.set(false);
 	isClock.set(false);
 	isPlayers.set(false);
 	clockTime.set(MOVE_TIMEOUT / 1000);
@@ -220,8 +194,10 @@ Template.chessBoard.onCreated(function() {
 				added : function(comment) {
 					Meteor.setTimeout(() => {
 						const gameCommentsDiv = $("#game-comments")[0];
-						console.log("gameCommentsDiv.scrollHeight", gameCommentsDiv.scrollHeight);
-						gameCommentsDiv.scrollTop = gameCommentsDiv.scrollHeight;
+						if (gameCommentsDiv) {
+							//						console.log("gameCommentsDiv.scrollHeight", gameCommentsDiv.scrollHeight);
+							gameCommentsDiv.scrollTop = gameCommentsDiv.scrollHeight;
+						}
 					}, 100);
 				}
 			});
@@ -273,40 +249,7 @@ Template.chessBoard.onCreated(function() {
 });
 
 Template.chessBoard.onRendered(() => {
-	const cfg = {
-		draggable : true,
-		dropOffBoard : "snapback", // this is the default
-		onDrop : function(from, to) {
-			if (to != "offboard") {
-				const _board = board.get();
-				const isWhiteToMove = !_board.game || utils.isWhiteToMove(_board.game);
-				game.setWhiteToMove(isWhiteToMove);
-				const move = game.move({
-					from : from,
-					to : to,
-					promotion : "q" // always promote to queen
-				});
-
-				// illegal move
-				if (move === null) {
-					return "snapback";
-				}
-
-				_board.lastMove = move;
-				board.set(_board);
-				if (move.piece == "p" && ((isWhiteToMove && to.endsWith("8")) || (!isWhiteToMove && to.endsWith("1")))) {
-					isOverlay.set(true);
-					isPromotion.set(true);
-				} else {
-					_board.move(move.from + "-" + move.to);
-					board.set(_board);
-					saveGame();
-				}
-			}
-		}
-	};
-
-	board.set(new ChessBoard("chess-board", cfg));
+	setBoard();
 	getGame();
 });
 
@@ -326,8 +269,7 @@ Template.promotionPiece.events({
 			type : this.piece.toLowerCase(),
 			color : playingColor()
 		}, _board.lastMove.to);
-		isPromotion.set(false);
-		isOverlay.set(false);
+		dialog.set(null);
 
 		saveGame();
 	},
@@ -337,7 +279,7 @@ Template.promotionPiece.events({
 
 function playingColor(isSwap) {
 	const _board = board.get();
-	var isWhite = (!_board.game || utils.isWhiteToMove(_board.game));
+	var isWhite = !_board || !_board.game || utils.isWhiteToMove(_board.game);
 	if (isSwap) {
 		isWhite = !isWhite;
 	}
@@ -368,8 +310,7 @@ function saveGame() {
 		});
 	} else {
 		isSaveGameAfterSignin = true;
-		isNeedToSignIn.set(true);
-		isOverlay.set(true);
+		dialog.set("need-to-sign-in");
 	}
 }
 
@@ -396,8 +337,8 @@ function getGame() {
 				isPlayers.set(true);
 				clockTime.set(MOVE_TIMEOUT / 1000);
 				Meteor.setTimeout(() => {
-					isSigninDialog.set(false);
-					const _board = board.get();
+					dialog.set(null);
+					const _board = board.get() || setBoard();
 					_board.lastMove = null;
 					_board.game = result.game;
 					_board.game.playerData = result.playerData;
@@ -452,6 +393,44 @@ function saveComment() {
 		});
 	} else {
 		isSaveCommentAfterSignin = true;
-		isNeedToSignIn.set(true);
+		dialog.set("need-to-sign-in");
 	}
+}
+
+function setBoard() {
+	const cfg = {
+		draggable : true,
+		dropOffBoard : "snapback", // this is the default
+		onDrop : function(from, to) {
+			if (to != "offboard") {
+				const _board = board.get();
+				const isWhiteToMove = !_board.game || utils.isWhiteToMove(_board.game);
+				game.setWhiteToMove(isWhiteToMove);
+				const move = game.move({
+					from : from,
+					to : to,
+					promotion : "q" // always promote to queen
+				});
+
+				// illegal move
+				if (move === null) {
+					return "snapback";
+				}
+
+				_board.lastMove = move;
+				board.set(_board);
+				if (move.piece == "p" && ((isWhiteToMove && to.endsWith("8")) || (!isWhiteToMove && to.endsWith("1")))) {
+					dialog.set("promotion-dialog");
+				} else {
+					_board.move(move.from + "-" + move.to);
+					board.set(_board);
+					saveGame();
+				}
+			}
+		}
+	};
+
+	const _board = new ChessBoard("chess-board", cfg);
+	board.set(_board);
+	return _board;
 }

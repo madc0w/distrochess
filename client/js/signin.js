@@ -1,4 +1,3 @@
-const isUsernameDialog = new ReactiveVar(false);
 const isSignup = new ReactiveVar(false);
 
 Template.signin.helpers({
@@ -6,20 +5,11 @@ Template.signin.helpers({
 		return isSignup.get();
 	},
 
-	isSigninDialog : function() {
-		return isSigninDialog.get();
-	},
-
-	isUsernameDialog : function() {
-		return isUsernameDialog.get();
-	},
-
 	username : utils.getUsername,
 
 	cancelCallback : function() {
 		return function() {
-			isUsernameDialog.set(false);
-			isSigninDialog.set(false);
+			dialog.set(null);
 			isSignup.set(false);
 		};
 	},
@@ -27,7 +17,7 @@ Template.signin.helpers({
 
 Template.signin.events({
 	"click #forgot-password-button" : function(e) {
-		const emailOrUsername = $("#username-input").val().trim();
+		const emailOrUsername = $("#signin-username-input").val().trim();
 		if (emailOrUsername) {
 			// send password reset email
 			isSpinner.set(true);
@@ -51,9 +41,9 @@ Template.signin.events({
 		}, (err) => {
 			isSpinner.set(false);
 			if (err) {
-				message.set(err);
+				message.set(err.reason);
 			} else {
-				isSigninDialog.set(false);
+				dialog.set(null);
 			}
 		});
 	},
@@ -67,28 +57,27 @@ Template.signin.events({
 		}, (err) => {
 			isSpinner.set(false);
 			if (err) {
-				message.set(err);
+				message.set(err.reason);
 			} else {
-				isSigninDialog.set(false);
+				dialog.set(null);
 			}
 		});
 	},
 
 	"click #signin-or-signup-button" : function(e) {
-		isSigninDialog.set(true);
+		dialog.set("signin-dialog");
 	},
 
 	"click #signin-button" : function(e) {
 		isSpinner.set(true);
-		const emailOrUsername = $("#username-input").val().trim();
+		const emailOrUsername = $("#signin-username-input").val().trim();
 		const password = $("#password1-input").val();
 		Meteor.loginWithPassword(emailOrUsername, password, function(err) {
 			isSpinner.set(false);
 			if (err) {
 				message.set(TAPi18n.__("bad_login"));
 			} else {
-				isUsernameDialog.set(false);
-				isSigninDialog.set(false);
+				dialog.set(null);
 				isSignup.set(false);
 			}
 		});
@@ -96,12 +85,12 @@ Template.signin.events({
 
 	"click #signup-button" : function(e) {
 		if (isSignup.get()) {
-			$("#username-input").removeClass("invalid");
+			$("#signin-username-input").removeClass("invalid");
 			$("#email-input").removeClass("invalid");
 			$("#password1-input").removeClass("invalid");
 			$("#password2-input").removeClass("invalid");
 
-			const username = $("#username-input").val().trim();
+			const username = $("#signin-username-input").val().trim();
 			const email = $("#email-input").val().trim();
 			const password = $("#password1-input").val();
 			const password2 = $("#password2-input").val();
@@ -115,7 +104,7 @@ Template.signin.events({
 			}
 
 			if (username.length < 3) {
-				$("#username-input").addClass("invalid");
+				$("#signin-username-input").addClass("invalid");
 				messageText += TAPi18n.__("username_too_short") + "<br/>";
 				isValid = false;
 			}
@@ -152,15 +141,14 @@ Template.signin.events({
 							} else {
 								const isReceiveNotifications = $("#receive-emails-checkbox").prop("checked");
 								Meteor.call("setReceiveNotifcations", isReceiveNotifications);
-								isUsernameDialog.set(false);
-								isSigninDialog.set(false);
+								dialog.set(null);
 								isSignup.set(false);
 							}
 						});
 					} else {
 						isSpinner.set(false);
 						message.set(TAPi18n.__("username_in_use"));
-						$("#username-input").addClass("invalid");
+						$("#signin-username-input").addClass("invalid");
 					}
 				});
 			} else {
@@ -176,9 +164,9 @@ Template.signin.events({
 		Meteor.logout(function(err) {
 			isSpinner.set(false);
 			if (err) {
-				message.set(err);
+				message.set(err.reason);
 			} else {
-				isSigninDialog.set(false);
+				dialog.set(null);
 				if (location.pathname == "/") {
 					location.reload();
 				} else {
@@ -189,13 +177,12 @@ Template.signin.events({
 	},
 
 	"click #username-button" : function(e) {
-		isUsernameDialog.set(true);
+		dialog.set("username-dialog");
 	},
 
 	"click #edit-profile-button" : function(e) {
 		Router.go("/edit-profile");
-		isUsernameDialog.set(false);
-		isSigninDialog.set(false);
+		dialog.set(null);
 		isSignup.set(false);
 	},
 });
