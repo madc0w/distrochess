@@ -17,3 +17,4 @@ meteor npm install --save
 settingsFile=~/distrochess/settings-prod.json
 
 meteor run android-device -s $settingsFile
+
