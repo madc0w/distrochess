@@ -10,7 +10,7 @@ meteor reset
 #export METEOR_ALLOW_SUPERUSER=true
 meteor build --verbose ~/distrochess-build --server=https://www.distrochess.com
 
-cd ~/git/distrochess-wall/.meteor/local/cordova-build/platforms/android/app/build/outputs/apk/release
+cd ~/git/distrochess/.meteor/local/cordova-build/platforms/android/app/build/outputs/apk/release
 rm signed.apk
 
 jarsigner -verbose -sigalg SHA1withRSA -tsa http://timestamp.digicert.com -digestalg SHA1 app-release-unsigned.apk distrochess
