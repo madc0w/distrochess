@@ -103,7 +103,7 @@ Meteor.startup(function() {
 	});
 
 	Template.registerHelper("isSmallScreen", function() {
-		return outerWidth < 480;
+		return utils.isSmallScreen();
 	});
 
 });

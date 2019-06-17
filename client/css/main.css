@@ -456,6 +456,14 @@ iframe {
 	transform: scale(2, 1); /* W3C */
 }
 
+@media only screen and (max-width: 480px) {
+	-webkit-transform: scale(1); /* Safari and Chrome */
+	-moz-transform: scale(1); /* Firefox */
+	-ms-transform: scale(1); /* IE 9 */
+	-o-transform: scale(1); /* Opera */
+	transform: scale(1); /* W3C */
+}
+
 .button.cancel img {
 	background-color: white;
 	border-radius: 4px;

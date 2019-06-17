@@ -251,6 +251,11 @@ Template.chessBoard.onCreated(function() {
 Template.chessBoard.onRendered(() => {
 	setBoard();
 	getGame();
+
+	if (utils.isSmallScreen()) {
+		const scale = 400 / innerWidth;
+		$("#board-container").css("transform", "scale(" + scale + ")");
+	}
 });
 
 
