@@ -31,7 +31,13 @@ Meteor.startup(function() {
 		if (_dialog) {
 			$("#" + _dialog + ",#overlay").fadeIn(500);
 		} else {
-			$(".dialog,#overlay").hide();
+			Tracker.nonreactive(() => {
+				if (message.get()) {
+					$(".dialog").hide();
+				} else {
+					$(".dialog,#overlay").hide();
+				}
+			});
 		}
 	});
 
@@ -39,7 +45,13 @@ Meteor.startup(function() {
 		if (message.get()) {
 			$("#overlay,#message").fadeIn(200);
 		} else {
-			$("#overlay,#message").hide();
+			Tracker.nonreactive(() => {
+				if (dialog.get()) {
+					$("#message").hide();
+				} else {
+					$("#overlay,#message").hide();
+				}
+			});
 		}
 	});
 
