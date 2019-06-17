@@ -38,13 +38,13 @@
 			{{/if}}
 		{{/unless}}
 	</div>
-	{{#if isPlayers}}
+	{{#if (and (not isSmallScreen) isPlayers)}}
 		<div id="players">
 			{{> players game=game isWhite=(not isWhite)}}
 			{{> players game=game isWhite=isWhite}}
 		</div>
 	{{/if}}
-	{{#if game}}
+	{{#if (and (not isSmallScreen) game)}}
 		<div id="game-comments-container">
 			<div id="game-comments-header">{{_ "comments_on_this_game"}}</div>
 			<div id="game-comments">

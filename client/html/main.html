@@ -61,29 +61,33 @@
 		{{/each}}
 		{{> cancelButton id="cancel-language" callback=languageCancel}}
 	</div>
-	
-	<div id="header">
-		<div id="header-menu">
-			{{> headerLink key="play"}}
-			{{#if currentUser}}
-				{{> headerLink key="history"}}
-			{{/if}}
-			{{> headerLink key="faq"}}
-			{{> headerLink key="forum"}}
-			<a id="feedback-link" class="header-menu-item" href="mailto:distrochess@runbox.com?subject=Distrochess feedback">{{_ "feedback"}}</a>
-			{{> headerLink key="language"}}
-		</div>
-		<div id="header-left">
-			<img id="header-logo" src="/img/logo.jpg"/>
-			<div id="header-text">
-				<div id="header-title">Distrochess</div>
-				<div id="header-description">{{{_ "header_description"}}}</div>
+
+	{{#if isSmallScreen}}
+	{{else}}	
+		<div id="header">
+			<div id="header-menu">
+				{{> headerLink key="play"}}
+				{{#if currentUser}}
+					{{> headerLink key="history"}}
+				{{/if}}
+				{{> headerLink key="faq"}}
+				{{> headerLink key="forum"}}
+				<a id="feedback-link" class="header-menu-item" href="mailto:distrochess@runbox.com?subject=Distrochess feedback">{{_ "feedback"}}</a>
+				{{> headerLink key="language"}}
+			</div>
+			<div id="header-left">
+				<img id="header-logo" src="/img/logo.jpg"/>
+				<div id="header-text">
+					<div id="header-title">Distrochess</div>
+					<div id="header-description">{{{_ "header_description"}}}</div>
+				</div>
+			</div>
+			<div id="header-right">
+				{{> signin}}
 			</div>
 		</div>
-		<div id="header-right">
-			{{> signin}}
-		</div>
-	</div>
+	{{/if}}
+	
 	<div id="content">
 		{{> UI.dynamic template=templateName}}
 	</div>
