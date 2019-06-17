@@ -449,11 +449,6 @@ iframe {
 	font-weight: bold;
 	text-align: center;
 	/* 	background-color: #fdcc05; */
-	-webkit-transform: scale(2, 1); /* Safari and Chrome */
-	-moz-transform: scale(2, 1); /* Firefox */
-	-ms-transform: scale(2, 1); /* IE 9 */
-	-o-transform: scale(2, 1); /* Opera */
-	transform: scale(2, 1); /* W3C */
 }
 
 @media only screen and (max-width: 480px) {

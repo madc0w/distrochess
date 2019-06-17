@@ -53,6 +53,13 @@ Template.main.events({
 	},
 });
 
+
+Template.main.onRendered(() => {
+	if (utils.isSmallScreen()) {
+		$("#content").css("transform", "scale(0.78)");
+	}
+});
+
 Template.headerLink.helpers({
 	selectedClass : function() {
 		return this.key == templateName.get() || (this.key == "play" && templateName.get() == "chessBoard") ? "selected" : null;
