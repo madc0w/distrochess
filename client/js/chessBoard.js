@@ -253,8 +253,10 @@ Template.chessBoard.onRendered(() => {
 	getGame();
 
 	if (utils.isSmallScreen()) {
-//		const scale = innerWidth / 480;
-//		$("#board-container").css("transform", "scale(" + scale + ")");
+		$(".dialog").detach().appendTo("body");
+
+	//		const scale = innerWidth / 480;
+	//		$("#board-container").css("transform", "scale(" + scale + ")");
 	} else {
 		$("#chess-board-header").css("transform", "scale(2, 1)");
 	}
