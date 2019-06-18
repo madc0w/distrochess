@@ -180,11 +180,10 @@ Template.chessBoard.onCreated(function() {
 
 	clockIntervalId = Meteor.setInterval(() => {
 		clockTime.set(Math.max(0, clockTime.get() - 1));
-		if (clockTime.get() <= 0) {
+		if (game && !game.isNew && clockTime.get() <= 0) {
 			getGame();
 		}
 	}, 1000);
-
 
 	this.autorun(() => {
 		if (board.get() && board.get().game) {
@@ -379,6 +378,7 @@ function getGame() {
 				isPlayers.set(false);
 				board.get().start();
 				game = new Chess();
+				game.isNew = true;
 			}
 			console.log("game = ", (game ? game.fen() : null));
 			isSpinner.set(false);

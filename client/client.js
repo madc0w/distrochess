@@ -102,8 +102,6 @@ Meteor.startup(function() {
 		return !arg;
 	});
 
-	Template.registerHelper("isSmallScreen", function() {
-		return utils.isSmallScreen();
-	});
+	Template.registerHelper("isSmallScreen", utils.isSmallScreen);
 
 });

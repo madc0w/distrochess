@@ -13,6 +13,8 @@ var isGettingGame = false;
 Meteor.startup(() => {
 	// code to run on server at startup
 
+	Accounts.emailTemplates.siteName = "Distrochess";
+	Accounts.emailTemplates.from = "Distrochess <no-reply@distrochess.com>";
 	Accounts.emailTemplates.resetPassword = {
 		//		from : function(user) {
 		//			// Overrides the value set in Accounts.emailTemplates.from when resetting passwords.
@@ -246,7 +248,8 @@ Meteor.methods({
 		});
 		//		console.log("sendResetPasswordEmail : user ", user);
 		if (user) {
-			Accounts.sendResetPasswordEmail(user._id);
+			const result = Accounts.sendResetPasswordEmail(user._id);
+			console.log("sendResetPasswordEmail result: ", result);
 			return true;
 		}
 		console.log("sendResetPasswordEmail : no user found having email or username " + emailOrUsername);

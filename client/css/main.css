@@ -451,6 +451,12 @@ iframe {
 	/* 	background-color: #fdcc05; */
 }
 
+#chess-board-header div {
+	width: 200px;
+	transform: scale(2, 1);
+	margin-left: 100px;
+}
+
 @media only screen and (max-width: 480px) {
 	-webkit-transform: scale(1); /* Safari and Chrome */
 	-moz-transform: scale(1); /* Firefox */
@@ -784,4 +790,3 @@ iframe {
 #profile-data {
 	white-space: initial;
 }
-
