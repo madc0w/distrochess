@@ -4,9 +4,10 @@ var isGettingGame = false;
 var game = null;
 var clockIntervalId = null;
 var flaggingCommentId = null;
+var isOpeningHistory = false;
 
-board = new ReactiveVar();
-isInCheck = new ReactiveVar(false);
+const board = new ReactiveVar();
+const isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
 const isPlayers = new ReactiveVar(false);
@@ -137,7 +138,8 @@ Template.chessBoard.events({
 	"click #submit-comment-button" : saveComment,
 
 	"click #history-button" : function(e) {
-		open("/history?id=" + board.get().game.id, location.pathname == "/history" ? null : "game-history");
+		isOpeningHistory = true;
+		Router.go("/history?id=" + board.get().game.id);
 	},
 
 	"click #pass-or-ignore-button" : function(e) {
@@ -186,9 +188,15 @@ Template.chessBoard.onCreated(function() {
 	}, 1000);
 
 	this.autorun(() => {
-		if (board.get() && board.get().game) {
+		const _board = board.get();
+		if (historyGameId.get()) {
+			if (!isOpeningHistory) {
+				historyGameId.set(null);
+			}
+			isOpeningHistory = false;
+		} else if (_board && _board.game) {
 			Comments.find({
-				gameId : board.get().game._id
+				gameId : _board.game._id
 			}).observe({
 				added : function(comment) {
 					Meteor.setTimeout(() => {
@@ -202,10 +210,10 @@ Template.chessBoard.onCreated(function() {
 			});
 
 			isLoadingComments.set(true);
-			Meteor.subscribe("comments", board.get().game._id, function() {
+			Meteor.subscribe("comments", _board.game._id, function() {
 				const userIds = [];
 				Comments.find({
-					gameId : board.get().game._id
+					gameId : _board.game._id
 				}).forEach(function(comment) {
 					userIds.push(comment.userId);
 				});
@@ -371,13 +379,13 @@ function getGame() {
 					board.set(_board);
 				}, 0);
 				game = new Chess(result.game.position);
+				const chessBoardDiv = $(".chess-board div");
+				chessBoardDiv.removeClass("last-move-square");
+				chessBoardDiv.removeClass("from-square");
+				chessBoardDiv.removeClass("to-square");
 				if (result.game.moves.length > 0) {
 					const lastMove = result.game.moves[result.game.moves.length - 1];
-					console.log("lastMove", lastMove);
-					const chessBoardDiv = $(".chess-board div");
-					chessBoardDiv.removeClass("last-move-square");
-					chessBoardDiv.removeClass("from-square");
-					chessBoardDiv.removeClass("to-square");
+					//					console.log("lastMove", lastMove);
 					Meteor.setTimeout(() => {
 						$(".square-" + lastMove.from).addClass("last-move-square from-square");
 						$(".square-" + lastMove.to).addClass("last-move-square to-square");

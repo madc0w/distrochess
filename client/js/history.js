@@ -167,7 +167,6 @@ Template.history.events({
 	},
 });
 
-
 Template.history.onCreated(function() {
 	isSpinner.set(true);
 	Meteor.subscribe("userGames", function() {
@@ -183,6 +182,9 @@ Template.history.onCreated(function() {
 		}
 	});
 
+});
+
+Template.history.onRendered(function() {
 	this.autorun(() => {
 		const gameId = historyGameId.get();
 		if (gameId) {
