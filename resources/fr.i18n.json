@@ -98,5 +98,6 @@
 	"password_reset_subject": "Distrochess: Demande de réinitialisation du mot de passe",
 	"password_reset_success": "Vous avez bien modifié votre mot de passe.",
 	"password_reset_email_sent": "Un e-mail contenant les instructions pour réinitialiser votre mot de passe a été envoyé à l'adresse que vous avez enregistrée lors de votre inscription.",
-	"enter_username_or_email": "Veuillez saisir le nom d'utilisateur ou l'adresse e-mail avec lesquels vous vous êtes inscrit."
+	"enter_username_or_email": "Veuillez saisir le nom d'utilisateur ou l'adresse e-mail avec lesquels vous vous êtes inscrit.",
+	"use_the_app": "Vous auriez une bien meilleure expérience en utilisant l'appli <a href=\"\">Distrochess</a> sur votre appareil! <br/>(Désolé, utilisateurs iOS, aucune appli pour vous &mdash; pour l'instant.) "
 }

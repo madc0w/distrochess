@@ -98,5 +98,6 @@
 	"password_reset_subject": "Distrochess: Solicitud de restablecimiento de contraseña",
 	"password_reset_success": "Ha cambiado su contraseña con éxito.",
 	"password_reset_email_sent": "Se envió un email con instrucciones para restablecer su contraseña a la dirección que registró cuando se registró.",
-	"enter_username_or_email": "Ingrese el nombre de usuario o la dirección de email que usó para registrarse."
+	"enter_username_or_email": "Ingrese el nombre de usuario o la dirección de email que usó para registrarse.",
+	"use_the_app": "¡Tendrás una experiencia mucho mejor al utilizar la <a href=\"\">aplicación Distrochess</a> en tu dispositivo!<br/>(Lo sentimos, usuarios de iOS, todavía no hay ninguna aplicación para ti &mdash; por ahora.)"
 }

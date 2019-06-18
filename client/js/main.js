@@ -54,11 +54,11 @@ Template.main.events({
 });
 
 
-//Template.main.onRendered(() => {
-//	if (utils.isSmallScreen()) {
-//		$("#content").css("transform", "scale(0.78)");
-//	}
-//});
+Template.main.onRendered(() => {
+	if (utils.isSmallScreen() && !Meteor.isCordova) {
+		message.set(TAPi18n.__("use_the_app"));
+	}
+});
 
 Template.headerLink.helpers({
 	selectedClass : function() {

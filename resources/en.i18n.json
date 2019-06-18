@@ -98,5 +98,6 @@
 	"password_reset_subject": "Distrochess: Password reset request",
 	"password_reset_success": "You have successfully changed your password.",
 	"password_reset_email_sent": "An email containing instructions to reset your password has been sent to the address you registered when you signed up.",
-	"enter_username_or_email": "Please enter the username or email address you used to sign up."
+	"enter_username_or_email": "Please enter the username or email address you used to sign up.",
+	"use_the_app": "You will have a much better experience using the <a href=\"\">Distrochess app</a> on your device!<br/>(Sorry, iOS users, no app for you &mdash; yet.)"
 }
