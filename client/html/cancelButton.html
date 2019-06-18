@@ -1,6 +1,14 @@
 <template name="cancelButton">
 	<div id="{{id}}" class="button cancel">
-		<img src="/img/cancel2.png"/>
-		<div class="button-text">{{_ "cancel"}}</div>
+		{{#unless isSuppressCancelIcon}}
+			<img src="/img/cancel2.png"/>
+		{{/unless}}
+		<div class="button-text">
+			{{#if buttonTextKey}}
+				{{_ buttonTextKey}}
+			{{else}}
+				{{_ "cancel"}}
+			{{/if}}
+		</div>
 	</div>
 </template>

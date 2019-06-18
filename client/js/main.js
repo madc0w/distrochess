@@ -55,7 +55,7 @@ Template.main.events({
 
 
 Template.main.onRendered(() => {
-	if (utils.isSmallScreen() && !Meteor.isCordova) {
+	if (clientUtils.isSmallScreen() && !Meteor.isCordova) {
 		message.set(TAPi18n.__("use_the_app"));
 	}
 });

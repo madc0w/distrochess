@@ -29,12 +29,8 @@ Template.users.helpers({
 	},
 
 	dateFormat : function(date) {
-		return utils.moment(date).format("D MMM, YYYY HH:mm");
+		return clientUtils.moment(date).format("D MMM, YYYY HH:mm");
 	},
-});
-
-Template.users.events({
-
 });
 
 Template.users.onCreated(function() {

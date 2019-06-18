@@ -19,8 +19,8 @@
 	"wait_for_opponent_to_move": "Il n'y a actuellement aucun jeu disponible pour vous. <br/> Veuillez attendre qu'un adversaire joue un tour.",
 	"OK": "OK",
 	"wrong_side_message": "Vous jouez déjà de l'autre côté de ce jeu. Vous devez donc attendre qu'un adversaire joue avant de pouvoir jouer votre tour.",
-	"white_team": "équipe blanche",
-	"black_team": "équipe noire",
+	"white_team": "Équipe blanche",
+	"black_team": "Équipe noire",
 	"moves_ratio": "Ratio de tours",
 	"rating": "Classement Elo",
 	"game_id": "ID du jeu",
@@ -48,7 +48,7 @@
 	"bad_login": "Le nom d'utilisateur ou le mot de passe n'est pas correct. <br/>Veuillez réessayer ou utilisez le bouton \"Mot de passe oublié\" si vous en avez besoin.",
 	"pass": "Passer",
 	"not_implemented": "Fonction à venir ...",
-	"feedback": "Commentaires",
+	"feedback": "Contact",
 	"faq": "FAQ",
 	"forum": "Forum",
 	"gdpr_compliance": "Conformité GDPR",
@@ -99,5 +99,7 @@
 	"password_reset_success": "Vous avez bien modifié votre mot de passe.",
 	"password_reset_email_sent": "Un e-mail contenant les instructions pour réinitialiser votre mot de passe a été envoyé à l'adresse que vous avez enregistrée lors de votre inscription.",
 	"enter_username_or_email": "Veuillez saisir le nom d'utilisateur ou l'adresse e-mail avec lesquels vous vous êtes inscrit.",
-	"use_the_app": "Vous auriez une bien meilleure expérience en utilisant l'appli <a href=\"\">Distrochess</a> sur votre appareil! <br/>(Désolé, utilisateurs iOS, aucune appli pour vous &mdash; pour l'instant.) "
+	"use_the_app": "Vous auriez une bien meilleure expérience en utilisant l'appli <a href=\"\">Distrochess</a> sur votre appareil! <br/>(Désolé, utilisateurs iOS, aucune appli pour vous &mdash; pour l'instant.)",
+	"show_players": "Afficher les Joueurs",
+	"show_comments": "Afficher les Commentaires"
 }

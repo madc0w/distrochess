@@ -40,14 +40,27 @@
 			{{/if}}
 		{{/unless}}
 	</div>
-	{{#if (and (not isSmallScreen) isPlayers)}}
-		<div id="players">
-			{{> players game=game isWhite=(not isWhite)}}
-			{{> players game=game isWhite=isWhite}}
-		</div>
+	{{#if isPlayers}}
+		{{#if isSmallScreen}}
+			<div id="show-players-button" class="button">{{_ "show_players"}}</div>
+			<div id="players-dialog" class="dialog hidden">
+				{{> players game=game isWhite=(not isWhite)}}
+				<hr/>
+				{{> players game=game isWhite=isWhite}}
+				{{> cancelButton buttonTextKey="ok" isSuppressCancelIcon=true}}
+			</div>
+		{{else}}
+			<div id="players">
+				{{> players game=game isWhite=(not isWhite)}}
+				{{> players game=game isWhite=isWhite}}
+			</div>
+		{{/if}}
 	{{/if}}
-	{{#if (and (not isSmallScreen) game)}}
-		<div id="game-comments-container">
+	{{#if game}}
+		{{#if isSmallScreen}}
+			<div id="show-comments-button" class="button">{{_ "show_comments"}}</div>
+		{{/if}}
+		<div id="{{#if isSmallScreen}}game-comments-container-dialog{{else}}game-comments-container{{/if}}" class="{{#if isSmallScreen}}dialog hidden{{/if}}">
 			<div id="game-comments-header">{{_ "comments_on_this_game"}}</div>
 			<div id="game-comments">
 				{{#if isLoadingComments}}
@@ -84,6 +97,11 @@
 			<div id="comment-input">
 				<input id="game-comment" maxlength="{{maxCommentLength}}"/> 
 				<div id="submit-comment-button" class="button">{{_ "send"}}</div>
+				{{#if isSmallScreen}}
+					<div>
+						{{> cancelButton buttonTextKey="ok" isSuppressCancelIcon=true}}
+					</div>
+				{{/if}}
 			</div>
 		</div>
 	{{/if}}

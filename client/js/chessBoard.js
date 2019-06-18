@@ -6,7 +6,7 @@ var clockIntervalId = null;
 var flaggingCommentId = null;
 var isOpeningHistory = false;
 
-const board = new ReactiveVar();
+board = new ReactiveVar();
 const isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
@@ -20,7 +20,7 @@ Template.chessBoard.helpers({
 	},
 
 	formatDateTime : function(date) {
-		return utils.moment(date).fromNow();
+		return clientUtils.moment(date).fromNow();
 	},
 
 	userColor : function(userId) {
@@ -113,6 +113,14 @@ Template.chessBoard.helpers({
 
 
 Template.chessBoard.events({
+	"click #show-players-button" : function(e) {
+		dialog.set("players-dialog");
+	},
+
+	"click #show-comments-button" : function(e) {
+		dialog.set("game-comments-container-dialog");
+	},
+
 	"click #flag-button" : function(e) {
 		isSpinner.set(true);
 		const text = $("#flag-reason-input").val();
@@ -259,16 +267,20 @@ Template.chessBoard.onRendered(() => {
 	setBoard();
 	getGame();
 
-	if (utils.isSmallScreen()) {
+	if (clientUtils.isSmallScreen()) {
 		Tracker.autorun(() => {
 			const _board = board.get();
 			const width = innerWidth - 12;
 			$(".chess-board").css("width", width);
 			$("#board-container").css("max-width", width);
+			$("#board-container").hide();
 			$("#clock").css("width", width - 18);
 			$("#chess-board-header div").css("width", innerWidth / 2);
 			if (_board) {
-				_board.resize();
+				Meteor.setTimeout(() => {
+					$("#board-container").show();
+					_board.resize();
+				}, 200);
 			}
 		});
 	//		$(".dialog").detach().appendTo("body");

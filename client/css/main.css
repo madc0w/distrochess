@@ -815,6 +815,13 @@ iframe {
 	left: 472px;
 }
 
+@media only screen and (max-width: 480px) {
+	#flag-comment {
+		top: 120px;
+		left: 5%;
+	}
+}
+
 #flag-comment .button {
 	margin-left: calc(50% - 70px);
 	margin-top: 12px;
@@ -835,4 +842,45 @@ iframe {
 
 #profile-data {
 	white-space: initial;
+}
+
+#show-players-button, #show-comments-button {
+	min-width: 200px;
+	margin-top: 8px;
+}
+
+#players-dialog {
+	width: 90%;
+	left: 2%;
+}
+
+#players-dialog .button.cancel {
+	position: relative;
+	left: calc(50% - 80px);
+}
+
+.button.cancel .button-text {
+	margin-top: 4px;
+}
+
+#game-comments-container-dialog {
+	left: 2%;
+	top: 2%;
+	width: 90%;
+	height: 320px;
+	border-style: solid;
+	border-color: black;
+	border-width: 2px;
+	border-radius: 8px;
+	position: absolute;
+	padding: 4px;
+	text-align: left;
+}
+
+#game-comments-container-dialog #comment-input {
+	width: calc(100% - 20px);
+}
+
+#game-comments-container-dialog input {
+	width: calc(100% - 80px);
 }

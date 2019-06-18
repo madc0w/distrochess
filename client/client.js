@@ -29,7 +29,7 @@ Meteor.startup(function() {
 	Tracker.autorun(() => {
 		const _dialog = dialog.get();
 		if (_dialog) {
-			$("#" + _dialog + ",#overlay").fadeIn(500);
+			$("#" + _dialog + ",#overlay").fadeIn(200);
 		} else {
 			Tracker.nonreactive(() => {
 				if (message.get()) {
@@ -102,6 +102,6 @@ Meteor.startup(function() {
 		return !arg;
 	});
 
-	Template.registerHelper("isSmallScreen", utils.isSmallScreen);
+	Template.registerHelper("isSmallScreen", clientUtils.isSmallScreen);
 
 });
