@@ -6,7 +6,7 @@ var clockIntervalId = null;
 var flaggingCommentId = null;
 
 board = new ReactiveVar();
-const isInCheck = new ReactiveVar(false);
+isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
 const isPlayers = new ReactiveVar(false);
@@ -252,12 +252,23 @@ Template.chessBoard.onRendered(() => {
 	getGame();
 
 	if (utils.isSmallScreen()) {
-		$(".dialog").detach().appendTo("body");
-
-	//		const scale = innerWidth / 480;
-	//		$("#board-container").css("transform", "scale(" + scale + ")");
-	} else {
-		$("#chess-board-header").css("transform", "scale(2, 1)");
+		Tracker.autorun(() => {
+			const _board = board.get();
+			const width = innerWidth - 12;
+			$(".chess-board").css("width", width);
+			$("#board-container").css("max-width", width);
+			$("#clock").css("width", width - 18);
+			$("#chess-board-header div").css("width", innerWidth / 2);
+			if (_board) {
+				_board.resize();
+			}
+		});
+	//		$(".dialog").detach().appendTo("body");
+	//
+	//	//		const scale = innerWidth / 480;
+	//	//		$("#board-container").css("transform", "scale(" + scale + ")");
+	//	} else {
+	//		$("#chess-board-header").css("transform", "scale(2, 1)");
 	}
 });
 

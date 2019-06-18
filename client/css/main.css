@@ -38,6 +38,12 @@ input {
 	box-shadow: 0px 0px 20px 4px #222;
 }
 
+@media only screen and (max-width: 480px) {
+	.dialog {
+		left: calc(50% - 130px);
+	}
+}
+
 #promotion-dialog {
 	left: 440px;
 	top: 180px;
@@ -125,16 +131,6 @@ input {
 	border-width: 6px;
 	border-color: black;
 	box-shadow: 12px 12px 12px #666;
-}
-
-/* #header .button { */
-/* 	display: inline-block; */
-/* 	margin-left: 8px; */
-/* } */
-#header-logo {
-	width: 80px;
-	border-radius: 16px;
-	margin-top: 6px;
 }
 
 #header-text {
@@ -254,6 +250,12 @@ input {
 	width: 300px;
 }
 
+@media only screen and (max-width: 480px) {
+	#username-dialog {
+		left: calc(50% - 170px);
+	}
+}
+
 #signin-dialog {
 	top: 160px;
 	left: calc(100% - 420px);
@@ -298,12 +300,28 @@ input {
 	margin-left: 12px;
 }
 
+@media only screen and (max-width: 480px) {
+	#profile-data .button {
+		margin-top: 8px;
+	}
+}
+
 .invalid {
 	background-color: #f44;
 }
 
 #header-logo {
 	cursor: pointer;
+	width: 80px;
+	border-radius: 16px;
+	margin-top: 6px;
+}
+
+@media only screen and (max-width: 480px) {
+	#header-logo {
+		width: 40px;
+		border-radius: 8px;
+	}
 }
 
 #waiting {
@@ -371,6 +389,15 @@ input {
 	border-radius: 20px;
 	border-style: solid;
 	border-width: 2px;
+}
+
+@media only screen and (max-width: 480px) {
+	.header-menu-item {
+		margin-left: 2px;
+		padding-left: 4px;
+		padding-right: 4px;
+		font-size: 14px;
+	}
 }
 
 .header-menu-item.selected, .header-menu-item:hover {
@@ -454,15 +481,7 @@ iframe {
 #chess-board-header div {
 	width: 200px;
 	transform: scale(2, 1);
-	margin-left: 100px;
-}
-
-@media only screen and (max-width: 480px) {
-	-webkit-transform: scale(1); /* Safari and Chrome */
-	-moz-transform: scale(1); /* Firefox */
-	-ms-transform: scale(1); /* IE 9 */
-	-o-transform: scale(1); /* Opera */
-	transform: scale(1); /* W3C */
+	margin-left: calc(50% - 100px);
 }
 
 .button.cancel img {
@@ -499,6 +518,12 @@ iframe {
 #playing-side {
 	display: inline-block;
 	width: 180px;
+}
+
+@media only screen and (max-width: 480px) {
+	#playing-side {
+		width: 120px;
+	}
 }
 
 #playing-side-label {
@@ -605,9 +630,17 @@ iframe {
 	width: 300px;
 }
 
+@media only screen and (max-width: 480px) {
+	#pass-dialog {
+		top: 100px;
+		left: 10%;
+		width: 200px;
+	}
+}
+
 #pass-dialog .button {
 	margin-top: 12px;
-	margin-left: 80px;
+	margin-left: calc(50% - 68px);
 }
 
 .side-color-image {
