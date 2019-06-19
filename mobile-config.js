@@ -1,6 +1,16 @@
-const version = "0.1";
+const version = "0.2";
 const buildNumber = Math.floor(+new Date() / (24 * 60 * 60));
 console.log("*** setting buildNumber ", buildNumber);
+
+App.setPreference("android-targetSdkVersion", "26");
+App.setPreference("android-minSdkVersion", "19");
+//App.setPreference("android-versionCode", versionCode);  // inexplicably ignored!
+
+App.accessRule("*.google.com/*");
+App.accessRule("*.googleapis.com/*");
+App.accessRule("*.gstatic.com/*");
+App.accessRule("http://*");
+App.accessRule("https://*");
 
 App.icons({
 	// Android
