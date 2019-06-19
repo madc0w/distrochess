@@ -123,6 +123,13 @@ Template.chessBoard.events({
 
 	"click #show-comments-button" : function(e) {
 		dialog.set("game-comments-container-dialog");
+		Meteor.setTimeout(() => {
+			const gameCommentsDiv = $("#game-comments")[0];
+			if (gameCommentsDiv) {
+				//						console.log("gameCommentsDiv.scrollHeight", gameCommentsDiv.scrollHeight);
+				gameCommentsDiv.scrollTop = gameCommentsDiv.scrollHeight;
+			}
+		}, 20);
 	},
 
 	"click #flag-button" : function(e) {
@@ -200,12 +207,19 @@ Template.chessBoard.onCreated(function() {
 	isPlayers.set(false);
 	clockTime.set(MOVE_TIMEOUT / 1000);
 
+	var isClockPaused = false;
 	clockIntervalId = Meteor.setInterval(() => {
-		clockTime.set(Math.max(0, clockTime.get() - 1));
-		if (game && !game.isNew && clockTime.get() <= 0) {
-			getGame();
+		if (!isClockPaused) {
+			clockTime.set(Math.max(0, clockTime.get() - 1));
+			if (game && !game.isNew && clockTime.get() <= 0) {
+				getGame();
+			}
 		}
 	}, 1000);
+
+	this.autorun(() => {
+		isClockPaused = !!dialog.get();
+	});
 
 	this.autorun(() => {
 		const _board = board.get();
