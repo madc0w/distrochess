@@ -130,6 +130,9 @@ Template.history.events({
 	},
 
 	"click .history-comment-move-num" : function(e) {
+		if (clientUtils.isSmallScreen()) {
+			dialog.set(null);
+		}
 		moveNum.set(this.moveNum);
 		setBoard();
 	},

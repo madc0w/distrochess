@@ -357,14 +357,20 @@ input {
 	line-height: 42px;
 }
 
-@media only screen and (max-width: 480px) {
-	#waiting {
-		white-space: normal;
-		line-height: 32px;
-		padding: 18px;
-	}
+@media
+only
+screen
+and
+(max-width:
+480px)
+{
+#waiting {
+	white-space: normal;
+	line-height: 32px;
+	padding: 18px;
 }
 
+}
 #pass-or-ignore-button {
 	width: 100px;
 	margin-left: calc(100% - 224px);
@@ -713,6 +719,13 @@ iframe {
 	width: 100px;
 }
 
+@media only screen and (max-width: 480px) {
+	#board-container #history-button {
+		margin-left: calc(50% - 100px);
+		min-width: 200px;
+	}
+}
+
 #no-game-history {
 	display: inline-block;
 	margin-left: 22px;
@@ -806,6 +819,12 @@ iframe {
 	font-weight: bold;
 }
 
+@media only screen and (max-width: 480px) {
+	.history-comment-move-num {
+		background-color: white;
+	}
+}
+
 .flag-container img {
 	width: 18px;
 	display: inline-block;
@@ -862,6 +881,7 @@ iframe {
 #show-players-button, #show-comments-button {
 	min-width: 200px;
 	margin-top: 8px;
+	margin-left: calc(50% - 100px);
 }
 
 #players-dialog {
@@ -939,3 +959,17 @@ iframe {
 	margin-left: calc(50% - 80px);
 	margin-top: 8px;
 }
+
+#history-comments-ok-button {
+	position: absolute;
+	padding-left: 18px;
+	padding-right: 18px;
+	top: 350px;
+	left: calc(50% - 120px);
+}
+
+#history-buttons {
+	margin-left: calc(50% - 100px);
+	padding-top: 8px;
+}
+

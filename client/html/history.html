@@ -53,8 +53,10 @@
 	</div>
 	{{#if game}}
 		{{#if isSmallScreen}}
-			<div id="show-players-button" class="button">{{_ "show_players"}}</div>
-			<div id="show-comments-button" class="button">{{_ "show_comments"}} ({{comments.count}})</div>
+			<div id="history-buttons">
+				<div id="show-players-button" class="button">{{_ "show_players"}}</div>
+				<div id="show-comments-button" class="button">{{_ "show_comments"}} ({{comments.count}})</div>
+			</div>
 			<div id="players-dialog" class="dialog hidden">
 				{{#if gamePlayer}}
 					{{> players game=game isWhite=(not (isWhite game))}}
@@ -111,7 +113,7 @@
 			</div>
 			{{#if isSmallScreen}}
 				<div>
-					{{> cancelButton buttonTextKey="ok" isSuppressCancelIcon=true}}
+					{{> cancelButton id="history-comments-ok-button" buttonTextKey="ok" isSuppressCancelIcon=true}}
 				</div>
 			{{/if}}
 		</div>
