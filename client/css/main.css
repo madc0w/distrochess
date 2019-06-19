@@ -629,6 +629,12 @@ iframe {
 	/* 	border-radius: 8px; */
 }
 
+@media only screen and (max-width: 480px) {
+	#history-game-list {
+		margin-left: 4px;
+	}
+}
+
 #history-game-list #list-container {
 	max-height: calc(100vh - 180px);
 	overflow-y: auto;
