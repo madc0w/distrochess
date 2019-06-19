@@ -18,6 +18,8 @@ jarsigner -verbose -sigalg SHA1withRSA -tsa http://timestamp.digicert.com -diges
 
 $ANDROID_HOME/build-tools/23.0.1/zipalign 4 app-release-unsigned.apk signed.apk
 
+filenameDate=`date +%Y-%m-%d`
+mv signed.apk distrochess_${filenameDate}.apk
 
 echo 
 echo "***********************************************"
@@ -26,4 +28,3 @@ echo "***********************************************"
 echo 
 
 date
-
