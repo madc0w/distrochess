@@ -12,7 +12,7 @@ clientUtils = {
 	moment : function(date) {
 		momentUpdate.get();
 		var language = TAPi18n.getLanguage();
-		if (!Object.keys(languages).includes(language)) {
+		if (!Object.keys(utils.getLanguages()).includes(language)) {
 			language = "en";
 		}
 		return moment(date).locale(language);

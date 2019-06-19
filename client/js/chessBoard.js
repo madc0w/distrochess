@@ -101,7 +101,11 @@ Template.chessBoard.helpers({
 	flagCommentCancel : function() {
 		return function() {
 			flaggingCommentId = null;
-			dialog.set(null);
+			if (clientUtils.isSmallScreen()) {
+				$("#flag-comment").hide();
+			} else {
+				dialog.set(null);
+			}
 		};
 	},
 
@@ -125,16 +129,24 @@ Template.chessBoard.events({
 		isSpinner.set(true);
 		const text = $("#flag-reason-input").val();
 		Meteor.call("flagComment", text, flaggingCommentId, function(err, result) {
-			dialog.set(null);
-			isSpinner.set(false);
 			flaggingCommentId = null;
+			if (clientUtils.isSmallScreen()) {
+				$("#flag-comment").hide();
+			} else {
+				dialog.set(null);
+			}
+			isSpinner.set(false);
 			message.set(TAPi18n.__("comment_flagged"));
 		});
 	},
 
 	"click .flag-container" : function(e) {
 		flaggingCommentId = this._id;
-		dialog.set("flag-comment");
+		if (clientUtils.isSmallScreen()) {
+			$("#flag-comment").fadeIn(200);
+		} else {
+			dialog.set("flag-comment");
+		}
 	},
 
 	"keyup #game-comment" : function(e) {
