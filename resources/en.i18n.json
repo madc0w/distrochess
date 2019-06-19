@@ -103,5 +103,6 @@
 	"show_players": "Show Players",
 	"show_comments": "Show Comments",
 	"cookie_consent": "This website stores your signin credentials and may send data to Google Analytics.",
-	"cookie_consent_header": "Cookie Consent"
+	"cookie_consent_header": "Cookie Consent",
+	"sign_in_for_feature": "You must be signed in to use this feature."
 }

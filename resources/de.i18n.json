@@ -103,5 +103,6 @@
 	"show_players": "Spieler anzeigen",
 	"show_comments": "Kommentare anzeigen",
 	"cookie-consent": "Diese Website speichert Ihre Anmeldeinformationen und sendet möglicherweise Daten an Google Analytics.",
-	"cookie_consent_header": "Cookie-Einwilligung"
+	"cookie_consent_header": "Cookie-Einwilligung",
+	"sign_in_for_feature": "Du msst angemeldet dein, um diese Funktion nutzen zu kannst."
 }

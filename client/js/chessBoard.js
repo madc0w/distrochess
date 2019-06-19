@@ -180,10 +180,14 @@ Template.chessBoard.events({
 
 	"click #ignore-button" : function(e) {
 		dialog.set(null);
-		isSpinner.set(true);
-		Meteor.call("ignoreGame", board.get().game._id, function(err, result) {
-			getGame();
-		});
+		if (Meteor.userId()) {
+			isSpinner.set(true);
+			Meteor.call("ignoreGame", board.get().game._id, function(err, result) {
+				getGame();
+			});
+		} else {
+			message.set(TAPi18n.__("sign_in_for_feature"));
+		}
 	},
 
 	"click #need-to-sign-in-button" : function(e) {
