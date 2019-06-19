@@ -121,6 +121,14 @@ Template.history.helpers({
 });
 
 Template.history.events({
+	"click #show-comments-button" : function(e) {
+		dialog.set("game-comments-container-dialog");
+	},
+
+	"click #show-players-button" : function(e) {
+		dialog.set("players-dialog");
+	},
+
 	"click .history-comment-move-num" : function(e) {
 		moveNum.set(this.moveNum);
 		setBoard();
@@ -198,6 +206,13 @@ Template.history.onRendered(function() {
 				board = new ChessBoard("history-chess-board", {
 					draggable : false,
 				});
+
+				if (clientUtils.isSmallScreen()) {
+					const width = innerWidth - 12;
+					$(".chess-board").css("width", width);
+					board.resize();
+				}
+
 				board.start();
 
 				Meteor.subscribe("comments", _game._id, function() {

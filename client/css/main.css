@@ -275,6 +275,13 @@ input {
 	width: 300px;
 }
 
+@media only screen and (max-width: 480px) {
+	#signin-dialog {
+		top: 60px;
+		left: calc(50% - 170px);
+	}
+}
+
 #or {
 	margin: 20px;
 	font-weight: bold;
@@ -348,6 +355,14 @@ input {
 	text-align: center;
 	background-color: #fdcc05;
 	line-height: 42px;
+}
+
+@media only screen and (max-width: 480px) {
+	#waiting {
+		white-space: normal;
+		line-height: 32px;
+		padding: 18px;
+	}
 }
 
 #pass-or-ignore-button {

@@ -289,12 +289,12 @@ Template.chessBoard.onCreated(function() {
 	});
 });
 
-Template.chessBoard.onRendered(() => {
+Template.chessBoard.onRendered(function() {
 	setBoard();
 	getGame();
 
 	if (clientUtils.isSmallScreen()) {
-		Tracker.autorun(() => {
+		this.autorun(() => {
 			const _board = board.get();
 			const width = innerWidth - 12;
 			$(".chess-board").css("width", width);

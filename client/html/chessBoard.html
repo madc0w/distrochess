@@ -58,7 +58,7 @@
 	{{/if}}
 	{{#if game}}
 		{{#if isSmallScreen}}
-			<div id="show-comments-button" class="button">{{_ "show_comments"}}</div>
+			<div id="show-comments-button" class="button">{{_ "show_comments"}} ({{comments.count}})</div>
 		{{/if}}
 		<div id="{{#if isSmallScreen}}game-comments-container-dialog{{else}}game-comments-container{{/if}}" class="{{#if isSmallScreen}}dialog hidden{{/if}}">
 			<div id="game-comments-header">{{_ "comments_on_this_game"}}</div>

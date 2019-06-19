@@ -52,20 +52,37 @@
 		{{/if}}
 	</div>
 	{{#if game}}
-		<div id="players">
-			{{#if gamePlayer}}
-				{{> players game=game isWhite=(not (isWhite game))}}
-				{{> players game=game isWhite=(isWhite game)}}
-			{{else}}
-				{{> players game=game isWhite=true}}
-				{{> players game=game isWhite=false}}
-			{{/if}}
-		</div>
-		<div id="game-comments-container">
+		{{#if isSmallScreen}}
+			<div id="show-players-button" class="button">{{_ "show_players"}}</div>
+			<div id="show-comments-button" class="button">{{_ "show_comments"}} ({{comments.count}})</div>
+			<div id="players-dialog" class="dialog hidden">
+				{{#if gamePlayer}}
+					{{> players game=game isWhite=(not (isWhite game))}}
+					<hr/>
+					{{> players game=game isWhite=(isWhite game)}}
+				{{else}}
+					{{> players game=game isWhite=true}}
+					<hr/>
+					{{> players game=game isWhite=false}}
+				{{/if}}
+				{{> cancelButton buttonTextKey="ok" isSuppressCancelIcon=true}}
+			</div>
+		{{else}}
+			<div id="players">
+				{{#if gamePlayer}}
+					{{> players game=game isWhite=(not (isWhite game))}}
+					{{> players game=game isWhite=(isWhite game)}}
+				{{else}}
+					{{> players game=game isWhite=true}}
+					{{> players game=game isWhite=false}}
+				{{/if}}
+			</div>
+		{{/if}}
+		<div id="{{#if isSmallScreen}}game-comments-container-dialog{{else}}game-comments-container{{/if}}" class="{{#if isSmallScreen}}dialog hidden{{/if}}">
 			<div id="game-comments-header">{{_ "comments_on_this_game"}}</div>
 			<div id="game-comments">
 				{{#if isLoadingComments}}
-					<img id="comments-spinner" src="/img/spinner.svg">
+					<img id="comments-spinner" src="/img/spinner.svg"/>
 				{{else if comments.count}}
 					{{#each comments}}
 						<div class="game-comment">
@@ -92,8 +109,15 @@
 					</div>
 				{{/if}}
 			</div>
+			{{#if isSmallScreen}}
+				<div>
+					{{> cancelButton buttonTextKey="ok" isSuppressCancelIcon=true}}
+				</div>
+			{{/if}}
 		</div>
 	{{/if}}
+	{{#if isSmallScreen}}
+	{{else}}
 	{{#if games.count}}
 		<div id="history-game-list">
 			<div id="history-header">{{{_ "games_youve_played"}}}</div>
@@ -128,5 +152,6 @@
 		<div id="no-game-history">
 			{{{_ "no_game_history"}}}
 		</div>
+	{{/if}}
 	{{/if}}
 </template>

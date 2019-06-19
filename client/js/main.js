@@ -82,6 +82,8 @@ Template.headerLink.helpers({
 
 Template.headerLink.events({
 	"click .header-menu-item" : function(e) {
+		dialog.set(null);
+		message.set(null);
 		if (this.key == "language") {
 			dialog.set("language-dialog");
 		} else if (this.key == "play") {
