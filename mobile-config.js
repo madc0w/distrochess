@@ -31,7 +31,7 @@ App.info({
 	id : "com.distrochess",
 	name : "Distrochess",
 	author : "Marc A. Donis",
-	email : "distrochess@runbox.com",
+	email : "support@distrochess.com",
 	website : "https://www.distrochess.com/",
 	version : version,
 	buildNumber : buildNumber

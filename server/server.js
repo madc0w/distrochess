@@ -620,7 +620,7 @@ Meteor.methods({
 				//				to : "bounce@simulator.amazonses.com",
 				//				to : "complaint@simulator.amazonses.com",
 				//				to : "chris.gilmore@gmail.com",
-				to : "distrochess@runbox.com",
+				to : "test@distrochess.com",
 				subject : "test",
 				text : "this be a test.\nsent at " + new Date()
 			});
