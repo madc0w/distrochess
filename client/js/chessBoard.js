@@ -7,7 +7,7 @@ var flaggingCommentId = null;
 var isOpeningHistory = false;
 
 board = new ReactiveVar();
-const isInCheck = new ReactiveVar(false);
+isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
 const isPlayers = new ReactiveVar(false);

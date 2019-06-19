@@ -50,6 +50,13 @@ input {
 	font-weight: bold;
 }
 
+@media only screen and (max-width: 480px) {
+	#promotion-dialog {
+		left: calc(50% - 40px);
+		min-width: 80px;
+	}
+}
+
 #promotion-dialog img {
 	cursor: pointer;
 }
@@ -570,7 +577,7 @@ iframe {
 	font-weight: bold;
 	font-size: 22px;
 	color: red;
-	width: 210px;
+	width: 190px;
 	text-align: right;
 	position: relative;
 	top: -8px;
