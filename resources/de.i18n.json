@@ -101,5 +101,7 @@
 	"enter_username_or_email": "Bitte geben Sie den Benutzernamen oder die E-Mail-Adresse ein, mit der Sie sich registriert haben.",
 	"use_the_app": "Mit der <a href=\"\">Distrochess-App</a> auf Ihrem Gerät werden Sie viel bessere Erfahrungen machen! <br/> (Leider iOS-Nutzer, noch keine App für Sie &mdash; zur Zeit).)",
 	"show_players": "Spieler anzeigen",
-	"show_comments": "Kommentare anzeigen"
+	"show_comments": "Kommentare anzeigen",
+	"cookie-consent": "Diese Website speichert Ihre Anmeldeinformationen und sendet möglicherweise Daten an Google Analytics.",
+	"cookie_consent_header": "Cookie-Einwilligung"
 }

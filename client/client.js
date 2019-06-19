@@ -3,6 +3,7 @@ dialog = new ReactiveVar(null);
 templateName = new ReactiveVar();
 isSpinner = new ReactiveVar(false);
 historyGameId = new ReactiveVar();
+toastText = new ReactiveVar(null);
 
 passwordResetToken = null;
 

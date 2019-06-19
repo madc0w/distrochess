@@ -57,7 +57,7 @@
 			{{_ "select_language"}} 
 		</div>
 		{{#each languages}}
-			<div class="button language-button" language="{{code}}">{{name}}</div>
+			<div class="button language-button">{{name}}</div>
 		{{/each}}
 		{{> cancelButton id="cancel-language" callback=languageCancel}}
 	</div>
@@ -90,6 +90,17 @@
 	<div id="content">
 		{{> UI.dynamic template=templateName}}
 	</div>
+	
+	{{#if toastText}}
+		<div id="toast">{{toastText}}</div>
+	{{/if}}
+	{{#if isNeedCookieConsent}}
+		<div id="cookie-consent">
+			<div id="cookie-consent-header">{{{_ "cookie_consent_header"}}}</div>
+			<div id="cookie-consent-text">{{{_ "cookie_consent"}}}</div>
+			<div id="cookie-consent-ok-button" class="button">{{_ "ok"}}</div>
+		</div>
+	{{/if}}
 </template>
 
 <template name="headerLink">

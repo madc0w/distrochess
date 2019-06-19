@@ -891,3 +891,36 @@ iframe {
 	margin-top: 8px;
 }
 
+#toast {
+	z-index: 200;
+	background-color: #eee;
+	border-radius: 4px;
+	width: 90%;
+	position: absolute;
+	top: calc(100vh - 40px);
+	padding: 8px;
+	font-weight: bold;
+}
+
+#cookie-consent {
+	z-index: 200;
+	background-color: #eee;
+	border-radius: 4px;
+	width: 90%;
+	position: absolute;
+	top: calc(100vh - 160px);
+	padding: 8px;
+	border-style: solid;
+	border-color: black;
+	border-width: 1px;
+}
+
+#cookie-consent-header {
+	font-weight: bold;
+	text-align: center;
+}
+
+#cookie-consent-ok-button {
+	margin-left: calc(50% - 80px);
+	margin-top: 8px;
+}

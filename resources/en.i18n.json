@@ -101,5 +101,7 @@
 	"enter_username_or_email": "Please enter the username or email address you used to sign up.",
 	"use_the_app": "You will have a much better experience using the <a href=\"\">Distrochess app</a> on your device!<br/>(Sorry, iOS users, no app for you &mdash; yet.)",
 	"show_players": "Show Players",
-	"show_comments": "Show Comments"
+	"show_comments": "Show Comments",
+	"cookie_consent": "This website stores your signin credentials and may send data to Google Analytics.",
+	"cookie_consent_header": "Cookie Consent"
 }

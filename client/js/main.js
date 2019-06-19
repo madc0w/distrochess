@@ -1,4 +1,12 @@
 Template.main.helpers({
+	isNeedCookieConsent : function() {
+		return !Meteor.isCordova && !localStorage.getItem("cookie-consent");
+	},
+
+	toastText : function() {
+		return toastText.get();
+	},
+
 	languages : function() {
 		const languages = [];
 		for (var code in utils.getLanguages()) {
@@ -33,12 +41,17 @@ Template.main.helpers({
 });
 
 Template.main.events({
+	"click #cookie-consent-ok-button" : function(e) {
+		localStorage.setItem("cookie-consent", true);
+		$("#cookie-consent").hide();
+	},
+
 	"click #message-ok-button" : function(e) {
 		message.set(null);
 	},
 
 	"click .language-button" : function(e) {
-		const language = $(e.target).attr("language");
+		const language = this.code;
 		TAPi18n.setLanguage(language);
 		localStorage.setItem("language", language);
 		dialog.set(null);
