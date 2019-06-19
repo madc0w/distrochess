@@ -699,6 +699,10 @@ Meteor.methods({
 			}
 		}
 	},
+
+	log : function(o) {
+		console.log(o ? JSON.stringify(o) : null);
+	},
 });
 
 
