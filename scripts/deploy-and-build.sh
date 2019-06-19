@@ -1,4 +1,5 @@
 #!/bin/bash
 
-./deploy.sh
-./build-android.sh
+./scripts/deploy.sh
+./scripts/build-android.sh
+
