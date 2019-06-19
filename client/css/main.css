@@ -706,6 +706,12 @@ iframe {
 	padding: 4px;
 }
 
+@media only screen and (max-width: 480px) {
+	#current-move {
+		max-width: initial;
+	}
+}
+
 #current-move #move-num {
 	display: inline-block;
 }
@@ -719,19 +725,13 @@ iframe {
 	width: 100px;
 }
 
-@media
-only
-screen
-and
-(max-width:
-480px)
-{
-#board-container #history-button {
-	margin-left: calc(50% - 100px);
-	min-width: 200px;
+@media only screen and (max-width: 480px) {
+	#board-container #history-button {
+		margin-left: calc(50% - 100px);
+		min-width: 200px;
+	}
 }
 
-}
 #no-game-history {
 	display: inline-block;
 	margin-left: 22px;
