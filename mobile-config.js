@@ -2,7 +2,7 @@ const version = "0.2";
 const buildNumber = Math.floor(+new Date() / (24 * 60 * 60));
 console.log("*** setting buildNumber ", buildNumber);
 
-App.setPreference("android-targetSdkVersion", "26");
+App.setPreference("android-targetSdkVersion", "28");
 App.setPreference("android-minSdkVersion", "19");
 //App.setPreference("android-versionCode", versionCode);  // inexplicably ignored!
 
