@@ -36,12 +36,15 @@
 					</div>
 					<div id="pass-or-ignore-button" class="button">{{_ "pass"}}</div>
 				</div>
-				<div id="history-button" class="button">{{_ "history"}}</div>
+				{{#unless isSmallScreen}}
+					<div id="history-button" class="button">{{_ "history"}}</div>
+				{{/unless}}
 			{{/if}}
 		{{/unless}}
 	</div>
 	{{#if isPlayers}}
 		{{#if isSmallScreen}}
+			<div id="history-button" class="button">{{_ "history"}}</div>
 			<div id="show-players-button" class="button">{{_ "show_players"}}</div>
 			<div id="players-dialog" class="dialog hidden">
 				{{> players game=game isWhite=(not isWhite)}}

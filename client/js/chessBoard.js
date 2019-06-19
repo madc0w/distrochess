@@ -301,7 +301,7 @@ Template.chessBoard.onRendered(function() {
 			$("#board-container").css("max-width", width);
 			$("#board-container").hide();
 			$("#clock").css("width", width - 18);
-			$("#chess-board-header div").css("width", innerWidth / 2);
+			$("#chess-board-header div").css("width", Math.min(200, innerWidth / 2));
 			if (_board) {
 				Meteor.setTimeout(() => {
 					$("#board-container").show();
