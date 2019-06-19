@@ -685,16 +685,18 @@ Meteor.methods({
 	},
 
 	ignoreGame : function(gameId) {
-		const ignoredGameIds = (Meteor.user() && Meteor.user().ignoredGameIds) || [];
-		if (!ignoredGameIds.includes(gameId)) {
-			ignoredGameIds.push(gameId);
-			Meteor.users.update({
-				_id : Meteor.userId()
-			}, {
-				$set : {
-					ignoredGameIds : ignoredGameIds
-				}
-			});
+		if (Meteor.user()) {
+			const ignoredGameIds = Meteor.user().ignoredGameIds || [];
+			if (!ignoredGameIds.includes(gameId)) {
+				ignoredGameIds.push(gameId);
+				Meteor.users.update({
+					_id : Meteor.userId()
+				}, {
+					$set : {
+						ignoredGameIds : ignoredGameIds
+					}
+				});
+			}
 		}
 	},
 });
