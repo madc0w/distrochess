@@ -443,7 +443,7 @@ Meteor.methods({
 						assignmentTime : now,
 					}
 				});
-			}, MOVE_TIMEOUT);
+			}, MOVE_TIMEOUT * 2);
 
 			const playerData = getPlayerData(game);
 			return {
