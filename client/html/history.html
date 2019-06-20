@@ -55,7 +55,7 @@
 		{{#if isSmallScreen}}
 			<div id="history-buttons">
 				<div id="show-players-button" class="button">{{_ "show_players"}}</div>
-				<div id="show-comments-button" class="button">{{_ "show_comments"}} ({{comments.count}})</div>
+				<div id="show-comments-button" class="button">{{_ "show_comments"}} ({{comments.length}})</div>
 			</div>
 			<div id="players-dialog" class="dialog hidden">
 				{{#if gamePlayer}}
@@ -80,43 +80,51 @@
 				{{/if}}
 			</div>
 		{{/if}}
-		<div id="{{#if isSmallScreen}}game-comments-container-dialog{{else}}game-comments-container{{/if}}" class="{{#if isSmallScreen}}dialog hidden{{/if}}">
-			<div id="game-comments-header">{{_ "comments_on_this_game"}}</div>
-			<div id="game-comments">
-				{{#if isLoadingComments}}
-					<img id="comments-spinner" src="/img/spinner.svg"/>
-				{{else if comments.count}}
-					{{#each comments}}
-						<div class="game-comment">
-							<div class="comment-metadata">
-								<div class="comment-username">
-									{{commentUsername this}}
-									{{#if userColor this.userId}}
-										<img src="/img/chesspieces/wikipedia/{{userColor this.userId}}N.png"/>
-									{{/if}}
-								</div> &mdash; 
-								<div class="comment-date">
-									{{formatDateTime date}}
-								</div>,
-								<div class="history-comment-move-num">
-									{{_ "move"}} {{moveNum}}
-								</div> 
+		{{#if (or currentUser gameResult)}}
+			<div id="{{#if isSmallScreen}}game-comments-container-dialog{{else}}game-comments-container{{/if}}" class="{{#if isSmallScreen}}dialog hidden{{/if}}">
+				<div id="game-comments-header">
+					{{#if (or (not gamePlayer) game.gameResult)}}
+						{{_ "comments_on_this_game"}}
+					{{else}}
+						{{_ "comments_by_your_side"}}
+					{{/if}}
+				</div>
+				<div id="game-comments">
+					{{#if isLoadingComments}}
+						<img id="comments-spinner" src="/img/spinner.svg"/>
+					{{else if comments.length}}
+						{{#each comments}}
+							<div class="game-comment">
+								<div class="comment-metadata">
+									<div class="comment-username">
+										{{commentUsername this}}
+										{{#if userColor this.userId}}
+											<img src="/img/chesspieces/wikipedia/{{userColor this.userId}}N.png"/>
+										{{/if}}
+									</div> &mdash; 
+									<div class="comment-date">
+										{{formatDateTime date}}
+									</div>,
+									<div class="history-comment-move-num">
+										{{_ "move"}} {{moveNum}}
+									</div> 
+								</div>
+								<div class="comment-text">{{text}}</div>
 							</div>
-							<div class="comment-text">{{text}}</div>
+						{{/each}}
+					{{else}}
+						<div id="no-comments-message">
+							{{_ "no_comments"}}
 						</div>
-					{{/each}}
-				{{else}}
-					<div id="no-comments-message">
-						{{_ "no_comments"}}
+					{{/if}}
+				</div>
+				{{#if isSmallScreen}}
+					<div>
+						{{> cancelButton id="history-comments-ok-button" buttonTextKey="ok" isSuppressCancelIcon=true}}
 					</div>
 				{{/if}}
 			</div>
-			{{#if isSmallScreen}}
-				<div>
-					{{> cancelButton id="history-comments-ok-button" buttonTextKey="ok" isSuppressCancelIcon=true}}
-				</div>
-			{{/if}}
-		</div>
+		{{/if}}
 	{{/if}}
 	{{#if (or (not isSmallScreen) (not game))}}
 		{{#if games.count}}

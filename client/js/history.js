@@ -20,17 +20,24 @@ Template.history.helpers({
 	},
 
 	comments : function() {
+		const comments = [];
 		const _game = game.get();
 		if (_game) {
-			return Comments.find({
+			Comments.find({
 				gameId : _game._id
 			}, {
 				sort : {
 					date : 1
 				}
+			}).forEach(function(comment) {
+				// if game is ongoing, show only comments for the current users's own side
+				if (comment.userId == Meteor.userId() || _game.gameResult ||
+					(_game.players[Meteor.userId()] && _game.players[Meteor.userId()].isWhite == _game.players[comment.userId].isWhite)) {
+					comments.push(comment);
+				}
 			});
 		}
-		return [];
+		return comments;
 	},
 
 	isLoadingComments : function() {
@@ -116,6 +123,7 @@ Template.history.helpers({
 	},
 
 	gameResult : function(_game) {
+		_game = _game || game.get();
 		return _game.gameResult ? _game.gameResult.toLowerCase() : "ongoing";
 	},
 });

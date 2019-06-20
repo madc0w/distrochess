@@ -7,7 +7,7 @@ var flaggingCommentId = null;
 var isOpeningHistory = false;
 
 board = new ReactiveVar();
-isInCheck = new ReactiveVar(false);
+const isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
 const isPlayers = new ReactiveVar(false);
@@ -40,16 +40,22 @@ Template.chessBoard.helpers({
 
 	comments : function() {
 		const _board = board.get();
+		const comments = [];
 		if (_board && _board.game) {
-			return Comments.find({
+			Comments.find({
 				gameId : _board.game._id
 			}, {
 				sort : {
 					date : 1
 				}
+			}).forEach(function(comment) {
+				// show only comments for the current users's own side 
+				if (comment.userId == Meteor.userId() || _board.game.players[comment.userId].isWhite == utils.isWhiteToMove(_board.game)) {
+					comments.push(comment);
+				}
 			});
 		}
-		return [];
+		return comments;
 	},
 
 	isWhite : function() {
@@ -227,12 +233,7 @@ Template.chessBoard.onCreated(function() {
 
 	this.autorun(() => {
 		const _board = board.get();
-		if (historyGameId.get()) {
-			if (!isOpeningHistory) {
-				historyGameId.set(null);
-			}
-			isOpeningHistory = false;
-		} else if (_board && _board.game) {
+		if (_board && _board.game) {
 			Comments.find({
 				gameId : _board.game._id
 			}).observe({
@@ -387,7 +388,8 @@ function getGame() {
 	if (!isGettingGame) {
 		isGettingGame = true;
 		isSpinner.set(true);
-		Meteor.call("getGame", board.get() && board.get().game && board.get().game._id, function(err, result) {
+		Meteor.call("getGame", board.get() && board.get().game && board.get().game._id, historyGameId.get(), function(err, result) {
+			historyGameId.set(null);
 			if (result === "LOCK") {
 				Meteor.setTimeout(() => {
 					isGettingGame = false;

@@ -104,5 +104,6 @@
 	"show_comments": "Afficher les Commentaires",
 	"cookie_consent": "Ce site Web stocke vos informations d'identification de connexion et peut envoyer des données à Google Analytics.",
 	"cookie_consent_header": "Consentement relatif aux cookies",
-	"sign_in_for_feature": "Vous devez être connecté pour utiliser cette fonctionnalité."
+	"sign_in_for_feature": "Vous devez être connecté pour utiliser cette fonctionnalité.",
+	"comments_by_your_side": "Commentaires de votre équipe"
 }

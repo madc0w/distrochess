@@ -104,5 +104,6 @@
 	"show_comments": "Mostrar Comentarios",
 	"cookie_consent": "Este sitio web almacena sus credenciales de inicio de sesión y puede enviar datos a Google Analytics",
 	"cookie_consent_header": "Consentimiento de Cookie",
-	"sign_in_for_feature": "Tiene que iniciar sesión para usar esta función."
+	"sign_in_for_feature": "Tiene que iniciar sesión para usar esta función.",
+	"comments_by_your_side": "Comentarios de tu equipo"
 }

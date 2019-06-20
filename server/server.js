@@ -333,7 +333,7 @@ Meteor.methods({
 		}
 	},
 
-	getGame : function(currentGameId) {
+	getGame : function(currentGameId, loadGameId) {
 		if (isGettingGame) {
 			console.log("getGame concurrency lock");
 			return "LOCK";
@@ -342,7 +342,12 @@ Meteor.methods({
 		try {
 			const now = new Date();
 			var games;
-			if (Meteor.userId()) {
+
+			if (loadGameId) {
+				games = Games.find({
+					id : loadGameId
+				}).fetch();
+			} else if (Meteor.userId()) {
 				const ignoredGameIds = Meteor.user().ignoredGameIds || [];
 				ignoredGameIds.push(currentGameId);
 				games = [];
