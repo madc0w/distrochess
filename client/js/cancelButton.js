@@ -11,7 +11,7 @@ Template.cancelButton.events({
 });
 
 Template.cancelButton.onCreated(function() {
-	callbacks[dialog.get()] = this.data.callback;
+	callbacks[dialog.get()] = this.data && this.data.callback;
 	document.addEventListener("keyup", escKeyListener);
 });
 

@@ -123,11 +123,17 @@ Template.chessBoard.helpers({
 
 
 Template.chessBoard.events({
+	"click #more-button" : function(e) {
+		dialog.set("more-options-dialog");
+	},
+
 	"click #show-players-button" : function(e) {
+		$("#more-options-dialog").hide();
 		dialog.set("players-dialog");
 	},
 
 	"click #show-comments-button" : function(e) {
+		$("#more-options-dialog").hide();
 		dialog.set("game-comments-container-dialog");
 		Meteor.setTimeout(() => {
 			const gameCommentsDiv = $("#game-comments")[0];
@@ -171,6 +177,7 @@ Template.chessBoard.events({
 	"click #submit-comment-button" : saveComment,
 
 	"click #history-button" : function(e) {
+		$("#more-options-dialog").hide();
 		isOpeningHistory = true;
 		Router.go("/history?id=" + board.get().game.id);
 	},

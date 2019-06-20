@@ -380,6 +380,12 @@ input {
 	margin-bottom: 12px;
 }
 
+@media only screen and (max-width: 480px) {
+	#pass-or-ignore-button {
+		margin-left: calc(100% - 270px);
+	}
+}
+
 #game-id {
 	display: inline-block;
 	width: 100px;
@@ -996,4 +1002,24 @@ iframe {
 
 #history-buttons .button {
 	margin-left: 0px;
+}
+
+#more-button {
+	margin-left: 8px;
+	display: inline-block;
+}
+
+#more-button img {
+	height: 26px;
+	margin-top: 2px;
+}
+
+#more-options-dialog {
+	top: 80px;
+	min-width: 240px;
+}
+
+#more-options-dialog .button.cancel {
+	margin-top: 8px;
+	margin-left: calc(50% - 60px);
 }

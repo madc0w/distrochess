@@ -35,6 +35,11 @@
 						{{_ "game_id"}} : <strong>{{game.id}}</strong>
 					</div>
 					<div id="pass-or-ignore-button" class="button">{{_ "pass"}}</div>
+					{{#if isSmallScreen}}
+						<div id="more-button" class="button">
+							<img src="/img/more-icon.svg"/>
+						</div>
+					{{/if}}
 				</div>
 				{{#unless isSmallScreen}}
 					<div id="history-button" class="button">{{_ "history"}}</div>
@@ -44,8 +49,6 @@
 	</div>
 	{{#if isPlayers}}
 		{{#if isSmallScreen}}
-			<div id="history-button" class="button">{{_ "history"}}</div>
-			<div id="show-players-button" class="button">{{_ "show_players"}}</div>
 			<div id="players-dialog" class="dialog hidden">
 				{{> players game=game isWhite=(not isWhite)}}
 				<hr/>
@@ -60,9 +63,6 @@
 		{{/if}}
 	{{/if}}
 	{{#if (and game currentUser)}}
-		{{#if isSmallScreen}}
-			<div id="show-comments-button" class="button">{{_ "show_comments"}} ({{comments.length}})</div>
-		{{/if}}
 		<div id="{{#if isSmallScreen}}game-comments-container-dialog{{else}}game-comments-container{{/if}}" class="{{#if isSmallScreen}}dialog hidden{{/if}}">
 			<div id="game-comments-header">{{_ "comments_by_your_side"}}</div>
 			<div id="game-comments">
@@ -138,6 +138,13 @@
 		<input id="flag-reason-input" maxlength="400"/>
 		<div id="flag-button" class="button">{{_ "flag_comment"}}</div>
 		{{> cancelButton id="flag-comment-cancel-button" callback=flagCommentCancel}}
+	</div>
+	
+	<div id="more-options-dialog" class="dialog hidden">
+		<div id="history-button" class="button">{{_ "history"}}</div>
+		<div id="show-players-button" class="button">{{_ "show_players"}}</div>
+		<div id="show-comments-button" class="button">{{_ "show_comments"}} ({{comments.length}})</div>
+		{{> cancelButton }}
 	</div>
 </template>
 
