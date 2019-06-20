@@ -57,7 +57,7 @@ Template.signin.events({
 
 	"click #signin-facebook-button" : function(e) {
 		Meteor.loginWithFacebook({
-			requestPermissions : [ "public_profile", "username" ]
+			requestPermissions : [ "public_profile" ]
 		}, (err) => {
 			isSpinner.set(false);
 			if (err) {
