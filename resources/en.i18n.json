@@ -25,6 +25,7 @@
 	"rating": "Elo rating",
 	"game_id": "Game ID",
 	"edit_profile": "Edit profile",
+	"signin_with_facebook": "Sign in with Facebook",
 	"signin_with_google": "Sign in with Google",
 	"signin_with_github": "Sign in with Github",
 	"repeat_password": "Password again",

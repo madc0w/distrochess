@@ -14,6 +14,8 @@ Template.editProfile.helpers({
 				return "Google";
 			} else if (services.github) {
 				return "Github";
+			} else if (services.facebook) {
+				return "Facebook";
 			}
 		}
 		return null;

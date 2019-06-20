@@ -25,6 +25,7 @@
 	"rating": "Rating de Elo",
 	"game_id": "ID juego",
 	"edit_profile": "editar su perfil",
+	"signin_with_facebook": "Inicia sesión con Facebook",
 	"signin_with_google": "Inicia sesión con Google",
 	"signin_with_github": "Inicia sesión con Github",
 	"repeat_password": "Contraseña otra vez",

@@ -25,6 +25,7 @@
 	"rating": "Рейтинг Эло",
 	"game_id": "ID игры",
 	"edit_profile": "Редактировать профиль",
+	"signin_with_facebook": "Войти через Facebook",
 	"signin_with_google": "Войти через Google",
 	"signin_with_github": "Войти через Github",
 	"repeat_password": "Повторите пароль",

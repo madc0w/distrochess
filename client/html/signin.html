@@ -1,4 +1,6 @@
 <template name="signin">
+{{> loginButtons}}
+
 	{{#if currentUser}}
 		<div id="username-button" class="button">{{username}}</div>
 	{{else}}
@@ -12,10 +14,16 @@
 	</div>
 
 	<div id="signin-dialog" class="dialog hidden">
-		<div id="signin-google-button" class="signin-button button">
-			<div class="signin-button-text">{{_ "signin_with_google"}}</div>
-			<img src="/img/google-icon.png"/>
+		<div id="signin-facebook-button" class="signin-button button">
+			<div class="signin-button-text">{{_ "signin_with_facebook"}}</div>
+			<img src="/img/facebook-icon.png"/>
 		</div>
+		{{#unless isCordova}}
+			<div id="signin-google-button" class="signin-button button">
+				<div class="signin-button-text">{{_ "signin_with_google"}}</div>
+				<img src="/img/google-icon.png"/>
+			</div>
+		{{/unless}}
 		<div id="signin-github-button" class="signin-button button">
 			<div class="signin-button-text">{{_ "signin_with_github"}}</div>
 			<img src="/img/github-icon.svg"/>

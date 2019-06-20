@@ -55,6 +55,19 @@ Template.signin.events({
 		}
 	},
 
+	"click #signin-facebook-button" : function(e) {
+		Meteor.loginWithFacebook({
+			requestPermissions : [ "public_profile", "username" ]
+		}, (err) => {
+			isSpinner.set(false);
+			if (err) {
+				message.set(err.reason);
+			} else {
+				dialog.set(null);
+			}
+		});
+	},
+
 	"click #signin-github-button" : function(e) {
 		// to configure Github OAuth:
 		// https://github.com/settings/applications/1075304
