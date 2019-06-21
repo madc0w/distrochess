@@ -12,12 +12,15 @@ clientUtils = {
 	},
 
 	moment : function(date) {
-		momentUpdate.get();
-		var language = TAPi18n.getLanguage();
-		if (!Object.keys(utils.getLanguages()).includes(language)) {
-			language = "en";
+		if (date) {
+			momentUpdate.get();
+			var language = TAPi18n.getLanguage();
+			if (!Object.keys(utils.getLanguages()).includes(language)) {
+				language = "en";
+			}
+			return moment(date).locale(language);
 		}
-		return moment(date).locale(language);
+		return null;
 	},
 
 	toast : function(textKey) {

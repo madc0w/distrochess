@@ -4,6 +4,7 @@
 			<tr>
 				<th>Username</th>
 				<th>Created</th>
+				<th>Active</th>
 				<th>Avatar</th>
 				<th>Email</th>
 				<th>Auth Service</th>
@@ -18,7 +19,9 @@
 							<img class="user-avatar" src="{{avatarUrl}}"/>
 						{{/if}}
 					</td>
-					<td>{{email}}</td>
+					<td>
+						<a href="mailto:{{email}}">{{email}}</a>
+					</td>
 					<td>{{authService}}</td>
 				</tr>
 			{{/each}}

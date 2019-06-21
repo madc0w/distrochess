@@ -24,6 +24,8 @@ Template.users.helpers({
 			return "Google";
 		} else if (this.services && this.services.github) {
 			return "Github";
+		} else if (this.services && this.services.facebook) {
+			return "Facebook";
 		}
 		return null;
 	},
