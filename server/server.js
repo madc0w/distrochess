@@ -665,7 +665,8 @@ Meteor.methods({
 			const ratingDelta = -4.235;
 			const game = {
 				gameResult : "WIN_WHITE",
-				players : {}
+				players : {},
+				id : 27,
 			};
 			game.players[user._id] = {
 				isWhite : true
