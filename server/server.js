@@ -405,7 +405,7 @@ Meteor.methods({
 
 			} else {
 				// no user
-				console.log("loadGameId", loadGameId);
+				//				console.log("loadGameId", loadGameId);
 				if (loadGameId) {
 					games = Games.find({
 						gameResult : null,
@@ -419,7 +419,7 @@ Meteor.methods({
 						],
 						id : loadGameId,
 					}).fetch();
-					console.log("games ", games);
+				//					console.log("games ", games);
 				}
 
 				if (games.length == 0) {
