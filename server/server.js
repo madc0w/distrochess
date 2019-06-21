@@ -344,6 +344,14 @@ Meteor.methods({
 			var games = [];
 
 			if (Meteor.userId()) {
+				Meteor.users.update({
+					_id : Meteor.userId()
+				}, {
+					$set : {
+						lastActivity : now
+					}
+				});
+
 				const ignoredGameIds = Meteor.user().ignoredGameIds || [];
 				if (excludeGameId && excludeGameId != loadGameId) {
 					ignoredGameIds.push(excludeGameId);
