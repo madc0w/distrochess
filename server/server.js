@@ -333,7 +333,7 @@ Meteor.methods({
 		}
 	},
 
-	getGame : function(currentGameId, loadGameId) {
+	getGame : function(excludeGameId, loadGameId) {
 		if (isGettingGame) {
 			console.log("getGame concurrency lock");
 			return "LOCK";
@@ -341,16 +341,15 @@ Meteor.methods({
 		isGettingGame = true;
 		try {
 			const now = new Date();
-			var games;
+			var games = [];
 
-			if (loadGameId) {
-				games = Games.find({
-					id : loadGameId
-				}).fetch();
-			} else if (Meteor.userId()) {
+			if (Meteor.userId()) {
 				const ignoredGameIds = Meteor.user().ignoredGameIds || [];
-				ignoredGameIds.push(currentGameId);
-				games = [];
+				if (excludeGameId && excludeGameId != loadGameId) {
+					ignoredGameIds.push(excludeGameId);
+				}
+				var gameToLoad = null;
+				//				console.log("loadGameId", loadGameId);
 				Games.find({
 					gameResult : null,
 					_id : {
@@ -368,6 +367,10 @@ Meteor.methods({
 					const gamePlayer = game.players[Meteor.userId()];
 					if (!gamePlayer || (gamePlayer && gamePlayer.isWhite == utils.isWhiteToMove(game))) {
 						games.push(game);
+						//						console.log("game.id", game.id);
+						if (game.id == loadGameId) {
+							gameToLoad = game;
+						}
 					}
 				});
 
@@ -380,15 +383,20 @@ Meteor.methods({
 					return "WAIT";
 				}
 
-				// if any of these games are games in which the user has made a move, then only choose among those
-				const playerGames = [];
-				for (var _game of games) {
-					if (_game.players[Meteor.userId()]) {
-						playerGames.push(_game);
-					} //
-				}
-				if (playerGames.length > 0) {
-					games = playerGames;
+				//				console.log("gameToLoad", gameToLoad);
+				if (gameToLoad) {
+					games = [ gameToLoad ];
+				} else {
+					// if any of these games are games in which the user has made a move, then only choose among those
+					const playerGames = [];
+					for (var _game of games) {
+						if (_game.players[Meteor.userId()]) {
+							playerGames.push(_game);
+						} //
+					}
+					if (playerGames.length > 0) {
+						games = playerGames;
+					}
 				}
 
 				GameAssignments.remove({
@@ -397,10 +405,29 @@ Meteor.methods({
 
 			} else {
 				// no user
-				games = Games.find({
-					gameResult : null,
-					currentUserId : null,
-				}).fetch();
+				console.log("loadGameId", loadGameId);
+				if (loadGameId) {
+					games = Games.find({
+						gameResult : null,
+						$or : [
+							{
+								currentUserId : null,
+							},
+							{
+								currentUserId : "NONE",
+							}
+						],
+						id : loadGameId,
+					}).fetch();
+					console.log("games ", games);
+				}
+
+				if (games.length == 0) {
+					games = Games.find({
+						gameResult : null,
+						currentUserId : null,
+					}).fetch();
+				}
 				if (games.length == 0) {
 					console.log("will create new game for anonymous user");
 					return null;
@@ -433,6 +460,10 @@ Meteor.methods({
 					assignmentTime : now,
 				}
 			});
+
+			if (moveTimeoutTimersIds[game._id]) {
+				Meteor.clearTimeout(moveTimeoutTimersIds[game._id]);
+			}
 			moveTimeoutTimersIds[game._id] = Meteor.setTimeout(() => {
 				console.log("move timer timed out for game " + game.id, game._id);
 				Games.update({
@@ -443,7 +474,7 @@ Meteor.methods({
 						assignmentTime : now,
 					}
 				});
-			}, MOVE_TIMEOUT);
+			}, SERVER_MOVE_TIMEOUT);
 
 			const playerData = getPlayerData(game);
 			return {

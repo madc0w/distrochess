@@ -50,7 +50,8 @@ Template.chessBoard.helpers({
 				}
 			}).forEach(function(comment) {
 				// show only comments for the current users's own side 
-				if (comment.userId == Meteor.userId() || _board.game.players[comment.userId].isWhite == utils.isWhiteToMove(_board.game)) {
+				if (comment.userId == Meteor.userId() ||
+					(_board.game.players[comment.userId] && _board.game.players[comment.userId].isWhite == utils.isWhiteToMove(_board.game))) {
 					comments.push(comment);
 				}
 			});
