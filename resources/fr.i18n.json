@@ -108,5 +108,6 @@
 	"sign_in_for_feature": "Vous devez être connecté pour utiliser cette fonctionnalité.",
 	"comments_by_your_side": "Commentaires de votre équipe",
 	"unsubscribe_sucess_1": "Vous ne recevrez plus aucune notification de Distrochess.",
-	"unsubscribe_sucess_2": "Si vous souhaitez à nouveau recevoir ces emails, éditez simplement votre profil et cochez la case \"Recevoir des notifications par email\"."
+	"unsubscribe_sucess_2": "Si vous souhaitez à nouveau recevoir ces emails, éditez simplement votre profil et cochez la case \"Recevoir des notifications par email\".",
+	"game_end_notification_subject": "Un de vos jeux Distrochess a été décidé"
 }

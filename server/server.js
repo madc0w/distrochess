@@ -659,15 +659,28 @@ Meteor.methods({
 
 	testEmail : function(pw) {
 		if (pw == Meteor.settings.private.adminPw) {
-			Email.send({
-				from : "no-reply@distrochess.com",
-				//				to : "bounce@simulator.amazonses.com",
-				//				to : "complaint@simulator.amazonses.com",
-				//				to : "chris.gilmore@gmail.com",
-				to : "test@distrochess.com",
-				subject : "test",
-				text : "this be a test.\nsent at " + new Date()
+			const user = Meteor.users.findOne({
+				username : "mad"
 			});
+			const ratingDelta = -4.235;
+			const game = {
+				gameResult : "WIN_WHITE",
+				players : {}
+			};
+			game.players[user._id] = {
+				isWhite : true
+			};
+
+			notifyGameEnd(user, ratingDelta, game);
+		//			Email.send({
+		//				from : "no-reply@distrochess.com",
+		//				//				to : "bounce@simulator.amazonses.com",
+		//				//				to : "complaint@simulator.amazonses.com",
+		//				//				to : "chris.gilmore@gmail.com",
+		//				to : "test@distrochess.com",
+		//				subject : "test",
+		//				text : "this be a test.\nsent at " + new Date()
+		//			});
 		} else {
 			console.warn("somebody tried to call testEmail with bad password", pw);
 		}
@@ -821,6 +834,9 @@ function updateRatings(game, gameResult) {
 		if (user._id == Meteor.userId()) {
 			userDelta = delta;
 		}
+
+		notifyGameEnd(user, delta, game);
+
 		user.rating = (user.rating || INITIAL_RATING) + delta;
 		Meteor.users.update({
 			_id : user._id
@@ -951,6 +967,7 @@ function getEmail(baseFilename, user, isHtml, vars) {
 		text = Assets.getText("emails/" + baseFilename + "_en." + (isHtml ? "html" : "txt"));
 	}
 	text = replaceVars(text, vars);
+	//	console.log("text", text);
 	return text;
 }
 
@@ -961,4 +978,39 @@ function replaceVars(text, varsDict) {
 		text = text.replace(regExp, value);
 	}
 	return text;
+}
+
+// notify players that this game has been decided
+function notifyGameEnd(user, ratingDelta, game) {
+	const email = utils.getEmail(user);
+	if (email && user.isReceiveNotifications != false) {
+		var resultKey;
+		if ((game.players[user._id].isWhite && game.gameResult == "WIN_WHITE") ||
+			(!game.players[user._id].isWhite && game.gameResult == "WIN_BLACK")) {
+			resultKey = "your_team_won";
+		} else if (game.gameResult == "DRAW") {
+			resultKey = "draw";
+		} else {
+			resultKey = "your_team_lost";
+		}
+
+		const html = getEmail("gameEndNotification", user, true, {
+			ratingDelta : ratingDelta.toFixed(1),
+			authKey : user.authKey,
+			result : TAPi18n.__(resultKey),
+			gameId : game.id,
+		});
+		const language = user.language || "en";
+		Email.send({
+			from : "Distrochess Notification <notification@distrochess.com>",
+			to : email,
+			subject : TAPi18n.__("game_end_notification_subject", {}, language),
+			html : html,
+			headers : {
+				"Content-Transfer-Encoding" : "8bit",
+			}
+		});
+		return true;
+	}
+	return false
 }

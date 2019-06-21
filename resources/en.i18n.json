@@ -108,5 +108,8 @@
 	"sign_in_for_feature": "You must be signed in to use this feature.",
 	"comments_by_your_side": "Comments by your team",
 	"unsubscribe_sucess_1": "You will no longer receive any Distrochess updates or notifications.",
-	"unsubscribe_sucess_2": "Should you wish to receive these emails again, just edit your profile and check the \"Receive email notifications\" box."
+	"unsubscribe_sucess_2": "Should you wish to receive these emails again, just edit your profile and check the \"Receive email notifications\" box.",
+	"game_end_notification_subject": "One of your Distrochess games has been decided",
+	"your_team_won": "Your team won! Congratulaitons.",
+	"your_team_lost": "Your team lost. So sorry."
 }
