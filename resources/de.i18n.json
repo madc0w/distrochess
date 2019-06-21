@@ -106,5 +106,7 @@
 	"cookie-consent": "Diese Website speichert Ihre Anmeldeinformationen und sendet möglicherweise Daten an Google Analytics.",
 	"cookie_consent_header": "Cookie-Einwilligung",
 	"sign_in_for_feature": "Du msst angemeldet dein, um diese Funktion nutzen zu kannst.",
-	"comments_by_your_side": "Kommentare von deinem Team"
+	"comments_by_your_side": "Kommentare von deinem Team",
+	"unsubscribe_sucess_1": "Sie erhalten keine Distrochess-Updates oder -Benachrichtigungen mehr.",
+	"unsubscribe_sucess_2": "Wenn Sie diese E-Mails erneut erhalten möchten, bearbeiten Sie einfach Ihr Profil und aktivieren Sie das Kontrollkästchen \"E-Mail-Benachrichtigungen erhalten\"."
 }

@@ -744,11 +744,23 @@ Meteor.methods({
 		}
 	},
 
+	unsubscribe : function(authKey) {
+		console.log("unsubscribe", authKey);
+		console.log(Meteor.users.update({
+			authKey : authKey
+		}, {
+			$set : {
+				isReceiveNotifications : false
+			}
+		}));
+	},
+
 	log : function(o) {
 		console.log(o ? JSON.stringify(o) : null);
 	},
 });
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // returns a string containing all the pieces on the board
 function getPieces(chess) {

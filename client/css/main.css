@@ -968,14 +968,14 @@ iframe {
 	z-index: 200;
 	background-color: #eee;
 	border-radius: 4px;
-	margin-left: 5%;
-	width: 90%;
+	margin-left: 5%; width : 90%;
 	position: absolute;
 	top: calc(100vh - 160px);
 	padding: 8px;
 	border-style: solid;
 	border-color: black;
 	border-width: 1px;
+	width: 90%;
 }
 
 #cookie-consent-header {
@@ -1023,4 +1023,13 @@ iframe {
 #more-options-dialog .button.cancel {
 	margin-top: 8px;
 	margin-left: calc(50% - 60px);
+}
+
+#unsubscribe-success-view {
+	white-space: initial;
+}
+
+#unsubscribe-success-view div {
+	margin-top: 8px;
+	font-size: 22px;
 }

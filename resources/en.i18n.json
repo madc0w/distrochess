@@ -106,5 +106,7 @@
 	"cookie_consent": "This website stores your signin credentials and may send data to Google Analytics.",
 	"cookie_consent_header": "Cookie Consent",
 	"sign_in_for_feature": "You must be signed in to use this feature.",
-	"comments_by_your_side": "Comments by your team"
+	"comments_by_your_side": "Comments by your team",
+	"unsubscribe_sucess_1": "You will no longer receive any Distrochess updates or notifications.",
+	"unsubscribe_sucess_2": "Should you wish to receive these emails again, just edit your profile and check the \"Receive email notifications\" box."
 }

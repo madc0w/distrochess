@@ -29,6 +29,14 @@ Router.route("/history", function() {
 	setPage.bind(this)("history");
 });
 
+Router.route("/unsubscribe/:authKey", function() {
+	const _this = this;
+	Meteor.call("unsubscribe", this.params.authKey, function(err, result) {
+		setPage.bind(_this)("unsubscribeSuccessView");
+	});
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 function setPage(name) {
 	templateName.set(name);

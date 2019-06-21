@@ -106,5 +106,7 @@
 	"cookie_consent": "Este sitio web almacena sus credenciales de inicio de sesión y puede enviar datos a Google Analytics",
 	"cookie_consent_header": "Consentimiento de Cookie",
 	"sign_in_for_feature": "Tiene que iniciar sesión para usar esta función.",
-	"comments_by_your_side": "Comentarios de tu equipo"
+	"comments_by_your_side": "Comentarios de tu equipo",
+	"unsubscribe_sucess_1": "Ya no recibirá actualizaciones ni notificaciones de Distrochess.",
+	"unsubscribe_sucess_2": "Si desea recibir estos correos nuevamente, simplemente edite su perfil y marque la casilla \"Recibir notificaciones por correo electrónico\"."
 }
