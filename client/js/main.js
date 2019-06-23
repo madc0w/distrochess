@@ -77,7 +77,7 @@ Template.main.onRendered(() => {
 		isMobile : clientUtils.isMobile(),
 		isCordova : Meteor.isCordova,
 	});
-	if (clientUtils.isSmallScreen() && !Meteor.isCordova) {
+	if (clientUtils.isMobile() && !Meteor.isCordova) {
 		message.set(TAPi18n.__("use_the_app"));
 	}
 });
