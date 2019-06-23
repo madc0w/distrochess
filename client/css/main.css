@@ -244,6 +244,7 @@ input {
 .players-table-container {
 	max-height: 200px;
 	overflow-y: auto;
+	min-width: 502px;
 }
 
 .team-header {
