@@ -608,7 +608,7 @@ Meteor.methods({
 
 		var ratingDelta = null;
 		if (gameResult) {
-			ratingDelta = updateRatings(board.game, gameResult);
+			ratingDelta = updateRatings(board.game, gameResult, Meteor.userId());
 		} else {
 			// assign game to first user in the queue who is eligible to play that game
 			for (var i in userQueue) {
@@ -798,7 +798,7 @@ function getPieces(chess) {
 	return pieces.join("");
 }
 
-function updateRatings(game, gameResult) {
+function updateRatings(game, gameResult, currentUserId) {
 	//	console.log("game.players", game.players);
 	var meanBlackElo = 0;
 	var meanWhiteElo = 0;
@@ -827,7 +827,7 @@ function updateRatings(game, gameResult) {
 	//	console.log("gameResult", gameResult);
 	const deltas = utils.computeEloDeltas(gameResult, meanWhiteElo, meanBlackElo);
 	//	console.log("deltas ", deltas);
-	var userDelta = 0;
+	var userDelta = null;
 
 	Meteor.users.find({
 		_id : {
@@ -839,7 +839,7 @@ function updateRatings(game, gameResult) {
 		//		console.log("user " + utils.getUsername(user) + " white?", game.players[user._id].isWhite);
 		//		console.log("ratio for user " + utils.getUsername(user), ratio);
 		//		console.log("delta for user " + utils.getUsername(user), delta);
-		if (user._id == Meteor.userId()) {
+		if (user._id == currentUserId) {
 			userDelta = delta;
 		}
 
