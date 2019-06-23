@@ -6,7 +6,7 @@ var clockIntervalId = null;
 var flaggingCommentId = null;
 var isOpeningHistory = false;
 
-board = new ReactiveVar();
+const board = new ReactiveVar();
 const isInCheck = new ReactiveVar(false);
 const isWaiting = new ReactiveVar(false);
 const isClock = new ReactiveVar(false);
@@ -20,7 +20,7 @@ Template.chessBoard.helpers({
 	},
 
 	formatDateTime : function(date) {
-		return clientUtils.moment(date).fromNow();
+		return clientUtils.fromNow(date);
 	},
 
 	userColor : function(userId) {

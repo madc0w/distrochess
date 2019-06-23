@@ -115,7 +115,7 @@ Template.history.helpers({
 	},
 
 	formatDateTime : function(date) {
-		return clientUtils.moment(date).fromNow();
+		return clientUtils.fromNow(date);
 	},
 
 	formatInt : function(i) {
