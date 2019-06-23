@@ -108,7 +108,7 @@ Template.chessBoard.helpers({
 	flagCommentCancel : function() {
 		return function() {
 			flaggingCommentId = null;
-			if (clientUtils.isSmallScreen()) {
+			if (clientUtils.isMobile()) {
 				$("#flag-comment").hide();
 			} else {
 				dialog.set(null);
@@ -150,7 +150,7 @@ Template.chessBoard.events({
 		const text = $("#flag-reason-input").val();
 		Meteor.call("flagComment", text, flaggingCommentId, function(err, result) {
 			flaggingCommentId = null;
-			if (clientUtils.isSmallScreen()) {
+			if (clientUtils.isMobile()) {
 				$("#flag-comment").hide();
 			} else {
 				dialog.set(null);
@@ -162,7 +162,7 @@ Template.chessBoard.events({
 
 	"click .flag-container" : function(e) {
 		flaggingCommentId = this._id;
-		if (clientUtils.isSmallScreen()) {
+		if (clientUtils.isMobile()) {
 			$("#flag-comment").fadeIn(200);
 		} else {
 			dialog.set("flag-comment");
@@ -306,7 +306,7 @@ Template.chessBoard.onRendered(function() {
 	setBoard();
 	getGame();
 
-	if (clientUtils.isSmallScreen()) {
+	if (clientUtils.isMobile()) {
 		this.autorun(() => {
 			const _board = board.get();
 			const width = innerWidth - 12;

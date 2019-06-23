@@ -52,7 +52,7 @@
 		{{/if}}
 	</div>
 	{{#if game}}
-		{{#if isSmallScreen}}
+		{{#if isMobile}}
 			<div id="history-buttons">
 				<div id="show-players-button" class="button">{{_ "show_players"}}</div>
 				<div id="show-comments-button" class="button">{{_ "show_comments"}} ({{comments.length}})</div>
@@ -81,7 +81,7 @@
 			</div>
 		{{/if}}
 		{{#if (or currentUser gameResult)}}
-			<div id="{{#if isSmallScreen}}game-comments-container-dialog{{else}}game-comments-container{{/if}}" class="{{#if isSmallScreen}}dialog hidden{{/if}}">
+			<div id="{{#if isMobile}}game-comments-container-dialog{{else}}game-comments-container{{/if}}" class="{{#if isMobile}}dialog hidden{{/if}}">
 				<div id="game-comments-header">
 					{{#if (or (not gamePlayer) game.gameResult)}}
 						{{_ "comments_on_this_game"}}
@@ -118,7 +118,7 @@
 						</div>
 					{{/if}}
 				</div>
-				{{#if isSmallScreen}}
+				{{#if isMobile}}
 					<div>
 						{{> cancelButton id="history-comments-ok-button" buttonTextKey="ok" isSuppressCancelIcon=true}}
 					</div>
@@ -126,7 +126,7 @@
 			</div>
 		{{/if}}
 	{{/if}}
-	{{#if (or (not isSmallScreen) (not game))}}
+	{{#if (or (not isMobile) (not game))}}
 		{{#if games.count}}
 			<div id="history-game-list">
 				<div id="history-header">{{{_ "games_youve_played"}}}</div>
@@ -137,7 +137,7 @@
 							<th>{{_ "your_side"}}</th>
 							<th>ID</th>
 							<th>{{_ "last_move"}}</th>
-							{{#unless isSmallScreen}}
+							{{#unless isMobile}}
 								<th>{{_ "moves"}}</th>
 							{{/unless}}
 							<th>{{_ "result"}}</th>
@@ -152,7 +152,7 @@
 								</td>
 								<td>{{id}}</td>
 								<td>{{formatDateTime lastMoveTime}}</td>
-								{{#unless isSmallScreen}}
+								{{#unless isMobile}}
 									<td>{{moves.length}}</td>
 								{{/unless}}
 								<td>{{_ (gameResult this)}}</td>

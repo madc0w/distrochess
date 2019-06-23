@@ -42,4 +42,13 @@ clientUtils = {
 			toastText.set(null);
 		}, toastDuration);
 	},
+
+	isMobile : function() {
+		try {
+			document.createEvent("TouchEvent");
+			return true;
+		} catch (e) {
+			return false;
+		}
+	},
 }

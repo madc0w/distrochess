@@ -138,7 +138,7 @@ Template.history.events({
 	},
 
 	"click .history-comment-move-num" : function(e) {
-		if (clientUtils.isSmallScreen()) {
+		if (clientUtils.isMobile()) {
 			dialog.set(null);
 		}
 		moveNum.set(this.moveNum);
@@ -218,7 +218,7 @@ Template.history.onRendered(function() {
 					draggable : false,
 				});
 
-				if (clientUtils.isSmallScreen()) {
+				if (clientUtils.isMobile()) {
 					const width = innerWidth - 12;
 					$(".chess-board").css("width", width);
 					board.resize();

@@ -35,20 +35,20 @@
 						{{_ "game_id"}} : <strong>{{game.id}}</strong>
 					</div>
 					<div id="pass-or-ignore-button" class="button">{{_ "pass"}}</div>
-					{{#if isSmallScreen}}
+					{{#if isMobile}}
 						<div id="more-button" class="button">
 							<img src="/img/more-icon.svg"/>
 						</div>
 					{{/if}}
 				</div>
-				{{#unless isSmallScreen}}
+				{{#unless isMobile}}
 					<div id="history-button" class="button">{{_ "history"}}</div>
 				{{/unless}}
 			{{/if}}
 		{{/unless}}
 	</div>
 	{{#if isPlayers}}
-		{{#if isSmallScreen}}
+		{{#if isMobile}}
 			<div id="players-dialog" class="dialog hidden">
 				{{> players game=game isWhite=(not isWhite)}}
 				<hr/>
@@ -63,7 +63,7 @@
 		{{/if}}
 	{{/if}}
 	{{#if (and game currentUser)}}
-		<div id="{{#if isSmallScreen}}game-comments-container-dialog{{else}}game-comments-container{{/if}}" class="{{#if isSmallScreen}}dialog hidden{{/if}}">
+		<div id="{{#if isMobile}}game-comments-container-dialog{{else}}game-comments-container{{/if}}" class="{{#if isMobile}}dialog hidden{{/if}}">
 			<div id="game-comments-header">{{_ "comments_by_your_side"}}</div>
 			<div id="game-comments">
 				{{#if isLoadingComments}}
@@ -97,7 +97,7 @@
 			<div id="comment-input">
 				<input id="game-comment" maxlength="{{maxCommentLength}}"/> 
 				<div id="submit-comment-button" class="button">{{_ "send"}}</div>
-				{{#if isSmallScreen}}
+				{{#if isMobile}}
 					<div>
 						{{> cancelButton buttonTextKey="ok" isSuppressCancelIcon=true}}
 					</div>

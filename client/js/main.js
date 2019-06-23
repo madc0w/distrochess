@@ -72,6 +72,7 @@ Template.main.onRendered(() => {
 		innerWidth : innerWidth,
 		outerWidth : outerWidth,
 		isSmallScreen : clientUtils.isSmallScreen(),
+		isMobile : clientUtils.isMobile(),
 		isCordova : Meteor.isCordova,
 	});
 	if (clientUtils.isSmallScreen() && !Meteor.isCordova) {

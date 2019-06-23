@@ -104,6 +104,7 @@ Meteor.startup(function() {
 	});
 
 	Template.registerHelper("isSmallScreen", clientUtils.isSmallScreen);
+	Template.registerHelper("isMobile", clientUtils.isMobile);
 	Template.registerHelper("isCordova", function() {
 		return Meteor.isCordova;
 	});
