@@ -64,7 +64,7 @@ Template.history.helpers({
 	},
 
 	isWhite : function(_game) {
-		return _game.players[Meteor.userId()].isWhite;
+		return _game.players && _game.players[Meteor.userId()].isWhite;
 	},
 
 	numPlayers : function(isWhite) {
@@ -146,6 +146,7 @@ Template.history.events({
 	},
 
 	"click .select-game-button" : function(e) {
+		moveNum.set(0);
 		Router.go("/history?id=" + this.id);
 	},
 
