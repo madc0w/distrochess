@@ -1025,6 +1025,11 @@ iframe {
 	margin-left: calc(50% - 60px);
 }
 
+#more-options-dialog #history-button {
+	min-width: 200px;
+	margin-left: calc(50% - 100px);
+}
+
 #unsubscribe-success-view {
 	white-space: initial;
 }

@@ -68,15 +68,15 @@ Template.main.events({
 
 
 Template.main.onRendered(() => {
-	Meteor.call("log", {
-		innerWidth : innerWidth,
-		outerWidth : outerWidth,
-		"screen.width" : screen.width,
-		"screen.availWidth" : screen.availWidth,
-		isSmallScreen : clientUtils.isSmallScreen(),
-		isMobile : clientUtils.isMobile(),
-		isCordova : Meteor.isCordova,
-	});
+	//	Meteor.call("log", {
+	//		innerWidth : innerWidth,
+	//		outerWidth : outerWidth,
+	//		"screen.width" : screen.width,
+	//		"screen.availWidth" : screen.availWidth,
+	//		isSmallScreen : clientUtils.isSmallScreen(),
+	//		isMobile : clientUtils.isMobile(),
+	//		isCordova : Meteor.isCordova,
+	//	});
 	if (clientUtils.isMobile() && !Meteor.isCordova) {
 		message.set(TAPi18n.__("use_the_app"));
 	}

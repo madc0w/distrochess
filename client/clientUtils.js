@@ -8,7 +8,7 @@ Meteor.setInterval(() => {
 
 clientUtils = {
 	isSmallScreen : function() {
-		return innerWidth < 480;
+		return screen.width <= 480;
 	},
 
 	formatDateTime : function(date) {
