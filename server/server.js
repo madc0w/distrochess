@@ -272,11 +272,24 @@ Meteor.methods({
 		});
 
 		if (comment) {
-			CommentFlags.insert({
+			const flagId = CommentFlags.insert({
 				reason : reasonText,
 				commentId : commentId,
 				userId : Meteor.userId(),
 				commentText : comment.text,
+				date : new Date()
+			});
+
+			var text = "";
+			text += "comment ID    : " + commentId + "\n";
+			text += "comment text  : " + comment.text + "\n";
+			text += "flag reason   : " + reasonText + "\n";
+			text += "flag ID       : " + flagId + "\n";
+			Email.send({
+				from : "Distrochess Flag <support@distrochess.com>",
+				to : "admin@distrochess.com",
+				subject : "comment flagged",
+				text : text,
 			});
 			return true;
 		} else {
@@ -1009,6 +1022,7 @@ function notifyGameEnd(user, ratingDelta, game) {
 			gameId : game.id,
 		});
 		const language = user.language || "en";
+		console.log("sending game end notification to ", email, user._id);
 		Email.send({
 			from : "Distrochess Notification <notification@distrochess.com>",
 			to : email,
