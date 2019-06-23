@@ -71,6 +71,8 @@ Template.main.onRendered(() => {
 	Meteor.call("log", {
 		innerWidth : innerWidth,
 		outerWidth : outerWidth,
+		"screen.width" : screen.width,
+		"screen.availWidth" : screen.availWidth,
 		isSmallScreen : clientUtils.isSmallScreen(),
 		isMobile : clientUtils.isMobile(),
 		isCordova : Meteor.isCordova,
