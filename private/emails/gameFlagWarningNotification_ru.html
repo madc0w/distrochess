@@ -1,0 +1,45 @@
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/> 
+	<style>
+body {
+	background-color: lightyellow;
+	margin: 12px;
+	font-family: "Lato", sans-serif;
+}
+
+div {
+	margin-bottom: 8px;
+}
+
+#main-link-container {
+	margin-top: 22px;
+	margin-bottom: 22px;
+}
+
+#main-link-container img {
+	border-radius: 8px;
+	height: 64px;
+	display: block;
+}
+
+#unsubscribe-link-container {
+	font-size: 0.8em;
+}
+	</style>
+</head>
+<body>
+	<div>Уважаемый игрок Distrochess,</div>
+	<div>
+Это всего лишь примечание, сообщающее, что <b>игра, в которой вы участвовали, будет помечена.</b> Если вы хотите продолжить
+играть за свою команду, тогда вы должны сделать ход в ближайшее время. В противном случае эта игра будет считаться проигрышем для вашей команды через $flagTime часов.
+	</div>
+	<div id="main-link-container">
+		<a href="https://www.distrochess.com/?id=$gameId"> 
+			<img src="https://www.distrochess.com/img/logo.jpg"/>
+			Нажмите здесь, чтобы играть в эту игру (ID игры: $gameId).
+		</a>
+	</div>
+	<div id="unsubscribe-link-container">
+		Если вы больше не хотите получать эти уведомления, вы можете <a href="https://www.distrochess.com/unsubscribe/$authKey">отписаться здесь</a>.
+	</div>
+</body>

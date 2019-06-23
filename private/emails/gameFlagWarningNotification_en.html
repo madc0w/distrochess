@@ -1,0 +1,45 @@
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/> 
+	<style>
+body {
+	background-color: lightyellow;
+	margin: 12px;
+	font-family: "Lato", sans-serif;
+}
+
+div {
+	margin-bottom: 8px;
+}
+
+#main-link-container {
+	margin-top: 22px;
+	margin-bottom: 22px;
+}
+
+#main-link-container img {
+	border-radius: 8px;
+	height: 64px;
+	display: block;
+}
+
+#unsubscribe-link-container {
+	font-size: 0.8em;
+}
+	</style>
+</head>
+<body>
+	<div>Dear Distrochess player,</div>
+	<div>
+		This is just a note to let you know that <b>a game in which you participated is about to be flagged.</b>  If you wish to continue 
+		playing for your team, then you should make a move soon.  Otherwise, this game will be recorded as a loss for your team in $flagTime hours.
+	</div>
+	<div id="main-link-container">
+		<a href="https://www.distrochess.com/?id=$gameId"> 
+			<img src="https://www.distrochess.com/img/logo.jpg"/>
+			Click here to play this game (game ID: $gameId).
+		</a>
+	</div>
+	<div id="unsubscribe-link-container">
+		If you no longer wish to receive these notifications, you may <a href="https://www.distrochess.com/unsubscribe/$authKey">unsubscribe here</a>.
+	</div>
+</body>

@@ -1,0 +1,46 @@
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/> 
+	<style>
+body {
+	background-color: lightyellow;
+	margin: 12px;
+	font-family: "Lato", sans-serif;
+}
+
+div {
+	margin-bottom: 8px;
+}
+
+#main-link-container {
+	margin-top: 22px;
+	margin-bottom: 22px;
+}
+
+#main-link-container img {
+	border-radius: 8px;
+	height: 64px;
+	display: block;
+}
+
+#unsubscribe-link-container {
+	font-size: 0.8em;
+}
+	</style>
+</head>
+<body>
+	<div>Cher joueur/joueuse Distrochess,</div>
+	<div>
+		Voici un petit mail pour vous faire savoir que <b>le drapeau va bientôt tombé</b> dans un jeu dans lequel vous avez participé.  Si vous
+		voulez contiuer à jourer pour votre équipe, vous devriez jouer un tour bientôt.  Sinon, cette partie serra enregistrer comme une
+		perte pour votre équipe en $flagTime heurs.
+	</div>
+	<div id="main-link-container">
+		<a href="https://www.distrochess.com/?id=$gameId"> 
+			<img src="https://www.distrochess.com/img/logo.jpg"/>
+			Cliquer ici pour jouer votre tour dans ce jeu (identifiant: $gameId).
+		</a>
+	</div>
+	<div id="unsubscribe-link-container">
+		Si vous ne souhaitez plus recevoir ces notifications, veuillez <a href="https://www.distrochess.com/unsubscribe/$authKey">vous désabonner ici</a>.
+	</div>
+</body>

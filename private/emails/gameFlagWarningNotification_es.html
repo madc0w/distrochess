@@ -1,0 +1,45 @@
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/> 
+	<style>
+body {
+	background-color: lightyellow;
+	margin: 12px;
+	font-family: "Lato", sans-serif;
+}
+
+div {
+	margin-bottom: 8px;
+}
+
+#main-link-container {
+	margin-top: 22px;
+	margin-bottom: 22px;
+}
+
+#main-link-container img {
+	border-radius: 8px;
+	height: 64px;
+	display: block;
+}
+
+#unsubscribe-link-container {
+	font-size: 0.8em;
+}
+	</style>
+</head>
+<body>
+	<div>Estimado jugador de Distrochess,</div>
+	<div>
+Esta es solo una nota para hacerle saber que <b>un juego en el que participó está a punto de ser marcado.</b> Si desea continuar
+jugando para tu equipo, entonces deberías hacer un movimiento pronto. De lo contrario, este juego se registrará como una pérdida para su equipo en $flagTime horas.
+	</div>
+	<div id="main-link-container">
+		<a href="https://www.distrochess.com/?id=$gameId"> 
+			<img src="https://www.distrochess.com/img/logo.jpg"/>
+			Haz clic aquí para jugar a este juego (ID del juego: $gameId).
+		</a>
+	</div>
+	<div id="unsubscribe-link-container">
+		Si ya no desea recibir estas notificaciones, puede <a href="https://www.distrochess.com/unsubscribe/$authKey">cancelar la suscripción aquí</a>.
+	</div>
+</body>

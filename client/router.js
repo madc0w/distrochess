@@ -1,4 +1,8 @@
 Router.route("/", function() {
+	const gameId = this.params.query.id;
+	if (gameId) {
+		historyGameId.set(parseInt(gameId));
+	}
 	setPage.bind(this)("chessBoard");
 });
 

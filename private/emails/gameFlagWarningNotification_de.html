@@ -1,0 +1,45 @@
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/> 
+	<style>
+body {
+	background-color: lightyellow;
+	margin: 12px;
+	font-family: "Lato", sans-serif;
+}
+
+div {
+	margin-bottom: 8px;
+}
+
+#main-link-container {
+	margin-top: 22px;
+	margin-bottom: 22px;
+}
+
+#main-link-container img {
+	border-radius: 8px;
+	height: 64px;
+	display: block;
+}
+
+#unsubscribe-link-container {
+	font-size: 0.8em;
+}
+	</style>
+</head>
+<body>
+	<div>Lieber Distrochess-Spieler,</div>
+	<div>
+Dies ist nur eine Notiz, um Sie darüber zu informieren, dass <b>ein Spiel, an dem Sie teilgenommen haben, markiert wird.</b> Wenn du fortfahren möchtest
+Wenn du für deine Mannschaft spielst, solltest du bald einen Zug machen. Andernfalls wird dieses Spiel in $flagTime Stunden als Verlust für dein Team verbucht.
+	</div>
+	<div id="main-link-container">
+		<a href="https://www.distrochess.com/?id=$gameId"> 
+			<img src="https://www.distrochess.com/img/logo.jpg"/>
+			Klickst du heir, um dieses Spiel zu spielen (Spiel-ID: $gameId).
+		</a>
+	</div>
+	<div id="unsubscribe-link-container">
+		Wenn du diese Benachrichtigungen nicht mehr erhalten möchtest, kannst du <a href="https://www.distrochess.com/unsubscribe/$authKey">hier abmelden</a>.
+	</div>
+</body>

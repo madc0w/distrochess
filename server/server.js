@@ -99,6 +99,57 @@ Meteor.startup(() => {
 		}
 	}, USER_QUEUE_CHECK_INTERVAL_SECS * 1000);
 
+	// warn users of games about to be flagged 
+	Meteor.setInterval(() => {
+		const now = new Date();
+		const cutoffTime = new Date();
+		cutoffTime.setHours(cutoffTime.getHours() - (FLAG_TIME_DAYS * 24 - FLAG_WARNING_TIME_HOURS));
+		Games.find({
+			gameResult : null,
+			lastMoveTime : {
+				$lt : cutoffTime
+			}
+		}).forEach(function(game) {
+			for (var userId in game.players) {
+				if (utils.isWhiteToMove(game) == game.players[userId].isWhite) {
+					const user = Meteor.users.findOne({
+						_id : userId
+					});
+					const flagWarningNotificationsSent = user && user.flagWarningNotificationsSent;
+					if (user && user.isReceiveNotifications != false && !flagWarningNotificationsSent[game._id]) {
+						const email = utils.getEmail(user);
+						if (email) {
+							flagWarningNotificationsSent[game._id] = now;
+							Meteor.users.update({
+								_id : userId
+							}, {
+								$set : {
+									flagWarningNotificationsSent : flagWarningNotificationsSent
+								}
+							});
+							const language = user.language || "en";
+							const html = getEmail("gameFlagWarningNotification", user, true, {
+								authKey : user.authKey,
+								gameId : game.id,
+								flagTime : FLAG_WARNING_TIME_HOURS,
+							});
+							console.log("sending flag warning notification", email, user._id, game._id);
+							Email.send({
+								from : "Distrochess Notification <notification@distrochess.com>",
+								to : email,
+								subject : TAPi18n.__("flag_warning_notification_subject", {}, language),
+								html : html,
+								headers : {
+									"Content-Transfer-Encoding" : "8bit",
+								}
+							});
+						}
+					}
+				}
+			}
+		});
+	}, FLAG_CHECK_INTERVAL_MINS * 60 * 1000);
+
 	// check for games to be flagged 
 	Meteor.setInterval(() => {
 		const now = new Date();
@@ -674,7 +725,7 @@ Meteor.methods({
 		if (pw == Meteor.settings.private.adminPw) {
 			const user = {
 				_id : "userid",
-				language : "ru",
+				language : "en",
 				authKey : 11111111,
 				emails : [ {
 					address : "mad7@runbox.com"
@@ -692,7 +743,24 @@ Meteor.methods({
 				isWhite : true
 			};
 
-			notifyGameEnd(user, ratingDelta, game);
+			const email = utils.getEmail(user);
+			const language = user.language || "en";
+			const html = getEmail("gameFlagWarningNotification", user, true, {
+				authKey : user.authKey,
+				gameId : game.id,
+				flagTime : FLAG_WARNING_TIME_HOURS,
+			});
+			Email.send({
+				from : "Distrochess Notification <notification@distrochess.com>",
+				to : email,
+				subject : TAPi18n.__("flag_warning_notification_subject", {}, language),
+				html : html,
+				headers : {
+					"Content-Transfer-Encoding" : "8bit",
+				}
+			});
+
+		//			notifyGameEnd(user, ratingDelta, game);
 		//			Email.send({
 		//				from : "no-reply@distrochess.com",
 		//				//				to : "bounce@simulator.amazonses.com",

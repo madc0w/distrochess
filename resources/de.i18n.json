@@ -111,5 +111,6 @@
 	"unsubscribe_sucess_2": "Wenn du diese E-Mails erneut erhalten möchtest, bearbeiten du einfach dein Profil und aktivieren du das Kontrollkästchen \"E-Mail-Benachrichtigungen erhalten\".",
 	"game_end_notification_subject": "Distrochess: Eines deiner Spiele wurde entschieden",
 	"your_team_won": "Dein Team hat gewonnen! Herzlichen Glückwunsch.",
-	"your_team_lost": "Dein Team hat verloren. Tut mir leid."
+	"your_team_lost": "Dein Team hat verloren. Tut mir leid.",
+	"flag_warning_notification_subject": "Distrochess: Gefallen von der herausragenden Flagge!"
 }
