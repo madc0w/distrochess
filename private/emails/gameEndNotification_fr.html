@@ -1,38 +1,53 @@
 <head>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/> 
 	<style>
 body {
 	background-color: lightyellow;
+	margin: 12px;
+	font-family: "Lato", sans-serif;
 }
 
+div {
+	margin-bottom: 8px;
+}
+
+#game-result {
+	font-weight: bold;
+	margin-left: 22px;
+}
+
+#main-link-container {
+	margin-top: 22px;
+	margin-bottom: 22px;
+}
+
+#main-link-container img {
+	border-radius: 8px;
+	height: 64px;
+	display: block;
+}
+
+#unsubscribe-link-container {
+	font-size: 0.8em;
+}
 	</style>
 </head>
 <body>
+	<div>Cher joueur/joueuse Distrochess,</div>
+	<div>Voici un petit mail pour vous faire savoir <b>qu'un jeux dans lequel vous avez participé a été décidé.</b></div>
+	<div>Le résultat était:</div>
+	<div id="game-result">$result</div>
+	<div>Par conséquent, votre note Elo a été ajustée de $ratingDelta points.</div>
 	<div>
-		Cher joueur/joueuse Distrochess,
+		<a href="https://www.distrochess.com/history?id=$gameId">Click here to see the game in question (game ID: $gameId).</a>
 	</div>
-	<div>
-		Voici un petit mail pour vous faire savoir qu'un des jeux dans lequel vous avez participé a été décidé.
+	<div id="main-link-container">
+		<a href="https://www.distrochess.com"> 
+			<img src="https://www.distrochess.com/img/logo.jpg"/>
+			Cliquez ici pour voir le jeu en question (identifiant: $gameId). 
+		</a>
 	</div>
-	<div>
-		Le résultat était:
-	</div>
-	<div>
-		$result
-	</div>
-	<div>
-		Par conséquent, votre note Elo a été ajustée de $ratingDelta points.
-	</div>
-	<div>
-		<a href="https://www.distrochess.com/history?id=$gameId">Cliquez ici pour voir le jeu en question (identifiant: $gameId).</a>
-	</div>
-	<div>
-		<a href="https://www.distrochess.com">Cliquez ici pour continuer à jouer!</a>
-	</div>
-	<div>
-		<img src="https://www.distrochess.com/img/logo.jpg"/>
-	</div>
-	
-	<div>
+	<div id="unsubscribe-link-container">
 		Si vous ne souhaitez plus recevoir ces notifications, veuillez <a href="https://www.distrochess.com/unsubscribe/$authKey">vous désabonner ici</a>.
 	</div>
 </body>

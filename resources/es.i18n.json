@@ -108,5 +108,8 @@
 	"sign_in_for_feature": "Tiene que iniciar sesión para usar esta función.",
 	"comments_by_your_side": "Comentarios de tu equipo",
 	"unsubscribe_sucess_1": "Ya no recibirá actualizaciones ni notificaciones de Distrochess.",
-	"unsubscribe_sucess_2": "Si desea recibir estos correos nuevamente, simplemente edite su perfil y marque la casilla \"Recibir notificaciones por correo electrónico\"."
+	"unsubscribe_sucess_2": "Si desea recibir estos correos nuevamente, simplemente edite su perfil y marque la casilla \"Recibir notificaciones por correo electrónico\".",
+	"game_end_notification_subject": "Distrochess: se ha decidido uno de tus juegos",
+	"your_team_won": "¡Tu equipo ganó! Felicitaciones.",
+	"your_team_lost": "Tu equipo perdió. Lo siento."
 }

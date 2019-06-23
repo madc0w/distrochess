@@ -661,7 +661,7 @@ Meteor.methods({
 		if (pw == Meteor.settings.private.adminPw) {
 			const user = {
 				_id : "userid",
-				language : "en",
+				language : "ru",
 				authKey : 11111111,
 				emails : [ {
 					address : "mad7@runbox.com"

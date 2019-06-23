@@ -1,0 +1,55 @@
+<head>
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
+<style>
+body {
+	background-color: lightyellow;
+	margin: 12px;
+	font-family: "Lato", sans-serif;
+}
+
+div {
+	margin-bottom: 8px;
+}
+
+#game-result {
+	font-weight: bold;
+	margin-left: 22px;
+}
+
+#main-link-container {
+	margin-top: 22px;
+	margin-bottom: 22px;
+}
+
+#main-link-container img {
+	border-radius: 8px;
+	height: 64px;
+	display: block;
+}
+
+#unsubscribe-link-container {
+	font-size: 0.8em;
+}
+</style>
+<body>
+	<div>Уважаемый игрок Distrochess,</div>
+	<div>
+		Это просто примечание, сообщающее, что <b>игра, в которой вы участвовали, была решена.</b>
+	</div>
+	<div>Результат был:</div>
+	<div id="game-result">$result</div>
+	<div>Следовательно, ваш рейтинг Эло был скорректирован на $ratingDelta точки.</div>
+
+	<div>
+		<a href="https://www.distrochess.com/history?id=$gameId">Нажмите здесь, чтобы посмотреть интересующую игру (идентификатор игры: $gameId).</a>
+	</div>
+	<div id="main-link-container">
+		<a href="https://www.distrochess.com"> 
+			<img src="https://www.distrochess.com/img/logo.jpg" />
+			Нажмите здесь, чтобы продолжить играть!
+		</a>
+	</div>
+	<div id="unsubscribe-link-container">
+		Если вы больше не хотите получать эти уведомления, вы можете <a href="https://www.distrochess.com/unsubscribe/$authKey">отписаться здесь</a>.
+	</div>
+</body>
