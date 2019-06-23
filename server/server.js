@@ -659,13 +659,20 @@ Meteor.methods({
 
 	testEmail : function(pw) {
 		if (pw == Meteor.settings.private.adminPw) {
-			const user = Meteor.users.findOne({
-				username : "mad"
-			});
+			const user = {
+				_id : "userid",
+				language : "en",
+				authKey : 11111111,
+				emails : [ {
+					address : "mad7@runbox.com"
+				} ],
+			};
 			const ratingDelta = -4.235;
 			const game = {
-				gameResult : "WIN_WHITE",
-				players : {},
+				gameResult : "WIN_BLACK",
+				players : {
+					userid : true
+				},
 				id : 27,
 			};
 			game.players[user._id] = {

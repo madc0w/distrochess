@@ -68,6 +68,10 @@ Template.main.events({
 
 
 Template.main.onRendered(() => {
+	Meteor.call("log", {
+		isSmallScreen : clientUtils.isSmallScreen(),
+		isCordova : Meteor.isCordova,
+	});
 	if (clientUtils.isSmallScreen() && !Meteor.isCordova) {
 		message.set(TAPi18n.__("use_the_app"));
 	}
