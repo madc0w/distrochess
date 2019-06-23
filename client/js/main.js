@@ -69,6 +69,8 @@ Template.main.events({
 
 Template.main.onRendered(() => {
 	Meteor.call("log", {
+		innerWidth : innerWidth,
+		outerWidth : outerWidth,
 		isSmallScreen : clientUtils.isSmallScreen(),
 		isCordova : Meteor.isCordova,
 	});
