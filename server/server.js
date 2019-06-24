@@ -1113,7 +1113,7 @@ function notifyGameEnd(user, ratingDelta, game) {
 			gameId : game.id,
 		});
 		const language = user.language || "en";
-		console.log("sending game end notification to ", email, user._id);
+		console.log("sending game end notification to ", email, user._id, game._id);
 		Email.send({
 			from : "Distrochess Notification <notification@distrochess.com>",
 			to : email,
