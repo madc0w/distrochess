@@ -113,7 +113,7 @@
 	"your_team_won": "¡Tu equipo ganó! Felicitaciones.",
 	"your_team_lost": "Tu equipo perdió. Lo siento.",
 	"flag_warning_notification_subject": "Distrochess: ¡Caído de la bandera eminente!",
-	"load_game": "Cargar juego",
+	"load_game": "Cargar Juego",
 	"invalid_game_id": "Lo siento, esa ID del juego no es válida. Inténtalo de nuevo.",
 	"game_already_decided": "Ese juego ya se ha decidido. Prueba uno diferente.",
 	"not_your_turn": "No es el turno de tu equipo para jugar en este juego. Prueba uno diferente.",
