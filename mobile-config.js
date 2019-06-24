@@ -1,4 +1,4 @@
-const version = "0.2.3";
+const version = "0.2.4";
 const buildNumber = Math.floor(+new Date() / (24 * 60 * 60));
 console.log("*** setting buildNumber ", buildNumber);
 
