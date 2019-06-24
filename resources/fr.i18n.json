@@ -112,5 +112,10 @@
 	"game_end_notification_subject": "Distrochess : Un de vos jeux a été décidé",
 	"your_team_won": "Votre équipe a gagné! Félicitations.",
 	"your_team_lost": "Votre équipe a perdu. Je suis désolée.",
-	"flag_warning_notification_subject": "Distrochess : Tombée du drapeau éminent!"
+	"flag_warning_notification_subject": "Distrochess : Tombée du drapeau éminent!",
+	"load_game": "Charger jeu",
+	"invalid_game_id": "Désolé, cet identifiant de jeu n'est pas valide. Veuillez réessayer.",
+	"game_already_decided": "Ce jeu a déjà été décidé. Essayez-en un autre.",
+	"not_your_turn": "Ce n'est pas à votre équipe de jouer dans ce jeu. Essayez-en un autre.",
+	"no_such_game": "Aucun jeu ayant cet ID n'a été trouvé. Veuillez réessayer."
 }

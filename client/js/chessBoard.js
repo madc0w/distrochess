@@ -128,6 +128,29 @@ Template.chessBoard.events({
 		dialog.set("more-options-dialog");
 	},
 
+	"click #load-game-button" : function(e) {
+		const gameId = $("#game-id-input").val();
+		if (gameId && parseInt(gameId) == gameId) {
+			isSpinner.set(true);
+			Meteor.call("checkGameId", gameId, function(err, unavailableMessageKey) {
+				isSpinner.set(false);
+				if (unavailableMessageKey) {
+					message.set(TAPi18n.__(unavailableMessageKey));
+				} else {
+					dialog.set(null);
+					location = "/?id=" + gameId;
+				}
+			});
+		} else {
+			message.set(TAPi18n.__("invalid_game_id"));
+		}
+	},
+
+	"click #load-game-dialog-button" : function(e) {
+		$("#more-options-dialog").hide();
+		dialog.set("load-game-dialog");
+	},
+
 	"click #show-players-button" : function(e) {
 		$("#more-options-dialog").hide();
 		dialog.set("players-dialog");

@@ -109,5 +109,10 @@
 	"game_end_notification_subject": "Distrochess: одна из ваших игр решена",
 	"your_team_won": "Ваша команда выиграла! Поздравляю.",
 	"your_team_lost": "Ваша команда проиграла. Простите.",
-	"flag_warning_notification_subject": "Distrochess : Упал с именитого флага!"
+	"flag_warning_notification_subject": "Distrochess : Упал с именитого флага!",
+	"load_game": "Загрузить игру",
+	"invalid_game_id": "Извините, этот идентификатор игры недействителен. Попробуйте еще раз.",
+	"game_already_decided": "Эта игра уже решена. Попробуйте другую.",
+	"not_your_turn": "Не ваша очередь играть в эту игру. Попробуйте другой вариант.",
+	"no_such_game": "Не найдено ни одной игры с таким идентификатором. Попробуйте еще раз."
 }

@@ -112,5 +112,10 @@
 	"game_end_notification_subject": "Distrochess : One of your games has been decided",
 	"your_team_won": "Your team won! Congratulations.",
 	"your_team_lost": "Your team lost. So sorry.",
-	"flag_warning_notification_subject": "Distrochess : One of your games is about to get flagged!"
+	"flag_warning_notification_subject": "Distrochess : One of your games is about to get flagged!",
+	"load_game": "Load a Game",
+	"invalid_game_id": "Sorry, that game ID is not valid.  Try again.",
+	"game_already_decided": "That game has already been decided. Try a differnt one.",
+	"not_your_turn": "It isn't your team's turn to play in this game. Try a differnt one.",
+	"no_such_game": "No game having this ID was found. Try again."
 }

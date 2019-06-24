@@ -43,6 +43,7 @@
 				</div>
 				{{#unless isMobile}}
 					<div id="history-button" class="button">{{_ "history"}}</div>
+					<div id="load-game-dialog-button" class="button">{{_ "load_game"}}</div>
 				{{/unless}}
 			{{/if}}
 		{{/unless}}
@@ -140,10 +141,20 @@
 		{{> cancelButton id="flag-comment-cancel-button" callback=flagCommentCancel}}
 	</div>
 	
+	<div id="load-game-dialog" class="dialog hidden">
+		<div id="game-id-container">
+			<label for="game-id-input">{{_ "game_id"}} : </label> 
+			<input id="game-id-input" maxlength="6"/>
+		</div>
+		<div id="load-game-button" class="button">{{_ "load_game"}}</div>
+		{{> cancelButton }}
+	</div>
+	
 	<div id="more-options-dialog" class="dialog hidden">
 		<div id="history-button" class="button">{{_ "history"}}</div>
 		<div id="show-players-button" class="button">{{_ "show_players"}}</div>
 		<div id="show-comments-button" class="button">{{_ "show_comments"}} ({{comments.length}})</div>
+		<div id="load-game-dialog-button" class="button">{{_ "load_game"}}</div>
 		{{> cancelButton }}
 	</div>
 </template>

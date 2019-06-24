@@ -734,16 +734,10 @@ iframe {
 	display: inline-block;
 }
 
-#board-container #history-button {
+#board-container #history-button, #board-container #load-game-dialog-button {
 	margin-left: calc(100% - 122px);
 	width: 100px;
-}
-
-@media only screen and (max-width: 480px) {
-	#board-container #history-button {
-		margin-left: calc(50% - 100px);
-		min-width: 200px;
-	}
+	margin-bottom: 12px;
 }
 
 #no-game-history {
@@ -904,14 +898,6 @@ iframe {
 	margin-left: calc(50% - 100px);
 }
 
-@media only screen and (max-width: 480px) {
-	#history-button {
-		min-width: 200px;
-		margin-top: 8px;
-		margin-left: calc(50% - 100px);
-	}
-}
-
 #players-dialog {
 	width: 90%;
 	left: 2%;
@@ -969,7 +955,8 @@ iframe {
 	z-index: 200;
 	background-color: #eee;
 	border-radius: 4px;
-	margin-left: 5%; width : 90%;
+	margin-left: 5%;
+	width: 90%;
 	position: absolute;
 	top: calc(100vh - 160px);
 	padding: 8px;
@@ -1026,9 +1013,13 @@ iframe {
 	margin-left: calc(50% - 60px);
 }
 
-#more-options-dialog #history-button {
+#more-options-dialog #history-button, #more-options-dialog #load-game-dialog-button {
 	min-width: 200px;
 	margin-left: calc(50% - 100px);
+}
+
+#more-options-dialog #load-game-dialog-button {
+	margin-top: 8px;
 }
 
 #unsubscribe-success-view {
@@ -1044,3 +1035,16 @@ iframe {
 	margin-top: 12px;
 }
 
+#load-game-dialog .button {
+	margin-left: calc(50% - 64px);
+	margin-top: 12px;
+}
+
+#load-game-dialog input {
+	display: inline-block;
+	width: 60px;
+}
+
+#load-game-dialog label {
+	display: inline-block;
+}

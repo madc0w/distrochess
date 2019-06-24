@@ -7,10 +7,6 @@ Meteor.setInterval(() => {
 }, 30 * 1000);
 
 clientUtils = {
-	isSmallScreen : function() {
-		return screen.width <= 480;
-	},
-
 	formatDateTime : function(date) {
 		return date ? clientUtils.moment(date).format("D MMM, YYYY HH:mm") : null;
 	},
@@ -44,11 +40,16 @@ clientUtils = {
 	},
 
 	isMobile : function() {
+		//		return true;
 		try {
 			document.createEvent("TouchEvent");
 			return true;
 		} catch (e) {
 			return false;
 		}
+	},
+
+	isSmallScreen : function() {
+		return screen.width <= 480;
 	},
 }

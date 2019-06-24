@@ -281,6 +281,25 @@ Meteor.startup(() => {
 });
 
 Meteor.methods({
+	checkGameId : function(gameId) {
+		gameId = parseInt(gameId);
+		console.log("gameId", gameId);
+		const game = Games.findOne({
+			id : gameId
+		});
+		var unavailableMessageKey = null;
+		if (game) {
+			if (game.gameResult) {
+				unavailableMessageKey = "game_already_decided";
+			} else if (Meteor.userId() && game.players[Meteor.userId()] && game.players[Meteor.userId()].isWhite != utils.isWhiteToMove(game)) {
+				unavailableMessageKey = "not_your_turn";
+			}
+		} else {
+			unavailableMessageKey = "no_such_game";
+		}
+		return unavailableMessageKey;
+	},
+
 	sendResetPasswordEmail : function(emailOrUsername) {
 		//		console.log("sendResetPasswordEmail : emailOrUsername ", emailOrUsername);
 		//		this.unblock();

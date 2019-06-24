@@ -112,5 +112,10 @@
 	"game_end_notification_subject": "Distrochess: Eines deiner Spiele wurde entschieden",
 	"your_team_won": "Dein Team hat gewonnen! Herzlichen Glückwunsch.",
 	"your_team_lost": "Dein Team hat verloren. Tut mir leid.",
-	"flag_warning_notification_subject": "Distrochess: Gefallen von der herausragenden Flagge!"
+	"flag_warning_notification_subject": "Distrochess: Gefallen von der herausragenden Flagge!",
+	"load_game": "Lade Spiel",
+	"invalid_game_id": "Diese Spiel-ID ist leider nicht gültig. Versuchst du es erneut.",
+	"game_already_decided": "Dieses Spiel wurde bereits entschieden. Probierst du ein anderes aus.",
+	"not_your_turn": "Es ist nicht dein Team, die an der Reihe ist, dieses Spiel zu spielen. Probierst du ein anderes aus.",
+	"no_such_game": "Es wurde kein Spiel mit dieser ID gefunden. Versuchst du es erneut."
 }
