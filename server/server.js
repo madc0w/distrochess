@@ -348,12 +348,16 @@ Meteor.methods({
 		}
 	},
 
-	setLanguage : function(language) {
+	setUserInfo : function(language, platform, userAgent, isCordova, screen) {
 		Meteor.users.update({
 			_id : Meteor.userId()
 		}, {
 			$set : {
-				language : language
+				language : language,
+				platform : platform,
+				userAgent : userAgent,
+				isCordova : isCordova,
+				screen : screen,
 			}
 		});
 	},

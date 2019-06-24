@@ -22,7 +22,7 @@ Meteor.startup(function() {
 	Tracker.autorun(() => {
 		const language = TAPi18n.getLanguage();
 		if (Meteor.user()) {
-			Meteor.call("setLanguage", language);
+			Meteor.call("setUserInfo", language, navigator.platform, navigator.userAgent, Meteor.isCordova, screen);
 		}
 	});
 	TAPi18n.setLanguage(localStorage.getItem("language") || navigator.language);
