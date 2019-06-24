@@ -22,7 +22,7 @@ Template.editProfile.helpers({
 	},
 
 	email : function() {
-		return Meteor.user() && Meteor.user().emails && Meteor.user().emails.length > 0 && Meteor.user().emails[0].address;
+		return utils.getEmail();
 	},
 });
 
@@ -59,7 +59,9 @@ Template.editProfile.events({
 			// contrary to what docs would have us believe, this function is not actually a thing
 			// https://docs.meteor.com/api/passwords.html#Accounts-setPassword  wtf?!!?
 			//			Accounts.setPassword(Meteor.userId(), password);
+			isSpinner.set(true);
 			Accounts.changePassword(currentPassword, password, function(err) {
+				isSpinner.set(false);
 				if (err) {
 					message.set(err.reason);
 				} else {
@@ -79,7 +81,9 @@ Template.editProfile.events({
 			$("#profile-username-input").addClass("invalid");
 			message.set(TAPi18n.__("username_too_short"));
 		} else {
+			isSpinner.set(true);
 			Meteor.call("setUsername", username, function(err, isAvailable) {
+				isSpinner.set(false);
 				if (isAvailable) {
 					message.set(TAPi18n.__("username_set"));
 				} else {
@@ -87,6 +91,26 @@ Template.editProfile.events({
 					$("#profile-username-input").addClass("invalid");
 				}
 			});
+		}
+	},
+
+	"click #save-email-button" : function(e) {
+		$("#profile-email-input").removeClass("invalid");
+		const email = $("#profile-email-input").val().trim();
+		if (email.match(/^\S+@\S+\.\S+$/)) {
+			isSpinner.set(true);
+			Meteor.call("setEmail", email, function(err, isAvailable) {
+				isSpinner.set(false);
+				if (isAvailable) {
+					message.set(TAPi18n.__("email_set"));
+				} else {
+					message.set(TAPi18n.__("email_in_use"));
+					$("#profile-email-input").addClass("invalid");
+				}
+			});
+		} else {
+			$("#profile-email-input").addClass("invalid");
+			message.set(TAPi18n.__("invalid_email"));
 		}
 	},
 });
@@ -97,6 +121,7 @@ Template.editProfile.onRendered(function() {
 		if (Meteor.user()) {
 			$("#username-field").val(utils.getUsername());
 			$("#receive-emails-checkbox").prop("checked", !!Meteor.user().isReceiveNotifications);
+			$("#profile-email-input").val(utils.getEmail());
 		}
 	});
 });

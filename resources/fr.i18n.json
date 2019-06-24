@@ -117,5 +117,7 @@
 	"invalid_game_id": "Désolé, cet identifiant de jeu n'est pas valide. Veuillez réessayer.",
 	"game_already_decided": "Ce jeu a déjà été décidé. Essayez-en un autre.",
 	"not_your_turn": "Ce n'est pas à votre équipe de jouer dans ce jeu. Essayez-en un autre.",
-	"no_such_game": "Aucun jeu ayant cet ID n'a été trouvé. Veuillez réessayer."
+	"no_such_game": "Aucun jeu ayant cet ID n'a été trouvé. Veuillez réessayer.",
+	"email_set": "Email mis à jour",
+	"set_email": "Mettre à jour adresse email"
 }

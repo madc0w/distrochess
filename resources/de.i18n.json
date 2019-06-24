@@ -41,8 +41,8 @@
 	"passwords_do_not_match": "Passwörter stimmen nicht überein.",
 	"username_in_use": "Dieser Benutzername ist nicht mehr frei. Bitte wählen Sie einen anderen aus.",
 	"set_username": "Benutzername festlegen",
-	"username_set": "Ihr Benutzername wurde aktualisiert.",
-	"password_set": "Ihr Passwort wurde aktualisiert.",
+	"username_set": "Dein Benutzername wurde aktualisiert.",
+	"password_set": "Dein Passwort wurde aktualisiert.",
 	"current_password": "Aktuelles Passwort",
 	"new_password": "Neues Passwort",
 	"email_or_username": "Email oder Benutzername",
@@ -117,5 +117,7 @@
 	"invalid_game_id": "Diese Spiel-ID ist leider nicht gültig. Versuchst du es erneut.",
 	"game_already_decided": "Dieses Spiel wurde bereits entschieden. Probierst du ein anderes aus.",
 	"not_your_turn": "Es ist nicht dein Team, die an der Reihe ist, dieses Spiel zu spielen. Probierst du ein anderes aus.",
-	"no_such_game": "Es wurde kein Spiel mit dieser ID gefunden. Versuchst du es erneut."
+	"no_such_game": "Es wurde kein Spiel mit dieser ID gefunden. Versuchst du es erneut.",
+	"email_set": "Dein Email wurde aktualisiert.",
+	"set_email": "Email festlegen"
 }

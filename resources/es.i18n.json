@@ -117,5 +117,7 @@
 	"invalid_game_id": "Lo siento, esa ID del juego no es válida. Inténtalo de nuevo.",
 	"game_already_decided": "Ese juego ya se ha decidido. Prueba uno diferente.",
 	"not_your_turn": "No es el turno de tu equipo para jugar en este juego. Prueba uno diferente.",
-	"no_such_game": "No se encontró ningún juego con esta ID. Inténtalo de nuevo."
+	"no_such_game": "No se encontró ningún juego con esta ID. Inténtalo de nuevo.",
+	"email_set": "Email está configurado",
+	"set_email": "Configurar email"
 }

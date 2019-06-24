@@ -834,6 +834,44 @@ Meteor.methods({
 		return !existingUser;
 	},
 
+	setEmail : function(email) {
+		if (!Meteor.user()) {
+			return false;
+		}
+
+		const emailLc = email.toLowerCase().trim();
+		if (Meteor.users.findOne({
+				$or : [
+					{
+						"emails.address" : emailLc
+					},
+					{
+						"services.google.email" : emailLc
+					},
+					{
+						"services.github.email" : emailLc
+					},
+					{
+						"services.facebook.email" : emailLc
+					},
+				]
+			})) {
+			return false;
+		}
+
+		const emails = Meteor.user().emails || [];
+		emails[0].address = email;
+
+		Meteor.users.update({
+			_id : Meteor.userId()
+		}, {
+			$set : {
+				emails : emails
+			}
+		});
+		return true;
+	},
+
 	setUsername : function(username) {
 		if (!Meteor.user()) {
 			return false;
