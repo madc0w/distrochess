@@ -115,7 +115,7 @@ Meteor.startup(() => {
 					const user = Meteor.users.findOne({
 						_id : userId
 					});
-					const flagWarningNotificationsSent = user && user.flagWarningNotificationsSent;
+					const flagWarningNotificationsSent = user && user.flagWarningNotificationsSent || {};
 					if (user && user.isReceiveNotifications != false && !flagWarningNotificationsSent[game._id]) {
 						const email = utils.getEmail(user);
 						if (email) {
