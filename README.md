@@ -6,8 +6,8 @@ This project is written using Meteor. So:
 - Go to https://www.meteor.com/ and follow instructions to install Meteor on your system
 - Checkout this project
 - cd to project directory
-- "scripts\run.bat" on Windows, or just "meteor run"
+- "scripts\run.bat" on Windows, or just "meteor run -s settings.json"
 - Point your browser to http://localhost:3000
 
 Building for Android is equally straightforward:
-- scripts\build-android.sh (might not work in Windows... might need to be done on a *nix system)
+- scripts/build-android.sh (might not work in Windows... might need to be done on a *nix system)
