@@ -11,6 +11,8 @@
 	"faq_a5": "It is is easier to ask forgiveness than permission. Just try! If it works, then you were allowed.<br/>If you think this information needs to be communicated, please <a href=\"mailto:feedback@distrochess.com\">tell me</a>, and I will happily implement a better solution.",
 	"faq_q6": "I have a feature request/bug report.  What should I do with it?",
 	"faq_a6": "Yes, I am very interested in your whatever it is.  Please send it to <a href=\"mailto:feedback@distrochess.com?subject=Distorchess feedback\">feedback@distrochess.com</a>.  I promise to respond.",
-	"faq_q7": "Who made this, and why?",
-	"faq_a7": "Distrochess is the brain child of <a href=\"mailto:mad@distrochess.com\">Marc A. Donis</a>, who was just trying to avoid boredom. It is the reincarnation of an old idea, originally named Discochess back around 2008.<br/>I make no money from this project, and I don't care about your personal data. I do it for the love.<br/>Thanks goes to clg, for testing and DNS ninja skillz."
+	"faq_q7": "I want to help! Is this project open source?",
+	"faq_a7": "Indeed it is.  You'll find everything you need <a href=\"https://github.com/madc0w/distrochess\">right here</a>.  Just give me a pull request.",
+	"faq_q8": "Who made this, and why?",
+	"faq_a8": "Distrochess is the brain child of <a href=\"mailto:mad@distrochess.com\">Marc A. Donis</a>, who was just trying to avoid boredom. It is the reincarnation of an old idea, originally named Discochess back around 2008.<br/>I make no money from this project, and I don't care about your personal data. I do it for the love.<br/>Thanks goes to clg, for testing and DNS ninja skillz."
 }

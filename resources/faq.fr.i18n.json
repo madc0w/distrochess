@@ -11,6 +11,8 @@
 	"faq_a5": "Il est plus facile de demander pardon que permission. Essayez! Si cela fonctionne, vous c'est permis. <br/>Si vous pensez que cette information devrait être communiquée, veuillez <a href=\"mailto:feedback@distrochess.com\">dites-moi ce que vous en pensez</a>, et je mettrai volontiers en oeuvre une meilleure solution.",
 	"faq_q6": "J'ai une demande de fonctionnalité / une erreur à signaler. Que dois-je en faire?",
 	"faq_a6": "Oui, je suis très intéressé par votre question. Merci de l'envoyer à <a href=\"mailto:feedback@distrochess.com?subject=Distorchess feedback\">feedback@distrochess.com</a>. Je répondrais, c'est promis.",
-	"faq_q7": "Qui a fait ça, et pourquoi?",
-	"faq_a7": "Distrochess est né du cerveau de <a href=\"mailto:mad@distrochess.com\">Marc A. Donis </a>, qui cherchait simplement à éviter l'ennui. C'est la réincarnation d'une vieille idée, initialement nommé Discochess aux alentours de 2008. <br/>Je ne tire aucun profit de ce projet, et je me fiche de vos données personnelles. Je fais ça par amour.<br/>Merci à clg, pour avoir aidé avec les tests et pour ses compétences en DNS."
+	"faq_q7": "Je veux participer! Est-ce que ce projet est open source?",
+	"faq_a7": "En effet, vous trouverez tout ce dont vous avez besoin <a href=\"https://github.com/madc0w/distrochess\">ici</a>. Envoyez-moi un pull request.",
+	"faq_q8": "Qui a fait ça, et pourquoi?",
+	"faq_a8": "Distrochess est né du cerveau de <a href=\"mailto:mad@distrochess.com\">Marc A. Donis </a>, qui cherchait simplement à éviter l'ennui. C'est la réincarnation d'une vieille idée, initialement nommé Discochess aux alentours de 2008. <br/>Je ne tire aucun profit de ce projet, et je me fiche de vos données personnelles. Je fais ça par amour.<br/>Merci à clg, pour avoir aidé avec les tests et pour ses compétences en DNS."
 }
