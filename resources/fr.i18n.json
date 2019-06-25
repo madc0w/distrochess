@@ -100,7 +100,7 @@
 	"password_reset_success": "Vous avez bien modifié votre mot de passe.",
 	"password_reset_email_sent": "Un e-mail contenant les instructions pour réinitialiser votre mot de passe a été envoyé à l'adresse que vous avez enregistrée lors de votre inscription.",
 	"enter_username_or_email": "Veuillez saisir le nom d'utilisateur ou l'adresse e-mail avec lesquels vous vous êtes inscrit.",
-	"use_the_app": "Vous auriez une bien meilleure expérience en utilisant l'appli <a href=\"https://play.google.com/store/apps/details?id=com.distrochess\">Distrochess</a> sur votre appareil! <br/>(Désolé, utilisateurs iOS, aucune appli pour vous &mdash; pour l'instant.)",
+	"use_the_app": "Vous auriez une bien meilleure expérience en utilisant l'appli <a href=\"__storeUrl__\">Distrochess</a> sur votre appareil! <br/>(Désolé, utilisateurs iOS, aucune appli pour vous &mdash; pour l'instant.)",
 	"show_players": "Afficher les Joueurs",
 	"show_comments": "Afficher les Commentaires",
 	"cookie_consent": "Ce site Web stocke vos informations d'identification de connexion et peut envoyer des données à Google Analytics.",

@@ -78,7 +78,11 @@ Template.main.onRendered(() => {
 	//		isCordova : Meteor.isCordova,
 	//	});
 	if (clientUtils.isMobile() && !Meteor.isCordova) {
-		message.set(TAPi18n.__("use_the_app"));
+		// TODO apple store url...
+		const storeUrl = clientUtils.isIOS() ? "https://www.distrochess.com/img/crapple.jpg" : "https://play.google.com/store/apps/details?id=com.distrochess";
+		message.set(TAPi18n.__("use_the_app", {
+			storeUrl : storeUrl
+		}));
 	}
 });
 

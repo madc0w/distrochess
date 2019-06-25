@@ -52,4 +52,8 @@ clientUtils = {
 	isSmallScreen : function() {
 		return screen.width <= 480;
 	},
+
+	isIOS : function() {
+		return !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+	},
 }
