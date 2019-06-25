@@ -790,7 +790,6 @@ Meteor.methods({
 				}
 			});
 
-		//			notifyGameEnd(user, ratingDelta, game);
 		//			Email.send({
 		//				from : "no-reply@distrochess.com",
 		//				//				to : "bounce@simulator.amazonses.com",
@@ -1013,7 +1012,7 @@ function updateRatings(game, gameResult, currentUserId) {
 			userDelta = delta;
 		}
 
-		notifyGameEnd(user, delta, game);
+		notifyGameEnd(user, delta, game, gameResult);
 
 		user.rating = (user.rating || INITIAL_RATING) + delta;
 		Meteor.users.update({
@@ -1159,11 +1158,11 @@ function replaceVars(text, varsDict) {
 }
 
 // notify players that this game has been decided
-function notifyGameEnd(user, ratingDelta, game) {
+function notifyGameEnd(user, ratingDelta, game, gameResult) {
 	const email = utils.getEmail(user);
 	if (email && user.isReceiveNotifications != false) {
 		var resultKey;
-		if (game.gameResult == "DRAW") {
+		if (gameResult == "DRAW") {
 			resultKey = "draw";
 		} else if (ratingDelta > 0) {
 			resultKey = "your_team_won";
