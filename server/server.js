@@ -303,15 +303,16 @@ Meteor.methods({
 	sendResetPasswordEmail : function(emailOrUsername) {
 		//		console.log("sendResetPasswordEmail : emailOrUsername ", emailOrUsername);
 		//		this.unblock();
+		const escapedEmailOrUsername = utils.escapeRegExp(emailOrUsername);
 		const user = Meteor.users.findOne({
 			$or : [ {
 				username : {
-					$regex : "^" + emailOrUsername + "$",
+					$regex : "^" + escapedEmailOrUsername + "$",
 					$options : "i"
 				}
 			}, {
 				"emails.address" : {
-					$regex : "^" + emailOrUsername + "$",
+					$regex : "^" + escapedEmailOrUsername + "$",
 					$options : "i"
 				}
 			} ]
@@ -807,25 +808,26 @@ Meteor.methods({
 	},
 
 	checkUsername : function(username) {
+		const escapedUsername = utils.escapeRegExp(username);
 		const existingUser = Meteor.users.findOne({
 			$or : [
 				{
 					username : {
-						$regex : username,
+						$regex : escapedUsername,
 						$options : "i"
 					}
 				},
 				{
 					username : null,
 					"profile.name" : {
-						$regex : username,
+						$regex : escapedUsername,
 						$options : "i"
 					}
 				},
 				{
 					username : null,
 					"services.github.username" : {
-						$regex : username,
+						$regex : escapedUsername,
 						$options : "i"
 					}
 				}
@@ -839,20 +841,32 @@ Meteor.methods({
 			return false;
 		}
 
-		const emailLc = email.toLowerCase().trim();
+		const escapedEmail = utils.escapeRegExp(email);
 		if (Meteor.users.findOne({
 				$or : [
 					{
-						"emails.address" : emailLc
+						"emails.address" : {
+							$regex : "^" + escapedEmail + "$",
+							$options : "i"
+						}
 					},
 					{
-						"services.google.email" : emailLc
+						"services.google.email" : {
+							$regex : "^" + escapedEmail + "$",
+							$options : "i"
+						}
 					},
 					{
-						"services.github.email" : emailLc
+						"services.github.email" : {
+							$regex : "^" + escapedEmail + "$",
+							$options : "i"
+						}
 					},
 					{
-						"services.facebook.email" : emailLc
+						"services.facebook.email" : {
+							$regex : "^" + escapedEmail + "$",
+							$options : "i"
+						}
 					},
 				]
 			})) {
