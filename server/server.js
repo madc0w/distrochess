@@ -1163,11 +1163,10 @@ function notifyGameEnd(user, ratingDelta, game) {
 	const email = utils.getEmail(user);
 	if (email && user.isReceiveNotifications != false) {
 		var resultKey;
-		if ((game.players[user._id].isWhite && game.gameResult == "WIN_WHITE") ||
-			(!game.players[user._id].isWhite && game.gameResult == "WIN_BLACK")) {
-			resultKey = "your_team_won";
-		} else if (game.gameResult == "DRAW") {
+		if (game.gameResult == "DRAW") {
 			resultKey = "draw";
+		} else if (ratingDelta > 0) {
+			resultKey = "your_team_won";
 		} else {
 			resultKey = "your_team_lost";
 		}
