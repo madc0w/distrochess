@@ -10,4 +10,4 @@ This project is written using Meteor. So:
 - Point your browser to http://localhost:3000
 
 Building for Android is equally straightforward:
-- scripts\build-android.sh (might not work in Windows... might need to be done on a *nix system)
+- scripts/build-android.sh (might not work in Windows... might need to be done on a *nix system)
