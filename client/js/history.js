@@ -2,6 +2,7 @@ const game = new ReactiveVar(null);
 const isLoadingComments = new ReactiveVar(false);
 var moveNum = new ReactiveVar(0);
 var board = null;
+var didInit = false;
 
 Template.history.helpers({
 	userColor : function(userId) {
@@ -146,6 +147,7 @@ Template.history.events({
 	},
 
 	"click .select-game-button" : function(e) {
+		didInit = false;
 		moveNum.set(0);
 		Router.go("/history?id=" + this.id);
 	},
@@ -188,6 +190,7 @@ Template.history.events({
 });
 
 Template.history.onCreated(function() {
+	didInit = false;
 	isSpinner.set(true);
 	Meteor.subscribe("userGames", function() {
 		isSpinner.set(false);
@@ -211,7 +214,8 @@ Template.history.onRendered(function() {
 			const _game = Games.findOne({
 				id : gameId
 			});
-			if (_game) {
+			if (_game && !didInit) {
+				didInit = true;
 				Meteor.subscribe("usernames", Object.keys(_game.players));
 
 				game.set(_game);
