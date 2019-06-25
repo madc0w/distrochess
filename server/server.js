@@ -626,11 +626,17 @@ Meteor.methods({
 				return null;
 			}
 
+			if (game.history.length > 0 && game.history[game.history.length - 1].fen == fen) {
+				console.error("attempt to make move which results in idential FEN to last FEN. game._id: " + game._id + "  game.id: " + game.id + "  user: " + utils.getUsername() + "  game.currentUserId: " + game.currentUserId);
+				return null;
+			}
+
 			game.history.push({
 				fen : fen,
 				position : currentPosition,
 				pieces : pieces,
 				userId : Meteor.userId(),
+				date : now,
 			});
 
 			gameResult = computeGameResult(game, chess, pieces);
@@ -752,7 +758,7 @@ Meteor.methods({
 				language : "en",
 				authKey : 11111111,
 				emails : [ {
-					address : "mad7@runbox.com"
+					address : "test@distrochess.com"
 				} ],
 			};
 			const ratingDelta = -4.235;
@@ -929,7 +935,8 @@ Meteor.methods({
 	},
 
 	unsubscribe : function(authKey) {
-		console.log("unsubscribe", authKey);
+		authKey = parseInt(authKey);
+		console.log("unsubscribing user. authKey:", authKey);
 		console.log(Meteor.users.update({
 			authKey : authKey
 		}, {
