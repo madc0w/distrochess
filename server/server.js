@@ -830,7 +830,14 @@ Meteor.methods({
 						$regex : escapedUsername,
 						$options : "i"
 					}
-				}
+				},
+				{
+					username : null,
+					"services.facebook.name" : {
+						$regex : escapedUsername,
+						$options : "i"
+					}
+				},
 			]
 		});
 		return !existingUser;
