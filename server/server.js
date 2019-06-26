@@ -103,7 +103,7 @@ Meteor.startup(() => {
 	Meteor.setInterval(() => {
 		const now = new Date();
 		const cutoffTime = new Date();
-		cutoffTime.setHours(cutoffTime.getHours() - (FLAG_TIME_DAYS * 24 - FLAG_WARNING_TIME_HOURS));
+		cutoffTime.setHours(cutoffTime.getHours() - (FLAG_TIME_HOURS - FLAG_WARNING_TIME_HOURS));
 		Games.find({
 			gameResult : null,
 			lastMoveTime : {
@@ -154,7 +154,7 @@ Meteor.startup(() => {
 	Meteor.setInterval(() => {
 		const now = new Date();
 		const cutoffTime = new Date();
-		cutoffTime.setDate(cutoffTime.getDate() - FLAG_TIME_DAYS);
+		cutoffTime.setDate(cutoffTime.getHours() - FLAG_TIME_HOURS);
 		Games.find({
 			gameResult : null,
 			lastMoveTime : {
