@@ -5,6 +5,7 @@ var game = null;
 var clockIntervalId = null;
 var flaggingCommentId = null;
 var isOpeningHistory = false;
+var moveFromSquare = null;
 
 const board = new ReactiveVar();
 const isInCheck = new ReactiveVar(false);
@@ -234,13 +235,38 @@ Template.chessBoard.events({
 		}, 0);
 	},
 
-//	"touchend .square-55d63" : function(e) {
-//		const square = $(e.currentTarget);
-//		const img = square.children("img");
-//		if (img.attr("data-piece") && img.attr("data-piece").startsWith(playingColor())) {
-//			square.addClass("moving-piece");
-//		}
-//	},
+	"touchend .square-55d63" : function(e) {
+		const square = $(e.currentTarget);
+		const img = square.children("img");
+		if (img.attr("data-piece") && img.attr("data-piece").startsWith(playingColor())) {
+			square.addClass("moving-piece");
+			moveFromSquare = square.attr("data-square");
+		} else {
+			const _board = board.get();
+			const isWhiteToMove = !_board.game || utils.isWhiteToMove(_board.game);
+			game.setWhiteToMove(isWhiteToMove);
+			const moveToSquare = square.attr("data-square");
+			const move = game.move({
+				from : moveFromSquare,
+				to : moveToSquare,
+				promotion : "q" // always promote to queen
+			});
+
+			if (move) {
+				_board.lastMove = move;
+				board.set(_board);
+				if (move.piece == "p" && ((isWhiteToMove && moveToSquare.endsWith("8")) || (!isWhiteToMove && moveToSquare.endsWith("1")))) {
+					dialog.set("promotion-dialog");
+				} else {
+					_board.move(move.from + "-" + move.to);
+					board.set(_board);
+					saveGame();
+				}
+			}
+			$(".moving-piece").removeClass("moving-piece");
+			moveFromSquare = null;
+		}
+	},
 });
 
 

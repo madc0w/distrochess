@@ -596,6 +596,11 @@ iframe {
 /* 	background-image: radial-gradient(rgba(255, 255, 0, 0), yellow); */
 }
 
+.moving-piece {
+	background-image: url("/img/orange-square.png");
+	background-size: 100%;
+}
+
 #history-game #game-controls {
 	margin-top: 12px;
 }
