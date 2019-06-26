@@ -162,19 +162,9 @@ Template.history.events({
 		setBoard();
 	},
 
-	"click #prev-move" : function(e) {
-		if (moveNum.get() > 0) {
-			moveNum.set(moveNum.get() - 1);
-			setBoard();
-		}
-	},
+	"click #prev-move" : prevMove,
 
-	"click #next-move" : function(e) {
-		if (moveNum.get() < game.get().moves.length) {
-			moveNum.set(moveNum.get() + 1);
-			setBoard();
-		}
-	},
+	"click #next-move" : nextMove,
 
 	"click #export-pgn-button" : function(e) {
 		const chess = new Chess();
@@ -190,6 +180,8 @@ Template.history.events({
 });
 
 Template.history.onCreated(function() {
+	document.addEventListener("keyup", arrowListener);
+
 	didInit = false;
 	isSpinner.set(true);
 	Meteor.subscribe("userGames", function() {
@@ -204,7 +196,10 @@ Template.history.onCreated(function() {
 			Meteor.subscribe("game", gameId);
 		}
 	});
+});
 
+Template.history.onDestroyed(function() {
+	document.removeEventListener("keyup", arrowListener);
 });
 
 Template.history.onRendered(function() {
@@ -255,5 +250,28 @@ function setBoard() {
 		}
 	} else {
 		board.start();
+	}
+}
+
+function arrowListener(e) {
+	if (e.key == "ArrowRight") {
+		nextMove();
+	} else if (e.key == "ArrowLeft") {
+		prevMove();
+	}
+}
+
+
+function prevMove() {
+	if (moveNum.get() > 0) {
+		moveNum.set(moveNum.get() - 1);
+		setBoard();
+	}
+}
+
+function nextMove() {
+	if (moveNum.get() < game.get().moves.length) {
+		moveNum.set(moveNum.get() + 1);
+		setBoard();
 	}
 }
