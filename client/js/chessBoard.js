@@ -233,6 +233,14 @@ Template.chessBoard.events({
 			dialog.set("signin-dialog");
 		}, 0);
 	},
+
+//	"touchend .square-55d63" : function(e) {
+//		const square = $(e.currentTarget);
+//		const img = square.children("img");
+//		if (img.attr("data-piece") && img.attr("data-piece").startsWith(playingColor())) {
+//			square.addClass("moving-piece");
+//		}
+//	},
 });
 
 
@@ -464,7 +472,7 @@ function getGame() {
 					Meteor.setTimeout(() => {
 						$(".square-" + lastMove.from).addClass("last-move-square from-square");
 						$(".square-" + lastMove.to).addClass("last-move-square to-square");
-					}, 200);
+					}, clientUtils.isMobile() ? 600 : 200);
 				}
 				isInCheck.set(game.in_check());
 			} else {
