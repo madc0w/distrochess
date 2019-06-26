@@ -13,6 +13,13 @@ Meteor.startup(function() {
 		location = "http://www.distrochess.com";
 	}
 
+	if (clientUtils.isMobile() && !Meteor.isCordova) {
+		const viewport = document.createElement("meta");
+		viewport.name = "viewport";
+		document.getElementsByTagName("head")[0].appendChild(viewport);
+		viewport.setAttribute("content", "width=device-width, initial-scale=0.8");
+	}
+
 	document.addEventListener("keyup", function(e) {
 		if (e.key == "Escape") {
 			message.set(null);
