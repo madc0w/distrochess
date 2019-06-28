@@ -20,6 +20,14 @@ Meteor.startup(function() {
 		viewport.setAttribute("content", "width=device-width, initial-scale=0.8");
 	}
 
+
+	Template.body.events({
+		"click span.link" : function(e) {
+			const url = e.currentTarget.getAttribute("href");
+			open(url, "_system");
+		}
+	});
+
 	document.addEventListener("keyup", function(e) {
 		if (e.key == "Escape") {
 			message.set(null);

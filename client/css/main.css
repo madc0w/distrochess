@@ -1044,3 +1044,14 @@ iframe {
 #load-game-dialog label {
 	display: inline-block;
 }
+
+span.link {
+	text-decoration: underline;
+	color: darkorange;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+span.link:hover {
+	background-color: white;
+}
