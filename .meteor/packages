@@ -26,3 +26,4 @@ iron:router
 accounts-github
 email
 accounts-facebook
+gwendall:body-events
