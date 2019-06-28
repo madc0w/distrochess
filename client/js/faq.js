@@ -4,8 +4,6 @@ Template.faq.helpers({
 		const values = {
 			flagTime : FLAG_TIME_HOURS,
 			initialRating : INITIAL_RATING,
-			githubLink : clientUtils.makeAndroidLink("https://github.com/madc0w/distrochess"),
-			eloAlgorithmLink : clientUtils.makeAndroidLink("https://www.geeksforgeeks.org/elo-rating-algorithm/"),
 		};
 
 		var i = 0;

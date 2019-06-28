@@ -7,10 +7,6 @@ Meteor.setInterval(() => {
 }, 30 * 1000);
 
 clientUtils = {
-	makeAndroidLink : function(url) {
-		return Meteor.isCordova ? "intent:" + url + "#Intent;scheme=http;package=com.android.chrome;end" : url;
-	},
-
 	formatDateTime : function(date) {
 		return date ? clientUtils.moment(date).format("D MMM, YYYY HH:mm") : null;
 	},

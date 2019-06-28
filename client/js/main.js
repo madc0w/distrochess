@@ -1,8 +1,4 @@
 Template.main.helpers({
-	privacyPolicyLink : function() {
-		return clientUtils.makeAndroidLink("https://www.distrochess.com/static/privacy-policy.html");
-	},
-
 	isNeedCookieConsent : function() {
 		return !Meteor.isCordova && !localStorage.getItem("cookie-consent");
 	},
