@@ -8,7 +8,9 @@ Template.passwordReset.events({
 			$("#password-1").addClass("invalid");
 			message.set(TAPi18n.__("password_too_short"));
 		} else if (password1 == password2) {
+			isSpinner.set(true);
 			Accounts.resetPassword(passwordResetToken, password1, function(err) {
+				isSpinner.set(false);
 				if (err) {
 					message.set(err.reason);
 				} else {
