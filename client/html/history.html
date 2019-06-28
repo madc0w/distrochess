@@ -51,7 +51,7 @@
 			<!-- TODO make this work in cordova somehow -->
 			{{#unless isCordova}}
 				<a id="export-pgn-button" class="button" download="{{pgnFilename}}" href="{{pgnUri}}">{{_ "export_pgn"}}</a>
-			{{unless}}
+			{{/unless}}
 		{{/if}}
 	</div>
 	{{#if game}}
