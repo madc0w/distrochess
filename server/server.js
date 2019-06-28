@@ -303,18 +303,15 @@ Meteor.methods({
 	sendResetPasswordEmail : function(emailOrUsername) {
 		//		console.log("sendResetPasswordEmail : emailOrUsername ", emailOrUsername);
 		//		this.unblock();
-		const escapedEmailOrUsername = utils.escapeRegExp(emailOrUsername);
+		const regex = {
+			$regex : "^" + utils.escapeRegExp(emailOrUsername) + "$",
+			$options : "i"
+		};
 		const user = Meteor.users.findOne({
 			$or : [ {
-				username : {
-					$regex : "^" + escapedEmailOrUsername + "$",
-					$options : "i"
-				}
+				username : regex
 			}, {
-				"emails.address" : {
-					$regex : "^" + escapedEmailOrUsername + "$",
-					$options : "i"
-				}
+				"emails.address" : regex
 			} ]
 		});
 		//		console.log("sendResetPasswordEmail : user ", user);
@@ -813,35 +810,26 @@ Meteor.methods({
 	},
 
 	checkUsername : function(username) {
-		const escapedUsername = utils.escapeRegExp(username);
+		const regex = {
+			$regex : "^" + utils.escapeRegExp(username) + "$",
+			$options : "i"
+		};
 		const existingUser = Meteor.users.findOne({
 			$or : [
 				{
-					username : {
-						$regex : escapedUsername,
-						$options : "i"
-					}
+					username : regex
 				},
 				{
 					username : null,
-					"profile.name" : {
-						$regex : escapedUsername,
-						$options : "i"
-					}
+					"profile.name" : regex
 				},
 				{
 					username : null,
-					"services.github.username" : {
-						$regex : escapedUsername,
-						$options : "i"
-					}
+					"services.github.username" : regex
 				},
 				{
 					username : null,
-					"services.facebook.name" : {
-						$regex : escapedUsername,
-						$options : "i"
-					}
+					"services.facebook.name" : regex
 				},
 			]
 		});
@@ -853,32 +841,23 @@ Meteor.methods({
 			return false;
 		}
 
-		const escapedEmail = utils.escapeRegExp(email);
+		const regex = {
+			$regex : "^" + utils.escapeRegExp(email) + "$",
+			$options : "i"
+		};
 		if (Meteor.users.findOne({
 				$or : [
 					{
-						"emails.address" : {
-							$regex : "^" + escapedEmail + "$",
-							$options : "i"
-						}
+						"emails.address" : regex
 					},
 					{
-						"services.google.email" : {
-							$regex : "^" + escapedEmail + "$",
-							$options : "i"
-						}
+						"services.google.email" : regex
 					},
 					{
-						"services.github.email" : {
-							$regex : "^" + escapedEmail + "$",
-							$options : "i"
-						}
+						"services.github.email" : regex
 					},
 					{
-						"services.facebook.email" : {
-							$regex : "^" + escapedEmail + "$",
-							$options : "i"
-						}
+						"services.facebook.email" : regex
 					},
 				]
 			})) {
