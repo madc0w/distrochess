@@ -1,4 +1,8 @@
 Template.editProfile.helpers({
+	privacyPolicyLink : function() {
+		return clientUtils.makeAndroidLink("https://www.distrochess.com/static/privacy-policy.html");
+	},
+
 	formatInt : function(i) {
 		return i ? Math.round(i) : "-";
 	},

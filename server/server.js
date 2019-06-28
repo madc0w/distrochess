@@ -6,7 +6,7 @@ const USER_QUEUE_CHECK_INTERVAL_SECS = 40;
 const userQueue = [];
 const moveTimeoutTimersIds = {};
 
-const collections = [ Games, Meteor.users, SystemData, GameAssignments, Comments ];
+const collections = [ Games, Meteor.users, SystemData, GameAssignments, Comments, CommentFlags ];
 
 var isGettingGame = false;
 

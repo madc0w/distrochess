@@ -2,7 +2,7 @@
 	"faq_q1": "Quelle est l'idée générale?",
 	"faq_a1": "Distrochess est un jeu d'échecs distribué. Cela signifie que vous ne jouez pas un seul match contre une seule personne; vous jouez plusieurs jeux contre de nombreux adversaires. C'est un peu comme une partie simultanée, mais au lieu de jouer beaucoup contre un seul adversaire, il y a plusieurs joueurs de chaque côté de la table. <br/>Après avoir joué un tour, le jeu est replacé dans la file d'attente de sorte qu'un autre utilisateur puisse avoir la possibilité de répondre. Un jeu aléatoire venant de la file d'attente vous est alors attribuer. Afin d'éviter que les joueurs ne jouent contre eux-mêmes, chaque joueur joue toujours du même côté dans un jeu.",
 	"faq_q2": "Comment est calculé le classement Elo?",
-	"faq_a2": "Votre classement Elo est initialement fixée à __initialRating__. Quand un jeu auquel vous avez participé est décidé, votre Elo changera en fonction de la <a href=\"https://www.geeksforgeeks.org/elo-rating-algorithm/\">règle normale</a>, sauf que vous recevrez une proportion des points attribués en fonction de votre ratio de participation à ce jeu. Les évaluations des équipes noires et blanches utilisées pour ce calcul sont déterminées comme suit: la moyenne de toutes les calssement des participants, pondérée par leur ratio de participation.",
+	"faq_a2": "Votre classement Elo est initialement fixée à __initialRating__. Quand un jeu auquel vous avez participé est décidé, votre Elo changera en fonction de la <a href=\"__eloAlgorithmLink__\">règle normale</a>, sauf que vous recevrez une proportion des points attribués en fonction de votre ratio de participation à ce jeu. Les évaluations des équipes noires et blanches utilisées pour ce calcul sont déterminées comme suit: la moyenne de toutes les calssement des participants, pondérée par leur ratio de participation.",
 	"faq_q3": "Quand est-ce que le drapeau tombe?",
 	"faq_a3": "Si aucun joueur n'a joué depuis plus de __flagTime__ heurs, le drapeau tombe. Cela signifie que ce jeu est enregistré en temp que perte pour les joueurs dont il s'agit, et une victoire pour les joueurs adverses. Cette règle compense le fait que les joueurs peuvent éviter les jeux dans lesquels les chances de gagner sont faibles afin d'éviter de réduire leur score.",
 	"faq_q4": "Comment puis-je abandonner ou proposer un match nul?",
@@ -12,7 +12,7 @@
 	"faq_q6": "J'ai une demande de fonctionnalité / une erreur à signaler. Que dois-je en faire?",
 	"faq_a6": "Oui, je suis très intéressé par votre question. Merci de l'envoyer à <a href=\"mailto:feedback@distrochess.com?subject=Distorchess feedback\">feedback@distrochess.com</a>. Je répondrais, c'est promis.",
 	"faq_q7": "Je veux participer! Est-ce que ce projet est open source?",
-	"faq_a7": "En effet, vous trouverez tout ce dont vous avez besoin <a href=\"https://github.com/madc0w/distrochess\">ici</a>. Envoyez-moi un pull request.",
+	"faq_a7": "En effet, vous trouverez tout ce dont vous avez besoin <a href=\"__githubLink__\" target=\"github\">ici</a>. Envoyez-moi un pull request.",
 	"faq_q8": "Qui a fait ça, et pourquoi?",
 	"faq_a8": "Distrochess est né du cerveau de <a href=\"mailto:mad@distrochess.com\">Marc A. Donis </a>, qui cherchait simplement à éviter l'ennui. C'est la réincarnation d'une vieille idée, initialement nommé Discochess aux alentours de 2008. <br/>Je ne tire aucun profit de ce projet, et je me fiche de vos données personnelles. Je fais ça par amour.<br/>Merci à clg, pour avoir aidé avec les tests et pour ses compétences en DNS."
 }

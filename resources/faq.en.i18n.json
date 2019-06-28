@@ -2,7 +2,7 @@
 	"faq_q1": "What's the big idea?",
 	"faq_a1": "Distrochess is distributed chess. This means that you don't play a single game against a single person &mdash; you play many games against many other users. It's a bit like a simultaneous match, but instead of many people playing against a single opponent, there are several players on each side of the table.<br/> After you make a move, that game is placed back on the queue so that another user can have an opportunity to respond. Meanwhile, you will be given a random game off the queue. In order to avoid players playing against themselves, each player always plays the same side of a given game.",
 	"faq_q2": "How is my Elo rating computed?",
-	"faq_a2": "Your Elo rating is initially set to __initialRating__. When a game in which you have participated is decided, your Elo will change according to the <a href=\"https://www.geeksforgeeks.org/elo-rating-algorithm/\">normal rules</a>, except that you will receive a proportion of the allocated points according to your ratio of participation in that game. The ratings of the black and white teams used for this calculation are determined as the average of all the ratings of the participants, weighted by their participation ratio.",
+	"faq_a2": "Your Elo rating is initially set to __initialRating__. When a game in which you have participated is decided, your Elo will change according to the <a href=\"__eloAlgorithmLink__\">normal rules</a>, except that you will receive a proportion of the allocated points according to your ratio of participation in that game. The ratings of the black and white teams used for this calculation are determined as the average of all the ratings of the participants, weighted by their participation ratio.",
 	"faq_q3": "Do games get flagged?",
 	"faq_a3": "Yes, if no player has moved in more than __flagTime__ hours, then the game is flagged. This means that it is recorded as a loss for the players whose move it is, and a win for the opposing players. This rule is to compensate for the fact that players may avoid games in which the chances of winning are slim in order to avoid reducing their score.",
 	"faq_q4": "How do I resign or offer a draw?",
@@ -12,7 +12,7 @@
 	"faq_q6": "I have a feature request/bug report.  What should I do with it?",
 	"faq_a6": "Yes, I am very interested in your whatever it is.  Please send it to <a href=\"mailto:feedback@distrochess.com?subject=Distorchess feedback\">feedback@distrochess.com</a>.  I promise to respond.",
 	"faq_q7": "I want to help! Is this project open source?",
-	"faq_a7": "Indeed it is.  You'll find everything you need <a href=\"https://github.com/madc0w/distrochess\">right here</a>.  Just give me a pull request.",
+	"faq_a7": "Indeed it is.  You'll find everything you need <a href=\"__githubLink__\" target=\"github\">right here</a>.  Just give me a pull request.",
 	"faq_q8": "Who made this, and why?",
 	"faq_a8": "Distrochess is the brain child of <a href=\"mailto:mad@distrochess.com\">Marc A. Donis</a>, who was just trying to avoid boredom. It is the reincarnation of an old idea, originally named Discochess back around 2008.<br/>I make no money from this project, and I don't care about your personal data. I do it for the love.<br/>Thanks goes to clg, for testing and DNS ninja skillz."
 }
