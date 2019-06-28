@@ -48,7 +48,10 @@
 					</tr>
 				</table>
 			</div>
-			<span class="link" id="export-pgn-button" class="button" download="{{pgnFilename}}" href="{{pgnUri}}">{{_ "export_pgn"}}</span>
+			<!-- TODO make this work in cordova somehow -->
+			{{#unless isCordova}}
+				<a id="export-pgn-button" class="button" download="{{pgnFilename}}" href="{{pgnUri}}">{{_ "export_pgn"}}</a>
+			{{unless}}
 		{{/if}}
 	</div>
 	{{#if game}}

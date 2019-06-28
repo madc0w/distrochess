@@ -5,18 +5,6 @@ var board = null;
 var didInit = false;
 
 Template.history.helpers({
-	pgnUri : function() {
-		const chess = new Chess();
-		const _game = game.get();
-		for (var i in _game.moves) {
-			chess.move(_game.moves[i]);
-		}
-		const pgn = chess.pgn();
-		//		console.log(pgn);
-		const pgnData = encodeURIComponent(pgn);
-		return clientUtils.makeAndroidLink("data:text/plain;charset=utf-8," + pgnData);
-	},
-
 	userColor : function(userId) {
 		const _game = game.get();
 		if (_game && _game.players[userId]) {
@@ -55,6 +43,17 @@ Template.history.helpers({
 
 	isLoadingComments : function() {
 		return isLoadingComments.get();
+	},
+
+	pgnData : function() {
+		const chess = new Chess();
+		const _game = game.get();
+		for (var i in _game.moves) {
+			chess.move(_game.moves[i]);
+		}
+		const pgn = chess.pgn();
+		//		console.log(pgn);
+		return encodeURIComponent(pgn);
 	},
 
 	pgnFilename : function() {
