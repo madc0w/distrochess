@@ -931,10 +931,11 @@ Meteor.methods({
 	},
 
 	unsubscribe : function(authKey) {
-		authKey = parseInt(authKey);
 		console.log("unsubscribing user. authKey:", authKey);
 		console.log(Meteor.users.update({
-			authKey : authKey
+			authKey : {
+				$in : [ authKey, parseInt(authKey) ]
+			}
 		}, {
 			$set : {
 				isReceiveNotifications : false
