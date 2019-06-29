@@ -119,6 +119,7 @@
 	"not_your_turn": "Es ist nicht dein Team, die an der Reihe ist, dieses Spiel zu spielen. Probierst du ein anderes aus.",
 	"no_such_game": "Es wurde kein Spiel mit dieser ID gefunden. Versuchst du es erneut.",
 	"email_set": "Dein Email wurde aktualisiert.",
-	"set_email": "Email festlegen",
-	"download_pgn_in_webapp": "<span class=\"link\" href=\"https://www.distrochess.com/history?id=__gameId__\">Klickst du hier</span>, um die PGN-Datei über das Internet herunterzuladen app."
+	"set_email": "Email Festlegen",
+	"download_pgn_in_webapp": "<span class=\"link\" href=\"https://www.distrochess.com/history?id=__gameId__\">Klickst du hier</span>, um die PGN-Datei über das Internet herunterzuladen app.",
+	"last_active": "Zuletzt aktiv"
 }

@@ -1,0 +1,38 @@
+<template name="userProfile">
+	<div id="user-profile">
+		<table>
+			<tr>
+				<th>{{_ "username"}}</th>
+				<td>{{user.username}}</td>
+			</tr>
+			{{#if user.avatar}}
+				<tr>
+					<th></th>
+					<td>
+						<img class="user-avatar" src="{{user.avatar}}"/>
+					</td>
+				</tr>
+			{{/if}}
+			<tr>
+				<th>{{_ "signup_date"}}</th>
+				<td>{{dateFormat user.createdAt}}</td>
+			</tr>
+			<tr>
+				<th>{{_ "last_active"}}</th>
+				<td>{{fromNow user.lastActivity}}</td>
+			</tr>
+			<tr>
+				<th>{{_ "num_games_played"}}</th>
+				<td>{{user.numGames}}</td>
+			</tr>
+			<tr>
+				<th>{{_ "num_moves_made"}}</th>
+				<td>{{user.numMoves}}</td>
+			</tr>
+			<tr>
+				<th>{{_ "elo_rating"}}</th>
+				<td>{{formatInt user.rating}}</td>
+			</tr>
+		</table>
+	</div>
+</template>

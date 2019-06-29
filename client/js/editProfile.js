@@ -1,4 +1,8 @@
 Template.editProfile.helpers({
+	avatar : function() {
+		return utils.getAvatar();
+	},
+
 	formatInt : function(i) {
 		return i ? Math.round(i) : "-";
 	},

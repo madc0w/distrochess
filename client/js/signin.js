@@ -73,7 +73,7 @@ Template.signin.events({
 		// https://github.com/settings/applications/1075304
 		isSpinner.set(true);
 		Meteor.loginWithGithub({
-			requestPermissions : [ "email", "username" ]
+			requestPermissions : [ "email", "username", "avatar" ]
 		}, (err) => {
 			isSpinner.set(false);
 			if (err) {

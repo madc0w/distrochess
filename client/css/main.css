@@ -326,6 +326,7 @@ input {
 
 #profile-data .button {
 	margin-left: 12px;
+	min-width: 100px;
 }
 
 @media only screen and (max-width: 640px) {
@@ -1068,4 +1069,15 @@ span.link:hover {
 	padding: 4px;
 	color: black;
 	min-width: 18px;
+}
+
+#user-profile th {
+	text-align: right;
+}
+
+#user-profile .user-avatar {
+	height: 80px;
+	border-width: 2px;
+	border-color: black;
+	border-style: solid;
 }

@@ -6,6 +6,7 @@ historyGameId = new ReactiveVar();
 toastText = new ReactiveVar(null);
 
 passwordResetToken = null;
+profileUserId = null;
 
 Meteor.startup(function() {
 	// because we can't seem to redirect everything to www.distrochess.com by using DNS, for obscure reasons

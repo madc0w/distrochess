@@ -117,5 +117,6 @@
 	"no_such_game": "Не найдено ни одной игры с таким идентификатором. Попробуйте еще раз.",
 	"email_set": "Электронная почта установлена",
 	"set_email": "Установить электронную почту",
-	"download_pgn_in_webapp": "<span class=\"link\" href=\"https://www.distrochess.com/history?id=__gameId__\">Нажмите здесь</span>, чтобы загрузить файл PGN через Интернет приложение."
+	"download_pgn_in_webapp": "<span class=\"link\" href=\"https://www.distrochess.com/history?id=__gameId__\">Нажмите здесь</span>, чтобы загрузить файл PGN через Интернет приложение.",
+	"last_active": "Последняя активность"
 }

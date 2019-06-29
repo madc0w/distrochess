@@ -281,6 +281,24 @@ Meteor.startup(() => {
 });
 
 Meteor.methods({
+	getUserData : function(userId) {
+		const user = Meteor.users.findOne({
+			_id : userId
+		});
+		if (user) {
+			return {
+				username : utils.getUsername(user),
+				avatar : utils.getAvatar(user),
+				rating : user.rating,
+				numGames : user.gameIds.length,
+				numMoves : user.numMoves,
+				lastActivity : user.lastActivity,
+				createdAt : user.createdAt,
+			};
+		}
+		return null;
+	},
+
 	checkGameId : function(gameId) {
 		gameId = parseInt(gameId);
 		console.log("gameId", gameId);
@@ -317,10 +335,10 @@ Meteor.methods({
 		//		console.log("sendResetPasswordEmail : user ", user);
 		if (user) {
 			const result = Accounts.sendResetPasswordEmail(user._id);
-			console.log("sendResetPasswordEmail result: ", result);
+			//			console.log("sendResetPasswordEmail result: ", result);
 			return true;
 		}
-		console.log("sendResetPasswordEmail : no user found having email or username " + emailOrUsername);
+		console.warn("sendResetPasswordEmail : no user found having email or username " + emailOrUsername);
 		return false;
 	},
 
@@ -1078,6 +1096,7 @@ function getPlayerData(game) {
 	}).forEach((user) => {
 		const username = utils.getUsername(user);
 		playerData[user._id] = {
+			_id : user._id,
 			rating : user.rating,
 			username : username,
 			numGames : user.gameIds && user.gameIds.length

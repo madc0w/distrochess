@@ -20,6 +20,7 @@ Template.players.helpers({
 						const percent = 100 * game.players[playerId].moves.length / game.moves.length;
 						const movesRatio = game.players[playerId].moves.length + "/" + game.moves.length + " (" + percent.toFixed(1) + "%)";
 						players.push({
+							_id : playerId,
 							username : game.playerData[playerId].username,
 							movesRatio : movesRatio,
 							lastMoveTime : game.players[playerId].lastMoveTime,
@@ -38,5 +39,11 @@ Template.players.helpers({
 			}
 		}
 		return players;
+	},
+});
+
+Template.players.events({
+	"click .player-profile-button" : function(e, template) {
+		Router.go("/profile/" + this._id + "?id=" + template.data.game.id);
 	},
 });

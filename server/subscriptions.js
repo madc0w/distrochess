@@ -1,5 +1,5 @@
 // see https://guide.meteor.com/accounts.html#publish-custom-data
-Meteor.publish("userData", function() {
+Meteor.publish("userData", function(userId) {
 	//	this.unblock();
 	if (this.userId) {
 		return Meteor.users.find({
@@ -28,6 +28,8 @@ Meteor.publish("usernames", function(userIds) {
 		fields : {
 			username : true,
 			"profile.name" : true,
+			"services.github.username" : true,
+			"services.facebook.name" : true,
 		}
 	});
 

@@ -6,6 +6,13 @@ Router.route("/", function() {
 	setPage.bind(this)("chessBoard");
 });
 
+Router.route("/profile/:userId", function() {
+	profileUserId = this.params.userId
+	const gameId = this.params.query.id;
+	historyGameId.set(parseInt(gameId));
+	setPage.bind(this)("userProfile");
+});
+
 Router.route("/edit-profile", function() {
 	setPage.bind(this)("editProfile");
 });

@@ -17,7 +17,9 @@
 			</tr>
 			{{#each players isWhite}}
 				<tr class="data-row">
-					<td>{{username}}</td>
+					<td>
+						<div class="player-profile-button button">{{username}}</div>
+					</td>
 					<td>{{movesRatio}}</td>
 					<td>{{formatDateTime lastMoveTime}}</td>
 					<td>{{formatInt rating}}</td>

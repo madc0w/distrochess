@@ -9,6 +9,14 @@
 					<div id="save-username-button" class="button">{{_ "set_username"}}</div>
 				</td>
 			</tr>
+			{{#if avatar}}
+				<tr>
+					<th></th>
+					<td>
+						<img class="user-avatar" src="{{avatar}}"/>
+					</td>
+				</tr>
+			{{/if}}
 			<tr>
 				<th>{{_ "signup_date"}}</th>
 				<td>{{dateFormat currentUser.createdAt}}</td>

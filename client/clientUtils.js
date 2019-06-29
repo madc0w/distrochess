@@ -8,7 +8,7 @@ Meteor.setInterval(() => {
 
 clientUtils = {
 	formatDateTime : function(date) {
-		return date ? clientUtils.moment(date).format("D MMM, YYYY HH:mm") : null;
+		return date ? clientUtils.moment(date).format("D MMM, YYYY H:mm") : null;
 	},
 
 	fromNow : function(date) {
