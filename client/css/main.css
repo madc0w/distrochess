@@ -38,7 +38,7 @@ input {
 	box-shadow: 0px 0px 20px 4px #222;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	.dialog {
 		left: calc(50% - 130px);
 	}
@@ -50,7 +50,7 @@ input {
 	font-weight: bold;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#promotion-dialog {
 		left: calc(50% - 40px);
 		min-width: 80px;
@@ -181,7 +181,7 @@ input {
 	line-height: 24px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#message {
 		width: calc(100% - 80px);
 		left: calc(50% - 180px);
@@ -201,7 +201,7 @@ input {
 	margin-left: 140px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#message-ok-button {
 		margin-left: calc(50% - 66px);
 	}
@@ -271,7 +271,7 @@ input {
 	width: 300px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#username-dialog {
 		left: calc(50% - 170px);
 	}
@@ -283,7 +283,7 @@ input {
 	width: 300px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#signin-dialog {
 		top: 60px;
 		left: calc(50% - 170px);
@@ -328,7 +328,7 @@ input {
 	margin-left: 12px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#profile-data .button {
 		margin-top: 8px;
 	}
@@ -345,7 +345,7 @@ input {
 	margin-top: 6px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#header-logo {
 		width: 40px;
 		border-radius: 8px;
@@ -365,7 +365,7 @@ input {
 	line-height: 42px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#waiting {
 		white-space: normal;
 		line-height: 32px;
@@ -381,7 +381,7 @@ input {
 	margin-bottom: 12px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#pass-or-ignore-button {
 		margin-left: calc(100% - 270px);
 	}
@@ -433,7 +433,7 @@ input {
 	border-width: 2px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	.header-menu-item {
 		margin-left: 2px;
 		padding-left: 4px;
@@ -562,7 +562,7 @@ iframe {
 	width: 180px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#playing-side {
 		width: 120px;
 	}
@@ -639,7 +639,7 @@ iframe {
 	/* 	border-radius: 8px; */
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#history-game-list {
 		margin-left: 4px;
 	}
@@ -674,7 +674,7 @@ iframe {
 	width: 300px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#pass-dialog {
 		top: 100px;
 		left: 10%;
@@ -716,7 +716,7 @@ iframe {
 	padding: 4px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#current-move {
 		max-width: initial;
 	}
@@ -829,7 +829,7 @@ iframe {
 	font-weight: bold;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	.history-comment-move-num {
 		background-color: white;
 	}
@@ -859,7 +859,7 @@ iframe {
 	left: 472px;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 640px) {
 	#flag-comment {
 		top: 120px;
 		left: 5%;

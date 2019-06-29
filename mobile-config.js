@@ -12,6 +12,7 @@ App.accessRule("*.gstatic.com/*");
 App.accessRule("http://*");
 App.accessRule("https://*");
 
+App.setPreference("orientation", "portrait");
 App.icons({
 	// Android
 	android_mdpi : "resources/icons/mipmap-mdpi/ic_launcher.png",

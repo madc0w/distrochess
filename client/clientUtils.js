@@ -50,7 +50,7 @@ clientUtils = {
 	},
 
 	isSmallScreen : function() {
-		return screen.width <= 480;
+		return screen.width <= 640;
 	},
 
 	isIOS : function() {
