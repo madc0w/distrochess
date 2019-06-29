@@ -37,6 +37,9 @@
 					<div id="pass-or-ignore-button" class="button">{{_ "pass"}}</div>
 					{{#if isMobile}}
 						<div id="more-button" class="button">
+							{{#if comments.length}}
+								<div id="comments-count-badge">{{comments.length}}</div>
+							{{/if}}							
 							<img src="/img/more-icon.svg"/>
 						</div>
 					{{/if}}
@@ -100,7 +103,7 @@
 				<div id="submit-comment-button" class="button">{{_ "send"}}</div>
 				{{#if isMobile}}
 					<div>
-						{{> cancelButton buttonTextKey="ok" isSuppressCancelIcon=true}}
+						{{> cancelButton }}
 					</div>
 				{{/if}}
 			</div>

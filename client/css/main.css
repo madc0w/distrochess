@@ -1055,3 +1055,17 @@ span.link {
 span.link:hover {
 	background-color: white;
 }
+
+#comments-count-badge {
+	border-radius: 40px;
+	background-color: #fdcc05;
+	position: absolute;
+	margin-top: -22px;
+	margin-left: -22px;
+	border-color: black;
+	border-width: 1px;
+	border-style: solid;
+	padding: 4px;
+	color: black;
+	min-width: 18px;
+}
