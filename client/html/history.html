@@ -49,9 +49,11 @@
 				</table>
 			</div>
 			<!-- TODO make this work in cordova somehow -->
-			{{#unless isCordova}}
+			{{#if isCordova}}
+				<div id="export-pgn-button" class="button">{{_ "export_pgn"}}</div>
+			{{else}}
 				<a id="export-pgn-button" class="button" download="{{pgnFilename}}" href="{{pgnUri}}">{{_ "export_pgn"}}</a>
-			{{/unless}}
+			{{/if}}
 		{{/if}}
 	</div>
 	{{#if game}}

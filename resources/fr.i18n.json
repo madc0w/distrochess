@@ -119,5 +119,6 @@
 	"not_your_turn": "Ce n'est pas à votre équipe de jouer dans ce jeu. Essayez-en un autre.",
 	"no_such_game": "Aucun jeu ayant cet ID n'a été trouvé. Veuillez réessayer.",
 	"email_set": "Email mis à jour",
-	"set_email": "Mettre à jour adresse email"
+	"set_email": "Mettre à jour adresse email",
+	"download_pgn_in_webapp": "<span class=\"link\" href=\"https://www.distrochess.com/history?id=__gameId__\">Cliquez ici</span> pour télécharger le fichier PGN sure l'appli web."
 }

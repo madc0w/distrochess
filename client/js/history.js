@@ -1,6 +1,6 @@
 const game = new ReactiveVar(null);
 const isLoadingComments = new ReactiveVar(false);
-var moveNum = new ReactiveVar(0);
+const moveNum = new ReactiveVar(0);
 var board = null;
 var didInit = false;
 
@@ -167,14 +167,20 @@ Template.history.events({
 	"click #next-move" : nextMove,
 
 	"click #export-pgn-button" : function(e) {
-		const chess = new Chess();
 		const _game = game.get();
-		for (var i in _game.moves) {
-			chess.move(_game.moves[i]);
-		}
-		const pgn = chess.pgn();
-		if (!pgn) {
-			message.set(TAPi18n.__("pgn_fail"));
+		if (Meteor.isCordova) {
+			message.set(TAPi18n.__("download_pgn_in_webapp", {
+				gameId : _game.id
+			}));
+		} else {
+			const chess = new Chess();
+			for (var i in _game.moves) {
+				chess.move(_game.moves[i]);
+			}
+			const pgn = chess.pgn();
+			if (!pgn) {
+				message.set(TAPi18n.__("pgn_fail"));
+			}
 		}
 	},
 });
