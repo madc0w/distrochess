@@ -76,6 +76,8 @@ input {
 }
 
 .button {
+	text-overflow: ellipsis;
+	overflow: hidden;
 	cursor: pointer;
 	text-align: center;
 	padding: 4px;
@@ -594,7 +596,7 @@ iframe {
 .last-move-square {
 	background-image: url("/img/yellow-square.png");
 	background-size: 100%;
-/* 	background-image: radial-gradient(rgba(255, 255, 0, 0), yellow); */
+	/* 	background-image: radial-gradient(rgba(255, 255, 0, 0), yellow); */
 }
 
 .moving-piece {
