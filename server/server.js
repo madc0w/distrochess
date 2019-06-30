@@ -934,7 +934,7 @@ Meteor.methods({
 		console.log("unsubscribing user. authKey:", authKey);
 		console.log(Meteor.users.update({
 			authKey : {
-				$in : [ authKey, parseInt(authKey) ]
+				$in : [ authKey.toString(), parseInt(authKey) ]
 			}
 		}, {
 			$set : {
