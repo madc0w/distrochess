@@ -140,7 +140,9 @@ Template.chessBoard.events({
 				} else {
 					dialog.set(null);
 					templateName.set(null);
-					Router.go("/?id=" + gameId);
+					Meteor.setTimeout(() => {
+						Router.go("/?id=" + gameId);
+					}, 0);
 				}
 			});
 		} else {
