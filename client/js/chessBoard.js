@@ -139,7 +139,8 @@ Template.chessBoard.events({
 					message.set(TAPi18n.__(unavailableMessageKey));
 				} else {
 					dialog.set(null);
-					location = "/?id=" + gameId;
+					templateName.set(null);
+					Router.go("/?id=" + gameId);
 				}
 			});
 		} else {
@@ -203,6 +204,7 @@ Template.chessBoard.events({
 
 	"click #history-button" : function(e) {
 		$("#more-options-dialog").hide();
+		dialog.set(null);
 		isOpeningHistory = true;
 		Router.go("/history?id=" + board.get().game.id);
 	},
