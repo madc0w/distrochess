@@ -11,7 +11,11 @@ const collections = [ Games, Meteor.users, SystemData, GameAssignments, Comments
 var isGettingGame = false;
 
 Meteor.startup(() => {
-	// code to run on server at startup
+	//	for (var key in process) {
+	//		console.log(key, typeof process[key]);
+	//	}
+
+	logMemoryDelta("startup");
 
 	Accounts.emailTemplates.siteName = "Distrochess";
 	Accounts.emailTemplates.from = "Distrochess <no-reply@distrochess.com>";
@@ -104,6 +108,7 @@ Meteor.startup(() => {
 		const now = new Date();
 		const cutoffTime = new Date();
 		cutoffTime.setHours(cutoffTime.getHours() - (FLAG_TIME_HOURS - FLAG_WARNING_TIME_HOURS));
+		const prevMem = logMemoryDelta("flag warning task");
 		Games.find({
 			gameResult : null,
 			lastMoveTime : {
@@ -148,6 +153,7 @@ Meteor.startup(() => {
 				}
 			}
 		});
+		logMemoryDelta("flag warning task", prevMem);
 	}, FLAG_CHECK_INTERVAL_MINS * 60 * 1000);
 
 	// check for games to be flagged 
@@ -155,6 +161,7 @@ Meteor.startup(() => {
 		const now = new Date();
 		const cutoffTime = new Date();
 		cutoffTime.setDate(cutoffTime.getHours() - FLAG_TIME_HOURS);
+		const prevMem = logMemoryDelta("flag task");
 		Games.find({
 			gameResult : null,
 			lastMoveTime : {
@@ -176,6 +183,7 @@ Meteor.startup(() => {
 
 			updateRatings(game, gameResult);
 		});
+		logMemoryDelta("flag task", prevMem);
 	}, FLAG_CHECK_INTERVAL_MINS * 60 * 1000);
 
 	// assign authKey to new users, used to authenticate account deletion requests
@@ -461,6 +469,7 @@ Meteor.methods({
 				}
 				var gameToLoad = null;
 				//				console.log("loadGameId", loadGameId);
+				const prevMem1 = logMemoryDelta("getGame 1");
 				Games.find({
 					gameResult : null,
 					_id : {
@@ -484,6 +493,7 @@ Meteor.methods({
 						}
 					}
 				});
+				logMemoryDelta("getGame 1", prevMem1);
 
 				if (games.length == 0) {
 					if (!userQueue.includes(Meteor.userId())) {
@@ -518,6 +528,7 @@ Meteor.methods({
 				// no user
 				//				console.log("loadGameId", loadGameId);
 				if (loadGameId) {
+					const prevMem2 = logMemoryDelta("getGame 2");
 					games = Games.find({
 						gameResult : null,
 						$or : [
@@ -530,14 +541,17 @@ Meteor.methods({
 						],
 						id : loadGameId,
 					}).fetch();
+					logMemoryDelta("getGame 2", prevMem2);
 				//					console.log("games ", games);
 				}
 
 				if (games.length == 0) {
+					const prevMem3 = logMemoryDelta("getGame 3");
 					games = Games.find({
 						gameResult : null,
 						currentUserId : null,
 					}).fetch();
+					logMemoryDelta("getGame 3", prevMem3);
 				}
 				if (games.length == 0) {
 					console.log("will create new game for anonymous user");
@@ -971,6 +985,7 @@ function updateRatings(game, gameResult, currentUserId) {
 	var meanWhiteElo = 0;
 	var numWhite = 0;
 	var numBlack = 0;
+	const prevMem1 = logMemoryDelta("updateRatings 1");
 	Meteor.users.find({
 		_id : {
 			$in : Object.keys(game.players)
@@ -986,6 +1001,7 @@ function updateRatings(game, gameResult, currentUserId) {
 			numBlack += numMoves;
 		}
 	});
+	logMemoryDelta("updateRatings 1", prevMem1);
 	meanWhiteElo /= numWhite;
 	meanBlackElo /= numBlack;
 
@@ -996,6 +1012,7 @@ function updateRatings(game, gameResult, currentUserId) {
 	//	console.log("deltas ", deltas);
 	var userDelta = null;
 
+	const prevMem2 = logMemoryDelta("updateRatings 2");
 	Meteor.users.find({
 		_id : {
 			$in : Object.keys(game.players)
@@ -1021,6 +1038,7 @@ function updateRatings(game, gameResult, currentUserId) {
 			}
 		});
 	});
+	logMemoryDelta("updateRatings 2", prevMem2);
 	return userDelta;
 }
 
@@ -1090,6 +1108,7 @@ function getNextGameId() {
 
 function getPlayerData(game) {
 	const playerData = {};
+	const prevMem = logMemoryDelta("getPlayerData");
 	Meteor.users.find({
 		_id : {
 			$in : Object.keys(game.players)
@@ -1103,12 +1122,14 @@ function getPlayerData(game) {
 			numGames : user.gameIds && user.gameIds.length
 		};
 	});
+	logMemoryDelta("getPlayerData", prevMem);
 	return playerData;
 }
 
 function ensureUniqueUsernames() {
 	var collisionCount = 0;
 	const usernames = {};
+	const prevMem = logMemoryDelta("ensureUniqueUsernames");
 	Meteor.users.find({}, {
 		sort : {
 			createdAt : -1
@@ -1128,6 +1149,7 @@ function ensureUniqueUsernames() {
 			usernames[username] = 1;
 		}
 	});
+	logMemoryDelta("ensureUniqueUsernames", prevMem);
 	console.log("username collision count", collisionCount);
 	return collisionCount;
 }
@@ -1189,4 +1211,27 @@ function notifyGameEnd(user, ratingDelta, game, gameResult) {
 		return true;
 	}
 	return false
+}
+
+function logMemoryDelta(logPrefix, prevUsage) {
+	prevUsage = prevUsage || 0;
+	if (logPrefix) {
+		logPrefix += " : ";
+	} else {
+		logPrefix = "";
+	}
+	const memUsage = process.memoryUsage().heapUsed;
+	if (prevUsage) {
+		const delta = memUsage - prevUsage;
+		// warn if delta > 4 MB
+		const message = logPrefix + "memory delta: " + (delta >> 20) + " MB";
+		if (delta > 1 << 22) {
+			console.warn(message);
+		} else {
+			console.log(message);
+		}
+	} else {
+		console.log(logPrefix + "memory usage: " + (memUsage >> 20) + " MB");
+	}
+	return memUsage;
 }
