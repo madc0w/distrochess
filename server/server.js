@@ -550,6 +550,11 @@ Meteor.methods({
 					games = Games.find({
 						gameResult : null,
 						currentUserId : null,
+					}, {
+						sort : {
+							lastMoveTime : 1
+						},
+						limit : 16
 					}).fetch();
 					logMemoryDelta("getGame 3", prevMem3);
 				}
