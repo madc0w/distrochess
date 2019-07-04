@@ -35,27 +35,30 @@ Template.signin.events({
 	},
 
 	"click #signin-google-button" : function(e) {
-		//		if (Meteor.isCordova) {
-		//			// TODO Google broke the internet.  again.
-		//			// see https://stackoverflow.com/questions/56665019/meteor-apk-build-broken-with-accounts-google
-		//			message.set("Google has broken this feature.<br/>You can still sign in with Google in the webapp, or create a Distrochess account, or sign in with Github.<br/>We are working on a solution!");
-		//		} else {
-		isSpinner.set(true);
-		Meteor.loginWithGoogle({
-			loginStyle : "redirect"
-		});
-		Meteor.loginWithGoogle({
-			requestPermissions : [ "email" ]
-		}, (err) => {
-			isSpinner.set(false);
-			if (err) {
-				Meteor.call("log", err);
-				message.set(err.reason);
-			} else {
-				dialog.set(null);
-			}
-		});
-	//		}
+		if (Meteor.isCordova) {
+			// TODO Google broke the internet.  again.
+			// see https://stackoverflow.com/questions/56665019/meteor-apk-build-broken-with-accounts-google
+			message.set("Google has broken this feature.<br/>You can still sign in with Google in the webapp, or create a Distrochess account, or sign in with Github.<br/>We are working on a solution!");
+		} else {
+			isSpinner.set(true);
+
+			// tried because https://github.com/meteor/meteor/wiki/OAuth-for-mobile-Meteor-clients
+			// results in error "SignInResult is null" ... not particularly useful.
+			Meteor.loginWithGoogle({
+				loginStyle : "redirect"
+			});
+			Meteor.loginWithGoogle({
+				requestPermissions : [ "email" ]
+			}, (err) => {
+				isSpinner.set(false);
+				if (err) {
+					Meteor.call("log", err);
+					message.set(err.reason);
+				} else {
+					dialog.set(null);
+				}
+			});
+		}
 	},
 
 	"click #signin-facebook-button" : function(e) {
