@@ -3,7 +3,6 @@ import { Meteor } from "meteor/meteor";
 const FLAG_CHECK_INTERVAL_MINS = 8;
 const USER_QUEUE_CHECK_INTERVAL_SECS = 40;
 
-const userQueue = [];
 const moveTimeoutTimersIds = {};
 
 const collections = [ Games, Meteor.users, SystemData, GameAssignments, Comments, CommentFlags ];
@@ -15,7 +14,7 @@ Meteor.startup(() => {
 	//		console.log(key, typeof process[key]);
 	//	}
 
-	logMemoryDelta("startup");
+	const startupMem = logMemoryDelta("startup");
 
 	Accounts.emailTemplates.siteName = "Distrochess";
 	Accounts.emailTemplates.from = "Distrochess <no-reply@distrochess.com>";
@@ -58,7 +57,11 @@ Meteor.startup(() => {
 	}
 
 	// on server restart, make all games available
-	Games.update({}, {
+	Games.update({
+		currentUserId : {
+			$ne : null
+		},
+	}, {
 		$set : {
 			currentUserId : null,
 			assignmentTime : new Date(),
@@ -71,6 +74,7 @@ Meteor.startup(() => {
 	Meteor.setInterval(() => {
 		const now = new Date();
 		const startingPosition = new Chess().fen();
+		const userQueue = getUserQueue();
 		while (userQueue.length > 0) {
 			const game = {
 				id : getNextGameId(),
@@ -101,6 +105,7 @@ Meteor.startup(() => {
 				upsert : true
 			});
 		}
+		saveUserQueue(userQueue);
 	}, USER_QUEUE_CHECK_INTERVAL_SECS * 1000);
 
 	// warn users of games about to be flagged 
@@ -113,6 +118,11 @@ Meteor.startup(() => {
 			gameResult : null,
 			lastMoveTime : {
 				$lt : cutoffTime
+			}
+		}, {
+			fields : {
+				moves : true,
+				players : true,
 			}
 		}).forEach(function(game) {
 			for (var userId in game.players) {
@@ -166,6 +176,12 @@ Meteor.startup(() => {
 			gameResult : null,
 			lastMoveTime : {
 				$lt : cutoffTime
+			},
+		}, {
+			fields : {
+				moves : true,
+				players : true,
+				id : true,
 			}
 		}).forEach(function(game) {
 			gameResult = utils.isWhiteToMove(game) ? "WIN_BLACK" : "WIN_WHITE";
@@ -286,6 +302,8 @@ Meteor.startup(() => {
 			}
 		}
 	});
+
+	logMemoryDelta("startup", startupMem);
 });
 
 Meteor.methods({
@@ -483,6 +501,14 @@ Meteor.methods({
 							currentUserId : Meteor.userId(),
 						}
 					]
+				}, {
+					sort : {
+						lastMoveTime : 1
+					},
+					limit : 16,
+					fields : {
+						history : false
+					},
 				}).forEach(function(game) {
 					const gamePlayer = game.players[Meteor.userId()];
 					if (!gamePlayer || (gamePlayer && gamePlayer.isWhite == utils.isWhiteToMove(game))) {
@@ -496,8 +522,10 @@ Meteor.methods({
 				logMemoryDelta("getGame 1", prevMem1);
 
 				if (games.length == 0) {
+					const userQueue = getUserQueue();
 					if (!userQueue.includes(Meteor.userId())) {
 						userQueue.push(Meteor.userId());
+						saveUserQueue(userQueue);
 						console.log("pushed user onto queue", userQueue);
 					}
 					console.log("user " + utils.getUsername() + " must wait for available game");
@@ -540,6 +568,10 @@ Meteor.methods({
 							}
 						],
 						id : loadGameId,
+					}, {
+						fields : {
+							history : false
+						},
 					}).fetch();
 					logMemoryDelta("getGame 2", prevMem2);
 				//					console.log("games ", games);
@@ -554,7 +586,10 @@ Meteor.methods({
 						sort : {
 							lastMoveTime : 1
 						},
-						limit : 16
+						limit : 16,
+						fields : {
+							history : false
+						},
 					}).fetch();
 					logMemoryDelta("getGame 3", prevMem3);
 				}
@@ -639,7 +674,6 @@ Meteor.methods({
 		const currentPosition = chess.ascii();
 		const pieces = getPieces(chess);
 		if (board.game && board.game._id) {
-
 			const timerId = moveTimeoutTimersIds[board.game._id];
 			if (timerId) {
 				Meteor.clearTimeout(timerId);
@@ -739,6 +773,7 @@ Meteor.methods({
 			ratingDelta = updateRatings(board.game, gameResult, Meteor.userId());
 		} else {
 			// assign game to first user in the queue who is eligible to play that game
+			const userQueue = getUserQueue();
 			for (var i in userQueue) {
 				const queueUserId = userQueue[i];
 				//				console.log("board.game.players[" + queueUserId + "]", board.game.players[queueUserId]);
@@ -760,6 +795,7 @@ Meteor.methods({
 					break;
 				}
 			}
+			saveUserQueue(userQueue);
 		}
 
 		const gameIds = Meteor.user().gameIds || [];
@@ -995,6 +1031,10 @@ function updateRatings(game, gameResult, currentUserId) {
 		_id : {
 			$in : Object.keys(game.players)
 		}
+	}, {
+		fields : {
+			rating : true,
+		}
 	}).forEach(function(user) {
 		const numMoves = game.players[user._id].moves.length;
 		const inc = numMoves * (user.rating || INITIAL_RATING);
@@ -1022,6 +1062,7 @@ function updateRatings(game, gameResult, currentUserId) {
 		_id : {
 			$in : Object.keys(game.players)
 		}
+	// get all fields
 	}).forEach(function(user) {
 		const ratio = RATING_DELTA_FACTOR * game.players[user._id].moves.length / game.moves.length;
 		const delta = ratio * (game.players[user._id].isWhite ? deltas.deltaWhite : deltas.deltaBlack);
@@ -1118,6 +1159,15 @@ function getPlayerData(game) {
 		_id : {
 			$in : Object.keys(game.players)
 		}
+	}, {
+		fields : {
+			gameIds : true,
+			rating : true,
+			username : true,
+			"profile.name" : true,
+			"services.github.username" : true,
+			"services.facebook.name" : true,
+		}
 	}).forEach((user) => {
 		const username = utils.getUsername(user);
 		playerData[user._id] = {
@@ -1136,6 +1186,12 @@ function ensureUniqueUsernames() {
 	const usernames = {};
 	const prevMem = logMemoryDelta("ensureUniqueUsernames");
 	Meteor.users.find({}, {
+		fields : {
+			username : true,
+			"profile.name" : true,
+			"services.github.username" : true,
+			"services.facebook.name" : true,
+		},
 		sort : {
 			createdAt : -1
 		}
@@ -1239,4 +1295,28 @@ function logMemoryDelta(logPrefix, prevUsage) {
 		console.log(logPrefix + "memory usage: " + (memUsage >> 20) + " MB");
 	}
 	return memUsage;
+}
+
+function getUserQueue() {
+	const result = SystemData.findOne({
+		key : "USER_QUEUE"
+	});
+	return result ? result.value : [];
+}
+
+function saveUserQueue(userQueue) {
+	var result = SystemData.update({
+		key : "USER_QUEUE"
+	}, {
+		$set : {
+			value : userQueue
+		}
+	});
+	if (!result) {
+		result = SystemData.insert({
+			key : "USER_QUEUE",
+			value : userQueue
+		});
+	}
+	return result;
 }
