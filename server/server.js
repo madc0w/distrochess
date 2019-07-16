@@ -123,6 +123,7 @@ Meteor.startup(() => {
 			fields : {
 				moves : true,
 				players : true,
+				id : true,
 			}
 		}).forEach(function(game) {
 			for (var userId in game.players) {
