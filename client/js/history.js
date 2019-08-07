@@ -5,7 +5,7 @@ var board = null;
 var didInit = false;
 
 Template.history.helpers({
-	userColor : function(userId) {
+	userColor: function (userId) {
 		const _game = game.get();
 		if (_game && _game.players[userId]) {
 			return _game.players[userId].isWhite ? "w" : "b";
@@ -13,39 +13,39 @@ Template.history.helpers({
 		return null;
 	},
 
-	commentUsername : function(comment) {
+	commentUsername: function (comment) {
 		const user = Meteor.users.findOne({
-			_id : comment.userId
+			_id: comment.userId
 		});
 		return user ? utils.getUsername(user) : "?";
 	},
 
-	comments : function() {
+	comments: function () {
 		const comments = [];
 		const _game = game.get();
 		if (_game) {
 			Comments.find({
-				gameId : _game._id
+				gameId: _game._id
 			}, {
-				sort : {
-					date : 1
-				}
-			}).forEach(function(comment) {
-				// if game is ongoing, show only comments for the current users's own side
-				if (comment.userId == Meteor.userId() || _game.gameResult ||
-					(_game.players[Meteor.userId()] && _game.players[Meteor.userId()].isWhite == _game.players[comment.userId].isWhite)) {
-					comments.push(comment);
-				}
-			});
+					sort: {
+						date: 1
+					}
+				}).forEach(function (comment) {
+					// if game is ongoing, show only comments for the current users's own side
+					if (comment.userId == Meteor.userId() || _game.gameResult ||
+						(_game.players[Meteor.userId()] && _game.players[Meteor.userId()].isWhite == _game.players[comment.userId].isWhite)) {
+						comments.push(comment);
+					}
+				});
 		}
 		return comments;
 	},
 
-	isLoadingComments : function() {
+	isLoadingComments: function () {
 		return isLoadingComments.get();
 	},
 
-	pgnData : function() {
+	pgnData: function () {
 		const chess = new Chess();
 		const _game = game.get();
 		for (var i in _game.moves) {
@@ -56,19 +56,19 @@ Template.history.helpers({
 		return encodeURIComponent(pgn);
 	},
 
-	pgnFilename : function() {
+	pgnFilename: function () {
 		return "distrochess-game-" + game.get().id + ".pgn";
 	},
 
-	gamePlayer : function() {
+	gamePlayer: function () {
 		return game.get().players[Meteor.userId()];
 	},
 
-	isWhite : function(_game) {
+	isWhite: function (_game) {
 		return _game.players && _game.players[Meteor.userId()].isWhite;
 	},
 
-	numPlayers : function(isWhite) {
+	numPlayers: function (isWhite) {
 		var count = 0;
 		for (var userId in game.get().players) {
 			if (game.get().players[userId].isWhite == isWhite) {
@@ -78,67 +78,67 @@ Template.history.helpers({
 		return count;
 	},
 
-	numMoves : function() {
+	numMoves: function () {
 		return game.get().moves.length;
 	},
 
-	moveUsername : function() {
+	moveUsername: function () {
 		if (moveNum.get() > 0) {
 			const user = Meteor.users.findOne({
-				_id : game.get().history[moveNum.get() - 1].userId
+				_id: game.get().history[moveNum.get() - 1].userId
 			});
 			return user ? utils.getUsername(user) : null;
 		}
 		return null;
 	},
 
-	currentMove : function() {
+	currentMove: function () {
 		return moveNum.get();
 	},
 
-	games : function() {
+	games: function () {
 		if (Meteor.user()) {
 			return Games.find({
-				_id : {
-					$in : Meteor.user().gameIds || []
+				_id: {
+					$in: Meteor.user().gameIds || []
 				}
 			}, {
-				sort : {
-					lastMoveTime : -1
-				},
-			});
+					sort: {
+						lastMoveTime: -1
+					},
+				});
 		}
 		return null;
 	},
 
-	game : function() {
+	game: function () {
 		return game.get();
 	},
 
-	formatDateTime : function(date) {
+	formatDateTime: function (date) {
 		return clientUtils.fromNow(date);
 	},
 
-	formatInt : function(i) {
+	formatInt: function (i) {
 		return i ? Math.round(i) : "-";
 	},
 
-	gameResult : function(_game) {
+	gameResult: function (_game) {
 		_game = _game || game.get();
 		return _game.gameResult ? _game.gameResult.toLowerCase() : "ongoing";
 	},
 });
 
 Template.history.events({
-	"click #show-comments-button" : function(e) {
+	"click #show-comments-button": function (e) {
 		dialog.set("game-comments-container-dialog");
 	},
 
-	"click #show-players-button" : function(e) {
+	"click #show-players-button": function (e) {
 		dialog.set("players-dialog");
 	},
 
-	"click .history-comment-move-num" : function(e) {
+	"click .history-comment-move-num": function (e) {
 		if (clientUtils.isMobile()) {
 			dialog.set(null);
 		}
@@ -146,31 +146,31 @@ Template.history.events({
 		setBoard();
 	},
 
-	"click .select-game-button" : function(e) {
+	"click .select-game-button": function (e) {
 		didInit = false;
 		moveNum.set(0);
 		Router.go("/history?id=" + this.id);
 	},
 
-	"click #first-move" : function(e) {
+	"click #first-move": function (e) {
 		moveNum.set(0);
 		setBoard();
 	},
 
-	"click #last-move" : function(e) {
+	"click #last-move": function (e) {
 		moveNum.set(game.get().moves.length);
 		setBoard();
 	},
 
-	"click #prev-move" : prevMove,
+	"click #prev-move": prevMove,
 
-	"click #next-move" : nextMove,
+	"click #next-move": nextMove,
 
-	"click #export-pgn-button" : function(e) {
+	"click #export-pgn-button": function (e) {
 		const _game = game.get();
 		if (Meteor.isCordova) {
 			message.set(TAPi18n.__("download_pgn_in_webapp", {
-				gameId : _game.id
+				gameId: _game.id
 			}));
 		} else {
 			const chess = new Chess();
@@ -185,12 +185,12 @@ Template.history.events({
 	},
 });
 
-Template.history.onCreated(function() {
+Template.history.onCreated(function () {
 	document.addEventListener("keyup", arrowListener);
 
 	didInit = false;
 	isSpinner.set(true);
-	Meteor.subscribe("userGames", function() {
+	Meteor.subscribe("userGames", function () {
 		isSpinner.set(false);
 	});
 	game.set(null);
@@ -204,16 +204,16 @@ Template.history.onCreated(function() {
 	});
 });
 
-Template.history.onDestroyed(function() {
+Template.history.onDestroyed(function () {
 	document.removeEventListener("keyup", arrowListener);
 });
 
-Template.history.onRendered(function() {
+Template.history.onRendered(function () {
 	this.autorun(() => {
 		const gameId = historyGameId.get();
 		if (gameId) {
 			const _game = Games.findOne({
-				id : gameId
+				id: gameId
 			});
 			if (_game && !didInit) {
 				didInit = true;
@@ -221,7 +221,7 @@ Template.history.onRendered(function() {
 
 				game.set(_game);
 				board = new ChessBoard("history-chess-board", {
-					draggable : false,
+					draggable: false,
 				});
 
 				if (clientUtils.isMobile()) {
@@ -232,7 +232,7 @@ Template.history.onRendered(function() {
 
 				board.start();
 
-				Meteor.subscribe("comments", _game._id, function() {
+				Meteor.subscribe("comments", _game._id, function () {
 					isLoadingComments.set(false);
 				});
 			}
